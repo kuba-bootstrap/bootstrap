@@ -1,0 +1,8 @@
+/*
+ * Box Slide CSS
+ */
+
+.box-con { height:200px; position:relative; overflow:hidden }
+
+.box { -moz-transition:left .3s ease-out; -webkit-transition:left .3s ease-out; -o-transition:left .3s ease-out; }
+.box { padding:50px; margin:-50px; position:absolute; top:50%; left:100%; border-radius:4px; background:#ddd; color:#fff; }

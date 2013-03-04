@@ -1,0 +1,13 @@
+/*
+ * Navigation CSS
+ */
+
+.nav { margin:0; border:1px solid #ddd; border-radius:4px; list-style:none; overflow:hidden; }
+.nav > li:first-child { border:0; }
+.nav > li { padding:10px 20px; border-top:1px solid #ddd; -moz-transition:all .1s ease-out; -webkit-transition:all .1s ease-out; -o-transition:all .1s ease-out; cursor:pointer; }
+.nav > li:hover, .nav > li:active { background:#d93b3a; color:#fff; }
+
+ /*
+ * Mutators - List Items
+ */
+
