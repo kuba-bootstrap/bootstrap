@@ -16,7 +16,7 @@ $(function(){
 
 	$(document.getElementById('box')).box({
 		boxes: ['box_1', 'box_2', 'box_3', 'box_4'],
-		swipe: false
+		swipe: true
 	});
 
 	$(document.getElementById('prev')).bind(upEvent, function(){

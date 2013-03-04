@@ -1,4 +1,4 @@
-(function(downEvent, upEvent){
+(function(){
 
     // Hover extension for tablets 
     // TODO: determine if individual buttons should be extended separately or
@@ -9,4 +9,4 @@
 	}).bind(upEvent, function(e){
 		$(this).removeClass('btn-hvr');
 	});
-})(downEvent, upEvent);
+})();
