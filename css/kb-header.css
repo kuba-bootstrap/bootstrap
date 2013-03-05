@@ -2,7 +2,7 @@
  * Header CSS
  */
 
- .hdr { padding:10px 0; background:#fff; }
+ .hdr { padding:10px 0; background:#fff; z-index:100; }
 
 /*
  * Mutators - Stickey
