@@ -41,7 +41,8 @@ $(function(){
 
 	$(document.getElementById('box')).box({
 		boxes: ['box_1', 'box_2', 'box_3', 'box_4'],
-		swipe: true
+		swipe: true,
+		array: 2
 	});
 
 	$(document.getElementById('prev')).bind(upEvent, function(){
