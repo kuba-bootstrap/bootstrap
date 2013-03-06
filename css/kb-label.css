@@ -2,7 +2,7 @@
  * Label CSS
  */
 
-.lbl { padding:2px 4px; display:inline-block; border-radius:4px; font-size:12px; background:#666; color:#fff; }
+.lbl { padding:0px 4px; display:inline-block; border-radius:4px; font-size:12px; background:#666; color:#fff; }
 
 /*
  * Mutators - Colors

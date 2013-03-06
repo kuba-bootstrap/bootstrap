@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/kb-label.css" />
     <link rel="stylesheet" href="../css/kb-button.css" />
     <link rel="stylesheet" href="../css/kb-pane.css" />
+    <link rel="stylesheet" href="../css/kb-modal.css" />
     <link rel="stylesheet" href="../css/kb-progress-bar.css" />
     <link rel="stylesheet" href="../css/kb-box-slide.css" />
     <link rel="stylesheet" href="../css/kb-misc.css" />
@@ -24,7 +25,7 @@
 
     <div class="hdr hdr-top">
         <div class="con">
-            <div id="mainMenu">
+            <div class="clearfix" id="mainMenu">
             </div>
         </div>
     </div>
@@ -57,12 +58,14 @@
 
     <div class="con">
         <div class="sp3 sp-fir">
-            <ul class="nav">
+            <ul class="nav" id="sideNavigation">
                 <li>Scaffolding</li>
                 <li>Panes</li>
+                <li>Modal</li>
                 <li>Headings</li>
                 <li>Labels</li>
                 <li>Buttons</li>
+                <li>Toggle</li>
                 <li>Progress bars</li>
                 <li>Box slide</li>
                 <li>Navigation</li>
@@ -118,6 +121,34 @@
             </div>
             <div class="pane-f">
                 <p>Pane footer. Implementation class <span class="lbl">pane-f</span></p>
+            </div>
+
+            <hr class="hr"></hr>
+
+            <h3>Modal</h3>
+            <p>The generic modal has 2 basic options. First displays a 'close' button in the header
+                portions on the modal - by enabling <span class="lbl">close: true</span> in the extension (it will also automatically default to true).</p>
+
+            <div class="pane">
+                <button class="btn" id="openModal">Modal!</button>
+                <div class="mdl" id="sampleModal">
+                    <div class="mdl-hrd"><h3>Hello there!</h3></div>
+                    <div class="mdl-con">Some content here, yay!</div>
+                </div>
+            </div>
+
+            <p>or setting the option to false <span class="lbl">close: false</span>, to allow for your own modal closing procedure</p>
+
+            <div class="pane">
+                <button class="btn" id="openModal2">Modal Width Options</button>
+                <div class="mdl" id="sampleModal2">
+                    <div class="mdl-hrd"><h3>Hello there!</h3></div>
+                    <div class="mdl-con">Some content here, yay!</div>
+                    <div class="mdl-ftr">
+                        <button class="btn" id="sampleCloseModal">Close</button>
+                        <button class="btn btn-b">Save</button>
+                    </div>
+                </div>
             </div>
 
             <hr class="hr"></hr>
@@ -268,7 +299,7 @@
                     </tr>
                     <tr>
                         <td><button class="btn btn-b">Next</button></td>
-                        <td><span class="lbl">btn btn-g</span></td>
+                        <td><span class="lbl">btn btn-b</span></td>
                         <td>This button is for completing multiple step forms</td>
                     </tr>
                     <tr>
@@ -305,7 +336,7 @@
                     </tr>
                     <tr>
                         <td><button class="btn btn-b-f">Next Flat</button></td>
-                        <td><span class="lbl">btn btn-g-f</span></td>
+                        <td><span class="lbl">btn btn-b-f</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -332,6 +363,15 @@
                     </tr>
                 </tbody>
             </table>
+
+            <hr class="hr"></hr>
+
+            <h3>Toggle</h3>
+            <p>The following toggle button works!</p>
+
+            <div class="pane">
+                <button class="tog"><div></div>off</button>
+            </div>
 
             <hr class="hr"></hr>
 
@@ -373,9 +413,17 @@
             <p>Something navigation</p> 
 
             <div class="pane">
-                <div id="menu"></div>
+                <div class="clearfix" id="menu"></div>
+            </div>
+            <div class="pane">
+                <div class="clearfix" id="mainMenu">
+                    <div class="mn"><button class="btn btn-lef">One</button><ul class="dd"><li>1</li><li>2</li></ul></div>
+                    <div class="mn"><button class="btn btn-mid">Two</button><ul class="dd"><li>3</li><li>4</li></ul></div>
+                    <div class="mn"><button class="btn btn-rig">Three</button><ul class="dd"><li>6</li><li>6</li></ul></div>
+                </div>
             </div>
 
+            <hr class="hr"></hr>
         </div>
     </div>
 
@@ -385,6 +433,8 @@
     <script src="../js/kb-base.js"></script>
     <script src="../js/kb-button.js"></script>
     <script src="../js/kb-menu.js"></script>
+    <script src="../js/kb-modal.js"></script>
+    <script src="../js/kb-scroll.js"></script>
 
     <script src="assets/js/demo.js"></script>
 </body>

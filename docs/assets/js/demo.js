@@ -14,10 +14,10 @@ $(function(){
 		$('body').animate({scrollTop: 0});
 	}
 	function toGetStarted(){
-		$('body').animate({scrollTop: $('#getStarted').position().top});
+		$('body').animate({scrollTop: $(document.getElementById('getStarted')).position().top});
 	}
 	function toComponents(){
-		$('body').animate({scrollTop: $('#components').position().top});
+		$('body').animate({scrollTop: $(document.getElementById('components')).position().top});
 	}
 
 	/*
@@ -55,20 +55,32 @@ $(function(){
 	// Menu simulation
 
 	$(document.getElementById('menu')).menu({
-		items: [['item 1', signInDemo], ['item 2', signOutDemo], ['item 3', singToMe]]
+		items: [['item 1', func1], ['item 2', func2], ['item 3', func3], ['item empty']]
 	});
 
-	function signInDemo(){
-		console.log('IN');
-		alert('IN');
+	function func1(){
+		console.log('item 1 function fire!');
+		alert('item 1 function fire!');
 	}
-	function signOutDemo(){
-		console.log('OUT');
-		alert('OUT');
+	function func2(){
+		console.log('item 2 function fire!');
+		alert('item 2 function fire!');
 	}
-	function singToMe(){
-		console.log('SING');
-		alert('SING');
+	function func3(){
+		console.log('item 3 function fire!');
+		alert('item 3 function fire!');
 	}
+
+	// Modal simulation
+
+	$(document.getElementById('openModal')).on(upEvent, function(){
+		$(document.getElementById('sampleModal')).modal();
+	});
+	$(document.getElementById('openModal2')).on(upEvent, function(){
+		$(document.getElementById('sampleModal2')).modal({ close: false });
+	});
+	$(document.getElementById('sampleCloseModal')).on(upEvent, function(){
+		$(document.getElementById('sampleModal2')).closeModal();
+	});
 });
 

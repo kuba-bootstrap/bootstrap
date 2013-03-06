@@ -4,9 +4,14 @@
     // TODO: determine if individual buttons should be extended separately or
     // if extended by class - test whats more efficient
 
-	$('.btn').bind(downEvent, function(e){
+	$('.btn').on(downEvent, function(){
 		$(this).addClass('btn-hvr');
-	}).bind(upEvent, function(e){
+	}).on(upEvent, function(){
 		$(this).removeClass('btn-hvr');
 	});
+
+	$('.tog').on(downEvent, function(){
+		$(this).toggleClass('tog-on');
+	});
+
 })();
