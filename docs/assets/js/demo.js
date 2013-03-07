@@ -46,11 +46,11 @@ $(function(){
 	});
 
 	$(document.getElementById('prev')).bind(upEvent, function(){
-		$(document.getElementById('box')).moveBox('left');
+		$(document.getElementById('box')).moveLeft();
 	});
 
 	$(document.getElementById('next')).bind(upEvent, function(){
-		$(document.getElementById('box')).moveBox('right');
+		$(document.getElementById('box')).moveRight();
 	});
 
 	// Menu simulation

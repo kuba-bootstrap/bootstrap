@@ -1,70 +1,63 @@
 (function (){
 	"use strict";
 
-	var self, boxes = [], swipe, array, pointer, moveLeft, moveRight;
-
 	$.extend($.fn, {
 		box: function(){
-			var args = arguments[0] || { boxes: [], swipe: false, array: 2 };
-				self = $(this);
+			var args = arguments[0] || { boxes: [], swipe: false, array: 2 },
+				data = this.data();
 
-			console.log(self);
+			data.boxes = [];
+			data.swipe = args.swipe;
+			data.array = args.array;
+			data.pointer = 0;
 
-			// TODO: options should be stored with the main object so they are unique
-			// per implementation.
 			for(var i = 0; i < args.boxes.length; i++){
-				boxes.push(document.getElementById(args.boxes[i]));
+				data.boxes.push(document.getElementById(args.boxes[i]));
 			}
 
-			swipe = args.swipe;
-			array = args.array;
-			pointer = 0;
-
-			if(swipe == true){
-				this.swipe({ swipeTime: 1000, swipeX: 50, left: moveRight, right: moveLeft });
+			if(data.swipe == true){
+				this.swipe({ swipeTime: 1000, swipeX: 50, left: this.moveRight, right: this.moveLeft });
 			}
 
 			this.initialize();
 		},
 		initialize: function(){
-			if(boxes != null && array != 0){
-				
-				var split = 100 / array;
+			var data = this.data();
 
-				for(var i = 0; i < array; i++){
-					$(boxes[i]).css('left', ((i + 1) * split) + '%');
+			if(data.boxes != null && data.array != 0){
+				
+				var split = 100 / data.array;
+
+				for(var i = 0; i < data.array; i++){
+					$(data.boxes[i]).css('left', ((i + 1) * split) + '%');
 				}
 			}
 		},
 		moveBox: function(direction){
-			var split = 100 / array; 
+			var data = this.data(),
+				split = 100 / data.array; 
 
 			if(direction == 'left'){
-				if(pointer > 0){
-					pointer--;
-					for(var i = 0; i < (array + 1); i++){
-						$(boxes[pointer + i- 1]).css('left', (i * split) + '%');
+				if(data.pointer > 0){
+					data.pointer--;
+					for(var i = 0; i < (data.array + 1); i++){
+						$(data.boxes[data.pointer + i- 1]).css('left', (i * split) + '%');
 					}
 				}
-			}else if(direction == 'right' && boxes.length > 1){
-				if(pointer < (boxes.length - array + 1)){
-					for(var i = 0; i < array; i++){
-						$(boxes[pointer + i]).css('left', (i * split) + '%');
+			}else if(direction == 'right' && data.boxes.length > 1){
+				if(data.pointer < (data.boxes.length - data.array + 1)){
+					for(var i = 0; i < data.array; i++){
+						$(data.boxes[data.pointer + i]).css('left', (i * split) + '%');
 					}
-					pointer++;
+					data.pointer++;
 				}
 			}
+		},
+		moveLeft: function(){
+			this.moveBox('left');
 		},
 		moveRight: function(){
 			this.moveBox('right');
 		}
 	});
-
-	moveLeft = function(){
-		self.moveBox('left');
-	}
-
-	moveRight = function(){
-		self.moveBox('right');
-	}
 })();
