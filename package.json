@@ -5,7 +5,7 @@
     "keywords":["bootstrap", "css", "less"],
     "homepage":"https://github.com/behind-blue-door/kuba-bootstrap",
     "contributors":[
-        "Jakub Szerszen",
+        "Jakub Szerszen <jszersze@gmail.com>",
         "Gabriel Hopper <gabe.hopper@gmail.com>"
     ],
     "author": "Jakub Szerszen",
@@ -25,6 +25,5 @@
         "jshint":"0.6.1",
         "recess":"1.0.3",
         "connect":"2.1.3"
-
     }
 }

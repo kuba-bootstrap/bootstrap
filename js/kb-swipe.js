@@ -1,8 +1,8 @@
 (function(){
-	"use strict";
+    "use strict";
 
-	$.fn.swipe = function(){
-		var args = arguments[0] || { swipeTime: 900, swipeX: 200, left: left, right: right };
+    $.fn.swipe = function(){
+        var args = arguments[0] || { swipeTime: 900, swipeX: 200, left: left, right: right, leftProp: null, rightProp: null };
 
         var startX = 0,
             startTime = 0,
@@ -26,24 +26,33 @@
                 if (startTime !== 0 && currentTime - startTime < args.swipeTime && currentDistance > args.swipeX) {
                     if (currentX < startX) {
                         e.preventDefault();
-                        args.left();
+                        if(args.leftProp != null){
+                            args.left(args.leftProp);
+                        }else{
+                            args.left();   
+                        }
                     }
                     if (currentX > startX) {
                         e.preventDefault();
-                        args.right();
+                        if(args.rightProp != null){
+                            args.right(args.rightProp);
+                        }else{
+                            args.right();
+                        }
                     }
                     startTime = 0;
                     startX = 0;
                 }
-        	});
+            });
+    };
 
-	};
+    // Safety when null
 
-	function left(){
-		console.log('swipe left');
-	}
+    function left(){
+        console.log('swipe left');
+    }
 
-	function right(){
-		console.log('swipe right');
-	}
+    function right(){
+        console.log('swipe right');
+    }
 })();
