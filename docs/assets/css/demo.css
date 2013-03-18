@@ -11,3 +11,11 @@
 
 .space-d { margin-bottom:40px; }
 .space-h { height:200px; }
+
+/*
+ * Colors
+ */
+
+ .b-blue { background:#32EAFF; }
+ .b-yellow { background:#FFE200; }
+ .b-green { background:#84F056; }

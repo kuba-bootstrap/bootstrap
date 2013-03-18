@@ -83,5 +83,6 @@ $(function(){
 	$(document.getElementById('sampleCloseModal')).on(upEvent, function(){
 		$(document.getElementById('sampleModal2')).closeModal();
 	});
+
 });
 

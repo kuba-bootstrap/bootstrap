@@ -1,14 +1,19 @@
 (function(){
+	"use strict";
+	
 	$.extend($.fn, {
 		modal: function(){
 
 		var args = arguments[0] || { close: true  };
 
 		var self = $(this),
-			close = $('<button class="mdl-cls" id="closeModal">x</button>');
+			close = $('<button class="mdl-cls icon-remove" id="closeModal"></button>');
 
-		if($('#modal').length == 0){
-			$('body').append('<div class="mdl-bck" id="modal"></div>');
+		if($('#modalBack').length == 0){
+
+			console.log('modal back');
+
+			$('body').append('<div class="mdl-bck" id="modalBack"></div>');
 		}	
 
 		if($('#closeModal').length == 0 && args.close == true){
@@ -17,7 +22,7 @@
 
 		// TODO: create some interesting animation
 
-		$('#modal').show();
+		$('#modalBack').show();
 		$(this).show();
 
 		close.on(upEvent, function(){
@@ -26,7 +31,7 @@
 		},
 		closeModal: function(){
 			$(this).hide();
-			$('#modal').hide();
+			$('#modalBack').hide();
 			$('#closeModal').remove();
 		}
 	});

@@ -1,4 +1,5 @@
 (function(){
+	"use strict";
 
     // Hover extension for tablets 
     // TODO: determine if individual buttons should be extended separately or

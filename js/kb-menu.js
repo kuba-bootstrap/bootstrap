@@ -1,4 +1,5 @@
 (function(){
+	"use strict";
 
 	// Touch selectors
 	$('.mn').on(upEvent, function(){
