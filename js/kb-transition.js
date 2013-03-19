@@ -25,7 +25,7 @@
 		},
 		fadeBack: function(self){
 			console.log('kick: fadeBack ', this.pointer[self]);
-			if(this.pointer[self] > 0){ // I think this should not be pointer but an array of objects
+			if(this.pointer[self] > 0){ 
 				var next = $(this.pagesObj[self][this.pointer[self]]),
 					last = $(this.pagesObj[self][this.pointer[self] - 1]);
 
@@ -63,14 +63,16 @@
 				last = $(this.pagesObj[self][this.pointer[self]]),
 				next = $(this.pagesObj[self][ind]);
 
-			// reset
-			this.reset(last, 0, 1, next, 0, 0);
+			if(ind != this.pointer[self]){
 
-			// move
-			this.move(last, 0, 0, next, 0, 1);
+				// reset
+				this.reset(last, 0, 1, next, 0, 0);
 
-			this.pointer[self] = ind;
+				// move
+				this.move(last, 0, 0, next, 0, 1);
 
+				this.pointer[self] = ind;
+			}
 		},
 		slideBack: function(self){
 			console.log('kick: slideNext ', this.pointer[self]);
@@ -107,30 +109,33 @@
 			}
 		},
 		slideTo: function(self, to){
-			console.log('kick: fadeTo ', this, this.pointer[self], to);
+			console.log('kick: slideTo ', this, this.pointer[self], to);
 			var ind = this.pages[self].indexOf(to),
 				last = $(this.pagesObj[self][this.pointer[self]]),
 				next = $(this.pagesObj[self][ind]),
 				lastLeft,
 				nextLeft;
 
-			if(this.pointer[self] > ind){
-				lastLeft = 100;
-				nextLeft = -100;
-			}else{
-				lastLeft = -100;
-				nextLeft = 100;
+			if(ind != this.pointer[self]){
+
+				if(this.pointer[self] > ind){
+					lastLeft = 100;
+					nextLeft = -100;
+				}else{
+					lastLeft = -100;
+					nextLeft = 100;
+				}
+
+				console.log(ind, last, next);
+
+				// reset
+				this.reset(last, 0, 1, next, nextLeft, 1);
+
+				// move
+				this.move(last, lastLeft, 1, next, 0, 1);
+
+				this.pointer[self] = ind;
 			}
-
-			console.log(ind, last, next);
-
-			// reset
-			this.reset(last, 0, 1, next, nextLeft, 1);
-
-			// move
-			this.move(last, lastLeft, 1, next, 0, 1);
-
-			this.pointer[self] = ind;
 		},
 		flipBack: function(self){
 
