@@ -2,7 +2,7 @@
 	"use strict";
 
 	window.transition = {
-		register: function(pages, self){
+		register: function(self, pages){
 			if(!this.pages){
 				this.pages = new Array();
 				this.pagesObj = new Array();
@@ -19,9 +19,13 @@
 			this.pagesObj[self] = pagesObj;
 			this.pointer[self] = 0;
 		},
+		addPage: function(self, page){
+			this.pages[self].push(page);
+			this.pagesObj[self].push(document.getElementById(page));
+		},
 		fadeBack: function(self){
 			console.log('kick: fadeBack ', this.pointer[self]);
-			if(this.pointer[self] > 0){
+			if(this.pointer[self] > 0){ // I think this should not be pointer but an array of objects
 				var next = $(this.pagesObj[self][this.pointer[self]]),
 					last = $(this.pagesObj[self][this.pointer[self] - 1]);
 
@@ -103,7 +107,7 @@
 			}
 		},
 		slideTo: function(self, to){
-			console.log('kick: fadeTo ', this.pointer[self]);
+			console.log('kick: fadeTo ', this, this.pointer[self], to);
 			var ind = this.pages[self].indexOf(to),
 				last = $(this.pagesObj[self][this.pointer[self]]),
 				next = $(this.pagesObj[self][ind]),
@@ -117,6 +121,8 @@
 				lastLeft = -100;
 				nextLeft = 100;
 			}
+
+			console.log(ind, last, next);
 
 			// reset
 			this.reset(last, 0, 1, next, nextLeft, 1);
@@ -141,12 +147,14 @@
 
 			next.removeClass('fx').css({
 				'left': nextLeft + '%', 
-				'opacity': nextOpacity
+				'opacity': nextOpacity,
+				'z-index': 1
 			}).show();
 
 			last.removeClass('fx').css({
 				'left': lastLeft + '%',
-				'opacity': lastOpacity
+				'opacity': lastOpacity,
+				'z-index': 2
 			}).show();
 		},
 		move: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){

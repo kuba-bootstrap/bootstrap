@@ -9,8 +9,8 @@
 
 	// Page transition simulation
 
-	transition.register(['page_1', 'page_2', 'page_3'], 'set_1');
-	transition.register(['page_3', 'page_4', 'page_5'], 'set_2');
+	transition.register('set_1', ['page_1', 'page_2', 'page_3']);
+	transition.register('set_2', ['page_3', 'page_4', 'page_5']);
 
 	// Fade
 

@@ -5,6 +5,14 @@
     margin:0 auto;
     width:900px;
 }
+.con-mov { 
+    width:100%; 
+    position:absolute; 
+}
+
+.con-mov + .con-mov { 
+    display:none; 
+}
 .h-tte {
     font-size:48px;
     font-weight:200;
@@ -76,6 +84,14 @@ html, body, button {
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:14px;
     color:#3b4854;
+}
+body { 
+    overflow-x:hidden; 
+}
+.fx { 
+    -moz-transition:all .6s ease-out; 
+    -webkit-transition:all .6s ease-out; 
+    -o-transition:all .6s ease-out; 
 }
 .sp3 {
     width:270px;
