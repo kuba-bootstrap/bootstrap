@@ -35,9 +35,7 @@
 				// move
 				this.move(last, 0, 1, next, 0, 0);
 
-				console.log('before: ', this.pointer[self]);
 				this.pointer[self]--;
-				console.log('after: ', this.pointer[self]);
 			}
 		},
 		fadeNext: function(self){
@@ -52,9 +50,7 @@
 				// move
 				this.move(last, 0, 0, next, 0, 1);
 
-				console.log('before: ', this.pointer[self]);
 				this.pointer[self]++;
-				console.log('after: ', this.pointer[self]);
 			}
 		},
 		fadeTo: function(self, to){
@@ -86,9 +82,7 @@
 				// move
 				this.move(last, 100, 1, next, 0, 1);
 
-				console.log('before: ', this.pointer[self]);
 				this.pointer[self]--;
-				console.log('after: ', this.pointer[self]);
 			}
 		},
 		slideNext: function(self){
@@ -103,9 +97,7 @@
 				// move
 				this.move(last, -100, 1, next, 0, 1);
 
-				console.log('before: ', this.pointer[self]);
 				this.pointer[self]++;
-				console.log('after: ', this.pointer[self]);
 			}
 		},
 		slideTo: function(self, to){
@@ -147,9 +139,6 @@
 
 		},
 		reset: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
-			console.log('last: ', last);
-			console.log('next: ', next);
-
 			next.removeClass('fx').css({
 				'left': nextLeft + '%', 
 				'opacity': nextOpacity,
@@ -161,6 +150,9 @@
 				'opacity': lastOpacity,
 				'z-index': 2
 			}).show();
+
+			console.log('reset last: ', last);
+			console.log('reset next: ', next);
 		},
 		move: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
 			next.addClass('fx').show().css({
@@ -174,8 +166,8 @@
 				'z-index': 1
 			});
 
-			console.log('last: ', last);
-			console.log('next: ', next);
+			console.log('move last: ', last);
+			console.log('move next: ', next);
 		}
 	};
 
