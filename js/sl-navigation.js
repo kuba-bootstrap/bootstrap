@@ -25,6 +25,7 @@
 		$('#menu_other').addClass('mn-off');
 		$('#menu_other_2').removeClass('mn-off');
 		rotate(90);
+		$('#con').css({'top': '30%'});
 	});
 
 	$('#menu_6').click(function(){
@@ -52,10 +53,12 @@
 		$('#menu_other_2').addClass('mn-off');
 		$('#menu_other').removeClass('mn-off');
 		rotate(270);
+		$('#con').css({'top': '30%'});
 	});
 
 	function rotate(angle){
 		$('#con').css({
+			'top': '50%',
 			'transform': 'rotate(' + angle + 'deg)',
 			'-ms-transform': 'rotate(' + angle + 'deg)',
 			'-moz-transform': 'rotate(' + angle + 'deg)',
