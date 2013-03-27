@@ -23,6 +23,10 @@
 			this.pages[self].push(page);
 			this.pagesObj[self].push(document.getElementById(page));
 		},
+		addPageObject: function(self, page, obj){
+			this.pages[self].push(page);
+			this.pagesObj[self].push(obj);
+		},
 		fadeBack: function(self){
 			console.log('kick: fadeBack ', this.pointer[self]);
 			if(this.pointer[self] > 0){ 
