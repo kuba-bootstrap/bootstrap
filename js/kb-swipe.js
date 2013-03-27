@@ -11,15 +11,15 @@
             moveEvent = (on) ? 'touchmove' : 'mousemove',
             stopEvent = (on) ? 'touchend' : 'mouseup';
 
-        this.bind(startEvent, function(e){
+        this.on(startEvent, function(e){
                 startTime = e.timeStamp;
                 startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
             })
-            .bind(stopEvent, function(e){
+            .on(stopEvent, function(e){
                 startTime = 0;
                 startX = 0;
             })
-            .bind(moveEvent, function(e){
+            .on(moveEvent, function(e){
                 var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                     currentDistance = (startX === 0) ? 0 : Math.abs(currentX - startX),
                     currentTime = e.timeStamp;

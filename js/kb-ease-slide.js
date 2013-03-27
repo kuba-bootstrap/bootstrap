@@ -2,11 +2,10 @@
 
 	$.extend($.fn, {
 		easeBox: function(){
-			var args = arguments[0] || { boxes: [], swipe: false, array: 2 },
+			var args = arguments[0] || { boxes: [], array: 2 },
 				data = this.data();
 
 			data.boxes = [];
-			data.swipe = args.swipe;
 			data.array = args.array;
 			data.pointer = 0;
 
@@ -14,16 +13,22 @@
 				data.boxes.push(document.getElementById(args.boxes[i]));
 			}
 
-			if(data.swipe == true){
-				this.swipe({ 
-					swipeTime: 1000, 
-					swipeX: 50, 
-					left: this.moveRight, 
-					right: this.moveLeft, 
-					leftProp: this, 
-					rightProp: this 
-				});
-			}
+			var startX = 0,
+            	startTime = 0,
+            	on = "ontouchend" in window,
+            	startEvent = (on) ? 'touchstart' : 'mousedown',
+            	moveEvent = (on) ? 'touchmove' : 'mousemove',
+            	stopEvent = (on) ? 'touchend' : 'mouseup';
+
+			this.on(startEvent, function(e){
+
+				})
+				.on(stopEvent, function(e){
+
+				})
+				.on(moveEvent, function(e){
+
+				})
 
 			this.initialize();
 		},
