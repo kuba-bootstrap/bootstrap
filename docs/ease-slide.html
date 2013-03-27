@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Box Slide - Component</title>
+    <meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+</head>
+
+<style>
+    .box { -moz-transition: all .3s ease-out; -webkit-transition: all .3s ease-out; -o-transition: all .3s ease-out; opacity:.6; }
+    .box { padding:100px; margin:-100px; position:absolute; top:50%; left:110%; background:#333; color:#fff; }
+
+    a { padding:10px; cursor:pointer; }
+</style>
+
+<body>
+    <div id="box">
+        <div class="box" id="box_1">1</div>
+        <div class="box" id="box_2">2</div>
+        <div class="box" id="box_3">3</div>
+        <div class="box" id="box_4">4</div>
+        <div class="box" id="box_5">4</div>
+        <div class="box" id="box_6">4</div>
+        <div class="box" id="box_7">4</div>
+        <div class="box" id="box_8">4</div>
+        <div class="box" id="box_9">4</div>
+        <div class="box" id="box_10">4</div>
+        <div class="box" id="box_11">4</div>
+        <div class="box" id="box_12">4</div>
+
+        <span><a id="prev">previous</a><a id="next">next</a></span>
+    </div>
+
+
+    <script src="assets/js/jquery-1.9.0.min.js"></script>
+    <script src="../js/kb-swipe.js"></script>
+    <script src="../js/kb-box-slide.js"></script>
+    <script src="../js/kb-ease-slide.js"></script>
+    <script src="../js/kb-base.js"></script>
+    <script src="../js/kb-button.js"></script>
+    <script src="../js/kb-menu.js"></script>
+    <script src="../js/kb-modal.js"></script>
+    <script src="../js/kb-transition.js"></script>
+
+    <script src="assets/js/dm-ease-slide.js"></script>
+</body>
+</html>
