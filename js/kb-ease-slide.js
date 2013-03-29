@@ -117,10 +117,11 @@
 
 			data.boxes.push(box);
 
-			if(!data.boxWidth && !data.width){
-				data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
-			}else{
+			// todo: fix this
+			if(data.width != null){
 				data.boxWidth = data.width;
+			}else if(!data.boxWidth){
+				data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
 			}
 
 			d = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
