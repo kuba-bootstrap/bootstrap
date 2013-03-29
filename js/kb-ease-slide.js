@@ -2,7 +2,7 @@
 
 	$.extend($.fn, {
 		easeBox: function(){
-			var args = arguments[0] || { boxes: [], left:10, offset: 10, force: 4 },
+			var args = arguments[0] || { boxes: [], left:10, offset: 10, force: 4, width: 200 },
 				data = this.data(),
 				startX = 0,
 				split = 0,
@@ -13,6 +13,7 @@
             	stopEvent = (on) ? 'touchend' : 'mouseup',
             	self = this;
 
+            data.width = args.width;
             data.left = args.left;
             data.offset = args.offset;
             data.force = args.force;
@@ -26,29 +27,35 @@
 			data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
 
 			this.on(startEvent, function(e){
+
+					console.log('start');
+
 					startTime = e.timeStamp;
                 	startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
                 	self.on(moveEvent, function(e){
                 		var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                 			l = 0,
                 			r = 0,
-                			width = $(window).width();
+                			width = $(window).width(),
+                			all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
                 			
                 		split = currentX - startX;
                 		startX = startX + split;
-               
-                		for(var i = 0; i < data.boxes.length; i++){ 
-                			var pos = $(data.boxes[i]).removeClass('fx').css("-webkit-transform"),
-                				boo = pos.split(','),
-                				poo = parseFloat(boo[4]),
-                				foo = split + poo; 
 
-                			l = (data.boxWidth + data.offset) * i + data.left;
-                			r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
+                		if(all > width){
+                			for(var i = 0; i < data.boxes.length; i++){ 
+                				var pos = $(data.boxes[i]).removeClass('fx').css("-webkit-transform"),
+                					boo = pos.split(','),
+                					poo = parseFloat(boo[4]),
+                					foo = split + poo; 
 
-                			if(foo < l && foo > r){
+                				l = (data.boxWidth + data.offset) * i + data.left;
+                				r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
 
-                				$(data.boxes[i]).css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0+ "px)");
+                				if(foo < l && foo > r){
+
+                					$(data.boxes[i]).css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0+ "px)");
+                				}
                 			}
                 		}
                 	});
@@ -59,25 +66,28 @@
 
 					var l = 0,
 						r = 0,
-						width = $(window).width();
+						width = $(window).width(),
+						all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
 
-					for(var i = 0; i < data.boxes.length; i++){
-						var pos = $(data.boxes[i]).css("-webkit-transform"),
-                			boo = pos.split(','),
-                			poo = parseFloat(boo[4]),
-                			foo = (split * data.force) + poo;
+					if(all > width){
+						for(var i = 0; i < data.boxes.length; i++){
+							var pos = $(data.boxes[i]).css("-webkit-transform"),
+                				boo = pos.split(','),
+                				poo = parseFloat(boo[4]),
+                				foo = (split * data.force) + poo;
 
-                		l = (data.boxWidth + data.offset) * i + data.left;
-                		r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
+                			l = (data.boxWidth + data.offset) * i + data.left;
+                			r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
 
-                		if(foo >= l){
-							foo = l;
+                			if(foo >= l){
+								foo = l;
+							}
+							if(foo <= r){
+								foo = r;
+							}
+
+							$(data.boxes[i]).addClass('fx').css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0 + "px)");
 						}
-						if(foo <= r){
-							foo = r;
-						}
-
-						$(data.boxes[i]).addClass('fx').css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0 + "px)");
 					}
 					startTime = 0;
 					startX = 0;
@@ -102,13 +112,20 @@
 			}
 		},
 		addEaseBox: function(box){
-			var data = this.data();
+			var data = this.data(),
+				d = 0;
 
 			data.boxes.push(box);
-			if(data.pointer == 0){
-				console.log('addBox: init');
-				this.initialize();
+
+			if(!data.boxWidth && !data.width){
+				data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
+			}else{
+				data.boxWidth = data.width;
 			}
+
+			d = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
+
+			$(data.boxes[data.boxes.length - 1]).css("-webkit-transform", "translate3d(" + d + "px, " + 0 + "px, " + 0 + "px)");
 		}
 	});
 })();

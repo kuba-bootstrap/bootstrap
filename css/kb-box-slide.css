@@ -7,6 +7,8 @@
 .box { -moz-transition:left .3s ease-out; -webkit-transition:left .3s ease-out; -o-transition:left .3s ease-out; }
 .box { padding:50px; margin:-50px; position:absolute; top:50%; left:100%; border-radius:4px; background:#ddd; color:#fff; }
 
+.ease-box { width:200px; padding:100px 0; margin-top:-100px; position:absolute; top:50%; border-radius:4px; text-align:center; background:#ddd; color:#fff; }
+
 /*
  * Button Next/Previous CSS
  */

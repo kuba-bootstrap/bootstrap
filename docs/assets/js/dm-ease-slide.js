@@ -13,16 +13,29 @@
 		force: 4
 	});
 
-	$(document.getElementById('prev')).bind(upEvent, function(){
-		$(document.getElementById('box')).moveLeft();
+	// Setup empty box
+
+	$(document.getElementById('dyn_2')).easeBox({
+		boxes: [],
+		left: 10,
+		offset: 10,
+		force: 4
 	});
 
-	$(document.getElementById('next')).bind(upEvent, function(){
-		$(document.getElementById('box')).moveRight();
-	});
+	// add box every 3 sec
 
-	// $('.box').click(function(){
-	// 	alert('function');
-	// });
+	var count = 0;
+
+	window.setInterval(function(){
+
+		var box = $('<div class="ease-box" id="' + 'dyn_' + count + '">' + count + '</div>');
+		count++;
+
+		$('#dyn_2').append(box);
+
+		console.log('add box', box);
+
+		$(document.getElementById('dyn_2')).addEaseBox(box);
+	}, 3000);
 
 })();
