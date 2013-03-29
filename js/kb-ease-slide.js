@@ -43,12 +43,8 @@
                 				poo = parseFloat(boo[4]),
                 				foo = split + poo; 
 
-                			console.log(foo);
                 			l = (data.boxWidth + data.offset) * i + data.left;
                 			r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
-
-                			console.log('r: ', r);
-                			console.log('foo: ', foo);
 
                 			if(foo < l && foo > r){
 
@@ -101,13 +97,7 @@
 
 					d = (data.boxWidth + data.offset) * i + data.left;
 
-					console.log('obj: ', i, ' d: ', d, ' box width: ', data.boxWidth, ' data.offset', data.offset);
-
 					$(data.boxes[i]).css("-webkit-transform", "translate3d(" + d + "px, " + 0 + "px, " + 0 + "px)");
-				}
-
-				for(var i = 0; i < data.boxes.length; i++){
-
 				}
 			}
 		},
