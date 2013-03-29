@@ -2,45 +2,112 @@
 
 	$.extend($.fn, {
 		easeBox: function(){
-			var args = arguments[0] || { boxes: [], array: 2 },
-				data = this.data();
+			var args = arguments[0] || { boxes: [], left:10, offset: 10, force: 4 },
+				data = this.data(),
+				startX = 0,
+				split = 0,
+            	startTime = 0,
+            	on = "ontouchend" in window,
+            	startEvent = (on) ? 'touchstart' : 'mousedown',
+            	moveEvent = (on) ? 'touchmove' : 'mousemove',
+            	stopEvent = (on) ? 'touchend' : 'mouseup',
+            	self = this;
 
+            data.left = args.left;
+            data.offset = args.offset;
+            data.force = args.force;
 			data.boxes = [];
-			data.array = args.array;
 			data.pointer = 0;
 
 			for(var i = 0; i < args.boxes.length; i++){
 				data.boxes.push(document.getElementById(args.boxes[i]));
 			}
 
-			var startX = 0,
-            	startTime = 0,
-            	on = "ontouchend" in window,
-            	startEvent = (on) ? 'touchstart' : 'mousedown',
-            	moveEvent = (on) ? 'touchmove' : 'mousemove',
-            	stopEvent = (on) ? 'touchend' : 'mouseup';
+			data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
 
 			this.on(startEvent, function(e){
+					startTime = e.timeStamp;
+                	startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
+                	self.on(moveEvent, function(e){
+                		var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
+                			l = 0,
+                			r = 0,
+                			width = $(window).width();
+                			
+                		split = currentX - startX;
+                		startX = startX + split;
+               
+                		for(var i = 0; i < data.boxes.length; i++){ 
+                			var pos = $(data.boxes[i]).removeClass('fx').css("-webkit-transform"),
+                				boo = pos.split(','),
+                				poo = parseFloat(boo[4]),
+                				foo = split + poo; 
 
+                			console.log(foo);
+                			l = (data.boxWidth + data.offset) * i + data.left;
+                			r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
+
+                			console.log('r: ', r);
+                			console.log('foo: ', foo);
+
+                			if(foo < l && foo > r){
+
+                				$(data.boxes[i]).css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0+ "px)");
+                			}
+                		}
+                	});
 				})
 				.on(stopEvent, function(e){
 
-				})
-				.on(moveEvent, function(e){
+					// use the force young skywalker
 
-				})
+					var l = 0,
+						r = 0,
+						width = $(window).width();
+
+					for(var i = 0; i < data.boxes.length; i++){
+						var pos = $(data.boxes[i]).css("-webkit-transform"),
+                			boo = pos.split(','),
+                			poo = parseFloat(boo[4]),
+                			foo = (split * data.force) + poo;
+
+                		l = (data.boxWidth + data.offset) * i + data.left;
+                		r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
+
+                		if(foo >= l){
+							foo = l;
+						}
+						if(foo <= r){
+							foo = r;
+						}
+
+						$(data.boxes[i]).addClass('fx').css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0 + "px)");
+					}
+					startTime = 0;
+					startX = 0;
+
+					self.off(moveEvent);
+				});
 
 			this.initialize();
 		},
 		initialize: function(){
 			var data = this.data();
-
+			
 			if(data.boxes != null && data.array != 0){
-				
-				var split = 100 / data.array;
 
-				for(var i = 0; i < data.array; i++){
-					$(data.boxes[i]).css('left', ((i + 1) * split) + '%');
+				for(var i = 0; i < data.boxes.length; i++){
+					var obj = $(data.boxes[i]);
+
+					d = (data.boxWidth + data.offset) * i + data.left;
+
+					console.log('obj: ', i, ' d: ', d, ' box width: ', data.boxWidth, ' data.offset', data.offset);
+
+					$(data.boxes[i]).css("-webkit-transform", "translate3d(" + d + "px, " + 0 + "px, " + 0 + "px)");
+				}
+
+				for(var i = 0; i < data.boxes.length; i++){
+
 				}
 			}
 		},
@@ -51,40 +118,6 @@
 			if(data.pointer == 0){
 				console.log('addBox: init');
 				this.initialize();
-			}
-		},
-		moveEaseBox: function(direction){
-			var data = this.data(),
-				split = 100 / data.array; 
-
-			if(direction == 'left'){
-				if(data.pointer > 0){
-					data.pointer--;
-					for(var i = 0; i < (data.array + 1); i++){
-						$(data.boxes[data.pointer + i- 1]).css('left', (i * split) + '%');
-					}
-				}
-			}else if(direction == 'right' && data.boxes.length > 1){
-				if(data.pointer < (data.boxes.length - data.array + 1)){
-					for(var i = 0; i < data.array; i++){
-						$(data.boxes[data.pointer + i]).css('left', (i * split) + '%');
-					}
-					data.pointer++;
-				}
-			}
-		},
-		moveLeft: function(self){
-			if(self != null){
-				self.moveBox('left');
-			}else{
-				this.moveBox('left');
-			}
-		},
-		moveRight: function(self){
-			if(self != null){
-				self.moveBox('right');
-			}else{
-				this.moveBox('right');
 			}
 		}
 	});
