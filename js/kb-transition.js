@@ -59,6 +59,8 @@
 		},
 		fadeTo: function(self, to){
 			console.log('kick: fadeTo ', this.pointer[self]);
+			
+
 			var ind = this.pages[self].indexOf(to),
 				last = $(this.pagesObj[self][this.pointer[self]]),
 				next = $(this.pagesObj[self][ind]);
@@ -100,17 +102,20 @@
 
 				// move
 				this.move(last, -100, 1, next, 0, 1);
-
+				
 				this.pointer[self]++;
 			}
 		},
 		slideTo: function(self, to){
-			console.log('kick: slideTo ', this, this.pointer[self], to);
+			//console.log('_______________________________');
+			//console.log('kick: slideTo ', this, this.pointer[self], to);
 			var ind = this.pages[self].indexOf(to),
 				last = $(this.pagesObj[self][this.pointer[self]]),
 				next = $(this.pagesObj[self][ind]),
-				lastLeft,
-				nextLeft;
+				lastLeft = 0,
+				nextLeft = 0;
+
+			//console.log('pointer: ' + this.pointer[self], 'ind: ' + ind);
 
 			if(ind != this.pointer[self]){
 
@@ -122,13 +127,17 @@
 					nextLeft = 100;
 				}
 
-				console.log(ind, last, next);
+				//console.log('index of to: ' + ind, 'last: ' + last.attr('id'), 'next: ' + next.attr('id'));
 
 				// reset
 				this.reset(last, 0, 1, next, nextLeft, 1);
 
 				// move
-				this.move(last, lastLeft, 1, next, 0, 1);
+				var poop = this; 
+
+				window.setTimeout(function(){
+					poop.move(last, lastLeft, 1, next, 0, 1);
+				}, 10);
 
 				this.pointer[self] = ind;
 			}
@@ -144,34 +153,40 @@
 		},
 		reset: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
 			next.removeClass('fx').css({
-				'left': nextLeft + '%', 
+				'-webkit-transform': 'translate3d(' + nextLeft + '%,' + 0 + 'px,' + 0 + 'px)',
 				'opacity': nextOpacity,
 				'z-index': 1
 			}).show();
 
 			last.removeClass('fx').css({
-				'left': lastLeft + '%',
+				'-webkit-transform': 'translate3d(' + lastLeft + '%,' + 0 + 'px,' + 0 + 'px)',
 				'opacity': lastOpacity,
 				'z-index': 2
 			}).show();
 
-			console.log('reset last: ', last);
-			console.log('reset next: ', next);
+			//console.log('last: ' + last.attr('id'), 'lastLeft: ' + lastLeft, 'lastOpacity: ' + lastOpacity, 'next: ' + next.attr('id'), 'nextLeft: ' + nextLeft, 'nextOpacity: ' + nextOpacity);
+			//console.log('last class: ' + last.attr('class'), 'next class:' + next.attr('class'));
+
+			//console.log('reset last: ', last);
+			//console.log('reset next: ', next);
 		},
 		move: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
 			next.addClass('fx').show().css({
-				'left': nextLeft + '%',
+				'-webkit-transform': 'translate3d(' + nextLeft + '%,' + 0 + 'px,' + 0 + 'px)',
 				'opacity': nextOpacity,
 				'z-index': 2
 			});
 			last.addClass('fx').css({
-				'left': lastLeft + '%',
+				'-webkit-transform': 'translate3d(' + lastLeft + '%,' + 0 + 'px,' + 0 + 'px)',
 				'opacity': lastOpacity,
 				'z-index': 1
 			});
 
-			console.log('move last: ', last);
-			console.log('move next: ', next);
+			//console.log('last: ' + last.attr('id'), 'lastLeft: ' + lastLeft, 'lastOpacity: ' + lastOpacity, 'next: ' + next.attr('id'), 'nextLeft: ' + nextLeft, 'nextOpacity: ' + nextOpacity);
+			//console.log('last class: ' + last.attr('class'), 'next class:' + next.attr('class'));
+
+			//console.log('move last: ', last);
+			//console.log('move next: ', next);
 		}
 	};
 
