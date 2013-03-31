@@ -2,7 +2,7 @@
 
 	$.extend($.fn, {
 		easeBox: function(){
-			var args = arguments[0] || { boxes: [], left:10, offset: 10, scrollParent: null, force: 4, width: 200 },
+			var args = arguments[0] || { boxes: [], left:10, offset: 10, scrollParent: undefined, force: 4, width: 200 },
 				data = this.data(),
 				startX = 0,
 				split = 0,
@@ -14,6 +14,7 @@
             	self = this;
 
             data.scrollParent = args.scrollParent;
+            data.scrollWidth = $(window).width(),
             data.width = args.width;
             data.left = args.left;
             data.offset = args.offset;
@@ -36,18 +37,15 @@
                 	self.on(moveEvent, function(e){
                 		var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                 			l = 0,
-                			r = 0,
-                			width = ((data.scrollParent == null) ? null : data.scrollParent.width()) || $(window).width(),
-                			all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
+                			r = 0;
                 			
                 		split = currentX - startX;
                 		startX = startX + split;
 
-                		console.log(all, width);
+                		//console.log(data.all, '>', data.scrollWidth);
+                		//console.log(data);
 
-                		if(all > width){
-
-                			console.log('move b');
+                		if(data.all > data.scrollWidth){
 
                 			for(var i = 0; i < data.boxes.length; i++){ 
                 				var pos = $(data.boxes[i]).removeClass('fx').css("-webkit-transform"),
@@ -56,7 +54,7 @@
                 					foo = split + poo; 
 
                 				l = (data.boxWidth + data.offset) * i + data.left;
-                				r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
+                				r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - data.scrollWidth) * -1) - (data.left * data.boxes.length);
 
                 				if(foo < l && foo > r){
 
@@ -71,11 +69,9 @@
 					// use the force young skywalker
 
 					var l = 0,
-						r = 0,
-						width = ((data.scrollParent == null) ? null : data.scrollParent.width()) || $(window).width(),
-						all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
+						r = 0;
 
-					if(all > width){
+					if(data.all > data.scrollWidth){
 						for(var i = 0; i < data.boxes.length; i++){
 							var pos = $(data.boxes[i]).css("-webkit-transform"),
                 				boo = pos.split(','),
@@ -83,7 +79,7 @@
                 				foo = (split * data.force) + poo;
 
                 			l = (data.boxWidth + data.offset) * i + data.left;
-                			r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - width) * -1) - (data.left * data.boxes.length);
+                			r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - data.scrollWidth) * -1) - (data.left * data.boxes.length);
 
                 			if(foo >= l){
 								foo = l;
@@ -101,13 +97,17 @@
 					self.off(moveEvent);
 				});
 
-			this.initialize();
+			//this.initialize();
 		},
 		initialize: function(){
 			var data = this.data();
 			
-			if(data.boxes != null && data.array != 0){
+			data.scrollWidth = ((data.scrollParent == undefined) ? $(window).width() : data.scrollParent.width());
+			data.all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
 
+			//console.log('all: ', data.all);
+
+			if(data.boxes != null && data.array != 0){
 				for(var i = 0; i < data.boxes.length; i++){
 					var obj = $(data.boxes[i]);
 
