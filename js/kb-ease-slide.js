@@ -2,7 +2,7 @@
 
 	$.extend($.fn, {
 		easeBox: function(){
-			var args = arguments[0] || { boxes: [], left:10, offset: 10, force: 4, width: 200 },
+			var args = arguments[0] || { boxes: [], left:10, offset: 10, scrollParent: null, force: 4, width: 200 },
 				data = this.data(),
 				startX = 0,
 				split = 0,
@@ -13,6 +13,7 @@
             	stopEvent = (on) ? 'touchend' : 'mouseup',
             	self = this;
 
+            data.scrollParent = args.scrollParent;
             data.width = args.width;
             data.left = args.left;
             data.offset = args.offset;
@@ -36,13 +37,18 @@
                 		var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                 			l = 0,
                 			r = 0,
-                			width = $(window).width(),
+                			width = ((data.scrollParent == null) ? null : data.scrollParent.width()) || $(window).width(),
                 			all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
                 			
                 		split = currentX - startX;
                 		startX = startX + split;
 
+                		console.log(all, width);
+
                 		if(all > width){
+
+                			console.log('move b');
+
                 			for(var i = 0; i < data.boxes.length; i++){ 
                 				var pos = $(data.boxes[i]).removeClass('fx').css("-webkit-transform"),
                 					boo = pos.split(','),
@@ -66,7 +72,7 @@
 
 					var l = 0,
 						r = 0,
-						width = $(window).width(),
+						width = ((data.scrollParent == null) ? null : data.scrollParent.width()) || $(window).width(),
 						all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
 
 					if(all > width){
