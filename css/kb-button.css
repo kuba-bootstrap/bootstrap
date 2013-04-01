@@ -22,7 +22,7 @@
 .btn-w-f { background:#fac657; }
 .btn-s-f { background:#00a261; }
 .btn-b-f { background:#4688f1; }
-.btn-l { border:none; background:none; color:#4688f1; }
+.btn-l { border:none; box-shadow:none; background:none; color:#4688f1; }
 
 /*
  * Mutators - Size
