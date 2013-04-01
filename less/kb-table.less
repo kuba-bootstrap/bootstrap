@@ -1,28 +1,6 @@
-.tbl-str {
-    & > tbody {
-        & > tr:nth-child(odd) {
-            & > td {
-                background:#f8f8f8;
-            }
-        }
-    }
-}
-.tbl-rnd {
-    border-radius:4px;
-}
-.tbl thead:first-child tr:first-child th, .tbl tbody:first-child tr:first-child td {
-    border-top:0;
-}
-.tbl {
-    width:100%;
-    margin-bottom:20px;
-    border:1px solid #ddd;
-    border-left:0;
-    border-spacing:0;
-}
-.tbl th, .tbl td {
-    padding:8px;
-    border-top:1px solid #ddd;
-    border-left:1px solid #ddd;
-    text-align:left;
-}
+.tbl { width:100%; margin-bottom:20px; border:1px solid #ddd; border-left:0; border-spacing:0; }
+.tbl thead:first-child tr:first-child th, .tbl tbody:first-child tr:first-child td { border-top:0; }
+.tbl th, .tbl td { padding:8px; border-top:1px solid #ddd; border-left:1px solid #ddd; text-align:left; }
+
+.tbl-rnd { border-radius:4px; }
+.tbl-str { & > tbody { & > tr:nth-child(odd) { & > td { background:#f8f8f8; } } } }
