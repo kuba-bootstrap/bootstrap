@@ -182,15 +182,17 @@
 				'z-index': 1
 			});
 
-			var timer = 0;
+			var timer = 0,
+				win = $(window).width();
 
 			timer = setInterval(function(){
 
 				var pos = last.css("-webkit-transform"),
                 	boo = pos.split(','),
-                	poo = parseFloat(boo[4]);
+                	poo = parseFloat(boo[4]),
+                	bag = (poo / win) * 100; 
 
-				if(poo == lastLeft){
+				if(bag == lastLeft){
 					last.css({'display': 'none'});
 					clearInterval(timer);
 				}
