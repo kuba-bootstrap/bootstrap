@@ -182,6 +182,20 @@
 				'z-index': 1
 			});
 
+			var timer = 0;
+
+			timer = setInterval(function(){
+
+				var pos = last.css("-webkit-transform"),
+                	boo = pos.split(','),
+                	poo = parseFloat(boo[4]);
+
+				if(poo == lastLeft){
+					last.css({'display': 'none'});
+					clearInterval(timer);
+				}
+			}, 100);
+
 			//console.log('last: ' + last.attr('id'), 'lastLeft: ' + lastLeft, 'lastOpacity: ' + lastOpacity, 'next: ' + next.attr('id'), 'nextLeft: ' + nextLeft, 'nextOpacity: ' + nextOpacity);
 			//console.log('last class: ' + last.attr('class'), 'next class:' + next.attr('class'));
 
