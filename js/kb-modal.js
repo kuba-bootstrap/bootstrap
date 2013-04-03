@@ -1,38 +1,41 @@
 (function(){
-	"use strict";
-	
-	$.extend($.fn, {
-		modal: function(){
+    "use strict";
 
-		var args = arguments[0] || { close: true  };
+    $.extend($.fn, {
+        modal: function(){
 
-		var self = $(this),
-			close = $('<button class="mdl-cls icon-remove" id="closeModal"></button>');
+            var args = arguments[0] || {};
+            if(args['close'] === undefined) args['close'] = true;
+            var onCloseCallback = args['onClose'];
 
-		if($('#modalBack').length == 0){
+            var self = $(this),
+                close = $('<button class="mdl-cls icon-remove" id="closeModal"></button>');
 
-			console.log('modal back');
+            if($('#modalBack').length == 0){
 
-			$('body').append('<div class="mdl-bck" id="modalBack"></div>');
-		}	
+                console.log('modal back');
 
-		if($('#closeModal').length == 0 && args.close == true){
-			$(this).append(close);
-		}
+                $('body').append('<div class="mdl-bck" id="modalBack"></div>');
+            }
 
-		// TODO: create some interesting animation
+            if($('#closeModal').length == 0 && args.close == true){
+                $(this).append(close);
+            }
 
-		$('#modalBack').show();
-		$(this).show();
+            // TODO: create some interesting animation
 
-		close.on(upEvent, function(){
-			self.closeModal();
-		});
-		},
-		closeModal: function(){
-			$(this).hide();
-			$('#modalBack').hide();
-			$('#closeModal').remove();
-		}
-	});
+            $('#modalBack').show();
+            $(this).show();
+
+            close.on(upEvent, function(){
+                self.closeModal();
+                if(onCloseCallback) onCloseCallback();
+            });
+        },
+        closeModal: function(){
+            $(this).hide();
+            $('#modalBack').hide();
+            $('#closeModal').remove();
+        }
+    });
 })();
