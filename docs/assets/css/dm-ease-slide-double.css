@@ -1,0 +1,4 @@
+
+html, body { width:100%; margin:0; overflow:hidden; }
+
+.con-slide { width:100%; height: 600px; position:relative; background:#eee; overflow:hidden; }

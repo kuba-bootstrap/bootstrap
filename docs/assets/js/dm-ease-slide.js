@@ -13,6 +13,8 @@
 		force: 4
 	});
 
+	$(document.getElementById('box')).initialize();
+
 	// Setup empty box
 
 	$(document.getElementById('dyn_2')).easeBox({
@@ -36,6 +38,6 @@
 		console.log('add box', box);
 
 		$(document.getElementById('dyn_2')).addEaseBox(box);
+		$(document.getElementById('dyn_2')).initialize();
 	}, 3000);
-
 })();
