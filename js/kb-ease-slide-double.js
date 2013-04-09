@@ -2,171 +2,141 @@
 
 	$.extend($.fn, {
 		easeBoxDouble: function(){
-			var args = arguments[0] || { boxes: [], left:10, offset: 10, scrollParent: undefined, force: 4, width: 200 },
+			var args = arguments[0] || { boxes: [], left:10, offsetX: 10, offsetY: 300, scrollParent: undefined, scrollSurface: undefined, force: 4, width: 200, single: true },
 				data = this.data(),
 				startX = 0,
 				split = 0,
-            	startTime = 0,
             	on = "ontouchend" in window,
             	startEvent = (on) ? 'touchstart' : 'mousedown',
             	moveEvent = (on) ? 'touchmove' : 'mousemove',
             	stopEvent = (on) ? 'touchend' : 'mouseup',
             	self = this;
 
+            data.boxes = [];
+
+            for(var i = 0; i < args.boxes.length; i++){
+				data.boxes.push(document.getElementById(args.boxes[i]));
+			}
+            
+            data.pointerX = 0;
+            data.pointerY = 1;
+          
+          	data.scrollSurface = args.scrollSurface;
+          	data.scrollSurfacePos = 0;
             data.scrollParent = args.scrollParent;
             data.scrollWidth = $(window).width(),
             data.width = args.width;
             data.left = args.left;
-            data.offset = args.offset;
+            data.offsetX = args.offsetX;
+            data.offsetY = args.offsetY;
             data.force = args.force;
-			data.boxes = [];
-			data.pointer = 0;
-
-			for(var i = 0; i < args.boxes.length; i++){
-				data.boxes.push(document.getElementById(args.boxes[i]));
-			}
-
+			data.boxesPos = [];
 			data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
+			data.rightLimit = 0;
+			data.single = args.single;
 
 			this.on(startEvent, function(e){
 
-					console.log('start');
-
-					startTime = e.timeStamp;
                 	startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
+                	
                 	self.on(moveEvent, function(e){
                 		var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
-                			l = 0,
-                			r = 0;
+                			boxPos = 0;
                 			
                 		split = currentX - startX;
                 		startX = startX + split;
+                		boxPos = split + data.scrollSurfacePos;
 
-                		//console.log(data.all, '>', data.scrollWidth);
-                		//console.log(data);
-
-                		if(data.all > data.scrollWidth){
-
-                			for(var i = 0; i < data.boxes.length; i++){ 
-                				var pos = $(data.boxes[i]).removeClass('fx').css("-webkit-transform"),
-                					boo = pos.split(','),
-                					poo = parseFloat(boo[4]),
-                					foo = split + poo; 
-
-                				l = (data.boxWidth + data.offset) * i + data.left;
-                				r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - data.scrollWidth) * -1) - (data.left * data.boxes.length);
-
-                				if(foo < l && foo > r){
-
-                					$(data.boxes[i]).css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0+ "px)");
-                				}
-                			}
-                		}
+                		$(data.scrollSurface).removeClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
+                		data.scrollSurfacePos = boxPos;		
                 	});
 				})
 				.on(stopEvent, function(e){
 
 					// use the force young skywalker
 
-					var l = 0,
-						r = 0;
+					console.log('force');
 
-					if(data.all > data.scrollWidth){
-						for(var i = 0; i < data.boxes.length; i++){
-							var pos = $(data.boxes[i]).css("-webkit-transform"),
-                				boo = pos.split(','),
-                				poo = parseFloat(boo[4]),
-                				foo = (split * data.force) + poo;
+					var boxPos = (split * data.force) + data.scrollSurfacePos;
 
-                			l = (data.boxWidth + data.offset) * i + data.left;
-                			r = (((data.boxWidth * data.boxes.length) - ((data.boxWidth + data.offset) * i) - data.scrollWidth) * -1) - (data.left * data.boxes.length);
-
-                			if(foo >= l){
-								foo = l;
-							}
-							if(foo <= r){
-								foo = r;
-							}
-
-							$(data.boxes[i]).addClass('fx').css("-webkit-transform", "translate3d(" + foo + "px, " + 0 + "px, " + 0 + "px)");
-						}
+					if(boxPos >= 0){
+						boxPos = 0;
 					}
-					startTime = 0;
+					if(boxPos <= data.rightLimit){
+						boxPos = data.rightLimit;
+					}
+
+					$(data.scrollSurface).addClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
+
+					data.scrollSurfacePos = boxPos;
 					startX = 0;
 
 					self.off(moveEvent);
 				});
-
-			//this.initialize();
 		},
-		initialize: function(){
+		initializeDouble: function(){
 			var data = this.data(),
-				d = 0,
-				t = 0;
-			
-			data.scrollWidth = ((data.scrollParent == undefined) ? $(window).width() : data.scrollParent.width());
-			data.all = (data.boxWidth * (data.boxes.length - 1)) + (data.offset * (data.boxes.length - 1)) + data.offset;
+				pos = {};
+				data.scrollSurface = $('#' + data.scrollSurface);
 
-			//console.log('all: ', data.all);
+			data.scrollWidth = ((data.scrollParent == undefined) ? $(window).width() : data.scrollParent.width());
+			data.all = (data.boxWidth * (data.boxes.length - 1)) + (data.offsetX * (data.boxes.length - 1)) + data.offsetX;
 
 			if(data.boxes != null && data.array != 0){
+				data.pointerX = 0;
+				data.pointerY = 1;
 				for(var i = 0; i < data.boxes.length; i++){
-					var obj = $(data.boxes[i]);
+					var obj = $(data.boxes[i])
 
-					if(0 == parseInt(i / 5 % 2)){
-						t = 0;
-					} else {
-						t = 300;
-					}
-
-					console.log('i', i);
-					console.log('t', t);
-
-					d = (data.boxWidth + data.offset) * i + data.left;
-
-					$(data.boxes[i]).css("-webkit-transform", "translate3d(" + d + "px, " + t + "px, " + 0 + "px)");
+					this.calculatePosition(obj, i);
 				}
 			}
+
+			var length = 0;
+			if(data.single == false){
+				length = ((data.boxes.length - (data.boxes.length % 2)) / 2) + data.boxes.length % 2;
+				console.log(length);
+			}else{ 
+				length = data.boxes.length;
+			}
+
+			data.rightLimit = ((((data.boxWidth + data.offsetX) * length) + data.left) - data.scrollWidth) * -1;
 		},
 		addEaseBoxDouble: function(box){
 			var data = this.data(),
-				d = 0,
-				t = 0,
-				boxes = data.boxes.length,
-				rem = boxes % 6,
-				rem2 = 6 % boxes;
+				pos = {},
+				boxes = data.boxes.length;
 
 			data.boxes.push(box);
+			this.calculatePosition(boxes, data.boxes.length - 1);	
+		},
+		calculatePosition: function(box, index){
+			var data = this.data(),
+				pos = {},
+				rem = index % 5;
 
-			// todo: fix this
-			if(data.width != null){
-				data.boxWidth = data.width;
-			}else if(!data.boxWidth){
-				data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
+			if(data.single == false){
+				if(rem == 0){
+					if(data.pointerY == 0){
+						data.pointerY = 1;
+						data.pointerX = data.pointerX - 5;
+					}else{
+						data.pointerY = 0;
+					}
+				}
+			} else { 
+				data.pointerY = 0;
 			}
 
-			//console.log('boxes', boxes);
-			//console.log('rem', rem);
-			//console.log('rem 2', rem2);
-			//console.log('ex 1', boxes % 2);
-			console.log('ex 2', parseInt(boxes / 5 % 2));
+			data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
+			pos.x = (data.boxWidth * data.pointerX) + (data.offsetX * data.pointerX) + data.offsetX;
+			pos.y = data.offsetY * data.pointerY;
 
-			if(0 == parseInt(boxes / 5 % 2)){
-				t = 0;
-			} else {
-				t = 300;
-			}
-
-			//boxes = rem;
-			d = (data.boxWidth * (boxes - 1)) + (data.offset * (boxes - 1)) + data.offset;
-
-			//console.log(t, d);
-
-			//}else{
-				//d = (data.boxWidth * (boxes - 1)) + (data.offset * (boxes - 1)) + data.offset;
-			//}
-
-			$(data.boxes[data.boxes.length - 1]).css("-webkit-transform", "translate3d(" + d + "px, " + t + "px, " + 0 + "px)");
+			$(data.boxes[index]).css("-webkit-transform", "translate3d(" + pos.x + "px, " + pos.y + "px, " + 0 + "px)");
+		
+			data.boxesPos.push(pos);
+			data.pointerX++;
 		}
-	});
+	});	
 })();
+

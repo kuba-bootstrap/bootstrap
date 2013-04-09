@@ -6,11 +6,14 @@
 
 	// Setup empty box
 
-	$(document.getElementById('dyn_2')).easeBoxDouble({
+	$(document.getElementById('box_2')).easeBoxDouble({
 		boxes: [],
 		left: 25,
-		offset: 25,
-		force: 4
+		offsetX: 25,
+		offsetY: 300,
+		scrollSurface: 'box_3',
+		force: 4,
+		single: false
 	});
 
 	// add box every 3 sec
@@ -22,22 +25,21 @@
 	$('#stop').click(function(){
 		clearInterval(timer);
 		console.log('stop');
-		$(document.getElementById('dyn_2')).initialize();
 	});
 	$('#go').click(function(){
 		timer = setInterval(addBox, speed);
 		console.log('go');
+	});
+	$('#initialize').click(function(){
+		$(document.getElementById('box_2')).initializeDouble();
 	});
 
 	function addBox(){
 		var box = $('<div class="ease-box-double" id="' + 'dyn_' + count + '">' + count + '</div>');
 		count++;
 
-		$('#dyn_2').append(box);
-		//console.log('add box', box);
-
-		$(document.getElementById('dyn_2')).addEaseBoxDouble(box);
-		//$(document.getElementById('dyn_2')).initialize();
+		$('#box_3').append(box);
+		$(document.getElementById('box_2')).addEaseBoxDouble(box);
 	}
 	
 })();
