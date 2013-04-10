@@ -34,6 +34,7 @@
 			data.boxWidth = $(data.boxes[0]).width() + parseInt($(data.boxes[0]).css('padding-left')) + parseInt($(data.boxes[0]).css('padding-right'));
 			data.rightLimit = 0;
 			data.single = args.single;
+			data.lock = true;
 
 			this.on(startEvent, function(e){
 
@@ -42,13 +43,18 @@
                 	self.on(moveEvent, function(e){
                 		var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                 			boxPos = 0;
-                			
-                		split = currentX - startX;
-                		startX = startX + split;
-                		boxPos = split + data.scrollSurfacePos;
 
-                		$(data.scrollSurface).removeClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
-                		data.scrollSurfacePos = boxPos;		
+                		console.log(data.lock);
+                		if(data.lock == false){
+                				
+                			split = currentX - startX;
+                			startX = startX + split;
+                			boxPos = split + data.scrollSurfacePos;
+	
+
+                			$(data.scrollSurface).removeClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
+                			data.scrollSurfacePos = boxPos;		
+                		}
                 	});
 				})
 				.on(stopEvent, function(e){
@@ -57,27 +63,34 @@
 
 					console.log('force');
 
-					var boxPos = (split * data.force) + data.scrollSurfacePos;
-
-					if(boxPos >= 0){
-						boxPos = 0;
+					if(data.lock == false){
+						var boxPos = (split * data.force) + data.scrollSurfacePos;
+	
+						if(boxPos >= 0){
+							boxPos = 0;
+						}
+						if(boxPos <= data.rightLimit){
+							boxPos = data.rightLimit;
+						}
+	
+						$(data.scrollSurface).addClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
+	
+						data.scrollSurfacePos = boxPos;
+						startX = 0;
 					}
-					if(boxPos <= data.rightLimit){
-						boxPos = data.rightLimit;
-					}
-
-					$(data.scrollSurface).addClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
-
-					data.scrollSurfacePos = boxPos;
-					startX = 0;
 
 					self.off(moveEvent);
 				});
 		},
 		initializeDouble: function(){
 			var data = this.data(),
-				pos = {};
+				pos = {},
+				length = 0,
+				lock = 0;
+
+			if(!data.scrollSurface.selector){
 				data.scrollSurface = $('#' + data.scrollSurface);
+			}
 
 			data.scrollWidth = ((data.scrollParent == undefined) ? $(window).width() : data.scrollParent.width());
 			data.all = (data.boxWidth * (data.boxes.length - 1)) + (data.offsetX * (data.boxes.length - 1)) + data.offsetX;
@@ -92,15 +105,30 @@
 				}
 			}
 
-			var length = 0;
 			if(data.single == false){
-				length = ((data.boxes.length - (data.boxes.length % 2)) / 2) + data.boxes.length % 2;
+				length = ((data.boxes.length - (data.boxes.length % 2)) / 2) + (data.boxes.length % 5); // todo: fix this
+				//length = (data.boxes.length % 10) - (data.boxes.length % 5) +  (Math.floor(data.boxes.length / 10)) * 5;
+				//length = (Math.floor(data.boxes.length / 10) * 5) + (Math.ceil(data.boxes.length / 5) % 2) * (data.boxes.length % 5);
+
+
+				console.log('array length', data.boxes.length);
+				console.log('array % 10', (data.boxes.length % 10));
+				console.log('array % 5', (data.boxes.length % 5));
 				console.log(length);
 			}else{ 
 				length = data.boxes.length;
 			}
 
 			data.rightLimit = ((((data.boxWidth + data.offsetX) * length) + data.left) - data.scrollWidth) * -1;
+			lock = ((data.boxWidth + data.offsetX) * length) + data.left;
+
+			console.log(lock, '>', data.scrollWidth);
+
+			if(lock > data.scrollWidth){
+				data.lock = false;
+			}else{
+				data.lock = true;
+			}
 		},
 		addEaseBoxDouble: function(box){
 			var data = this.data(),
