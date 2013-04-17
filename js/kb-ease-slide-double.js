@@ -76,8 +76,9 @@
 						$(data.scrollSurface).addClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
 	
 						data.scrollSurfacePos = boxPos;
-						startX = 0;
 					}
+					split = 0;
+					startX = 0;
 
 					self.off(moveEvent);
 				});
