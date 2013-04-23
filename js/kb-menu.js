@@ -3,6 +3,9 @@
 
 	// Touch selectors
 	$('.mn').on(upEvent, function(){
+
+		console.log('on menu');
+
 		$('.mn').removeClass('mn-on');
 		$(this).toggleClass('mn-on');
 		
@@ -20,6 +23,8 @@
 	$.extend($.fn, {
 		menu: function(){
 			var args = arguments[0] || { items: [] };
+
+			console.log('menu');
 
 			for(var i = 0; i < args.items.length; i++){
 				
@@ -47,11 +52,39 @@
 				}
 			};
 		},
-		register: function(){
+		registerMenu: function(button, type, target){
 
-			console.log(items);
+			var obj = '';
+
+			switch(type){
+				case 'class':
+					obj = $('.' + button);
+					break;
+				case 'id':
+					obj = $('#' + button);
+					break;
+				case 'cache':
+					obj = button;
+					break;
+			}
+
+			console.log('[[obj]]', obj);
+
+			obj.on(upEvent, function(){ // todo: change display/hide on the .mn selector
+		
+				$('.dd-on').removeClass('dd-on');
+
+				$('#' + target).toggleClass('dd-on');
+				
+				$(window).on(upEvent, function(e){
+					if(e.target.nodeName != 'BUTTON'){
+						$(this).off(upEvent);
+						$('#' + target).removeClass('dd-on');
+					}
+				});
+			});
 		},
-		addItem: function(){
+		addMenuItem: function(){
 			console.log('add');
 		}
 	});
