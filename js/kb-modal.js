@@ -36,6 +36,7 @@
             $(this).hide();
             $('#modalBack').hide();
             $('#closeModal').remove();
+            $(this).remove();
         }
     });
 })();
