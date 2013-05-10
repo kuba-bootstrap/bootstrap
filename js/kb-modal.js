@@ -4,20 +4,24 @@
     $.extend($.fn, {
         modal: function(){
 
-            var args = arguments[0] || {};
+            var args = arguments[0] || { dispose: '' },
+                data = this.data();
+
+            data.dispose = args.dispose;
+
             if(args['close'] === undefined) args['close'] = true;
             var onCloseCallback = args['onClose'];
 
             var self = $(this),
                 close = $('<button class="mdl-cls icon-remove" id="closeModal"></button>');
 
+
+            // if modal background doesn't exist add one
             if($('#modalBack').length == 0){
-
-                console.log('modal back');
-
                 $('body').append('<div class="mdl-bck" id="modalBack"></div>');
             }
 
+            // if modal close button doesn't exist add one 
             if($('#closeModal').length == 0 && args.close == true){
                 $(this).append(close);
             }
@@ -33,10 +37,14 @@
             });
         },
         closeModal: function(){
+            var data = this.data();
+
             $(this).hide();
             $('#modalBack').hide();
             $('#closeModal').remove();
             $(this).remove();
+
+            if(data.dispose) data.dispose();
         }
     });
 })();
