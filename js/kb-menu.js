@@ -68,8 +68,6 @@
 					break;
 			}
 
-			console.log('[[obj]]', obj);
-
 			obj.on(upEvent, function(){ // todo: change display/hide on the .mn selector
 		
 				$('.dd-on').removeClass('dd-on');

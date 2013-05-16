@@ -187,13 +187,18 @@
 
 			timer = setInterval(function(){
 
-				var pos = last.css("-webkit-transform"),
-                	boo = pos.split(','),
-                	poo = parseFloat(boo[4]),
-                	bag = (poo / win) * 100; 
+				var pos = last.css("-webkit-transform");
 
-				if(bag == lastLeft){
-					last.css({'display': 'none'});
+				if(pos){
+                	var boo = pos.split(','),
+                		poo = parseFloat(boo[4]),
+                		bag = (poo / win) * 100; 
+
+					if(bag == lastLeft){
+						last.css({'display': 'none'});
+						clearInterval(timer);
+					}
+				} else { 
 					clearInterval(timer);
 				}
 			}, 100);

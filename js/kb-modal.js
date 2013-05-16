@@ -36,7 +36,7 @@
                 if(onCloseCallback) onCloseCallback();
             });
         },
-        closeModal: function(){
+        closeModal: function(dispose){
             var data = this.data();
 
             $(this).hide();
@@ -44,7 +44,8 @@
             $('#closeModal').remove();
             $(this).remove();
 
-            if(data.dispose) data.dispose();
+            if(dispose) data.dispose = dispose;
+            if(data.dispose && data.dispose != 'off') data.dispose();
         }
     });
 })();
