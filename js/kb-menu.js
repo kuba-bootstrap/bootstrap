@@ -52,7 +52,7 @@
 				}
 			};
 		},
-		registerMenu: function(button, type, target){
+		registerMenu: function(button, type, target, excluded){
 
 			var obj = '';
 
@@ -71,13 +71,16 @@
 			obj.on(upEvent, function(){ // todo: change display/hide on the .mn selector
 		
 				$('.dd-on').removeClass('dd-on');
-
 				$('#' + target).toggleClass('dd-on');
+
+				if(!excluded) excluded = 'x';
 				
 				$(window).on(upEvent, function(e){
 					if(e.target.nodeName != 'BUTTON'){
-						$(this).off(upEvent);
-						$('#' + target).removeClass('dd-on');
+						if(e.target.className != excluded){
+							$(this).off(upEvent);
+							$('#' + target).removeClass('dd-on');
+						}
 					}
 				});
 			});
