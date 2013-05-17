@@ -4,16 +4,18 @@
     $.extend($.fn, {
         modal: function(){
 
-            var args = arguments[0] || { dispose: '' },
-                data = this.data();
+            var args = arguments[0] || { dispose: '', cleanClose: false },
+                data = this.data(),
+                cls = '';
 
             data.dispose = args.dispose;
 
             if(args['close'] === undefined) args['close'] = true;
-            var onCloseCallback = args['onClose'];
+            if(args.cleanClose == false){ cls = 'icon-remove'; }
 
-            var self = $(this),
-                close = $('<button class="mdl-cls icon-remove" id="closeModal"></button>');
+            var onCloseCallback = args['onClose'],
+                self = $(this),
+                close = $('<button class="mdl-cls ' + cls + '" id="closeModal"></button>');
 
 
             // if modal background doesn't exist add one
