@@ -77,7 +77,7 @@
 				
 				$(window).on(upEvent, function(e){
 					if(e.target.nodeName != 'BUTTON'){
-						if(e.target.className != excluded){
+						if(!e.target.className.match(excluded)){
 							$(this).off(upEvent);
 							$('#' + target).removeClass('dd-on');
 						}

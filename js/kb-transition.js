@@ -20,10 +20,16 @@
 			this.pointer[self] = 0;
 		},
 		addPage: function(self, page){
+
+			console.log('{{}}', self);
+
 			this.pages[self].push(page);
 			this.pagesObj[self].push(document.getElementById(page));
 		},
 		addPageObject: function(self, page, obj){
+
+			console.log('{{}}', self);
+
 			this.pages[self].push(page);
 			this.pagesObj[self].push(obj);
 		},
@@ -106,7 +112,7 @@
 				this.pointer[self]++;
 			}
 		},
-		slideTo: function(self, to){
+		slideTo: function(self, to){ // note: in use by ustyme
 			//console.log('_______________________________');
 			//console.log('kick: slideTo ', this, this.pointer[self], to);
 			var ind = this.pages[self].indexOf(to),
@@ -203,7 +209,7 @@
 				}
 			}, 100);
 
-			//console.log('last: ' + last.attr('id'), 'lastLeft: ' + lastLeft, 'lastOpacity: ' + lastOpacity, 'next: ' + next.attr('id'), 'nextLeft: ' + nextLeft, 'nextOpacity: ' + nextOpacity);
+			// console.log('last: ' + last.attr('id'), 'lastLeft: ' + lastLeft, 'lastOpacity: ' + lastOpacity, 'next: ' + next.attr('id'), 'nextLeft: ' + nextLeft, 'nextOpacity: ' + nextOpacity);
 			//console.log('last class: ' + last.attr('class'), 'next class:' + next.attr('class'));
 
 			//console.log('move last: ', last);
