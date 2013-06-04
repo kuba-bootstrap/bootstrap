@@ -1,5 +1,5 @@
 (function(){
-    "use strict";
+    'use strict';
 
     $.fn.swipe = function(){
         var args = arguments[0] || { swipeTime: 900, swipeX: 200, left: left, right: right, leftProp: null, rightProp: null };

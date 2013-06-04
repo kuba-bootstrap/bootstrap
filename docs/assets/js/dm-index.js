@@ -3,22 +3,51 @@ $(function(){
 	 * Implementation
 	 */
 
+	// Page
+	transition.register('main', ['page-1', 'page-2', 'page-3']);
+
 	// Main Menu
 	$(document.getElementById('mainMenu')).menu({
-		items: [['Home', toHome], ['Get Started', toGetStarted], ['Components', toComponents]]
+		items: [['Home', toHome], ['Get Started', toGetStarted], ['Element CSS', toCSS], ['Components', toComponents], ['Customize', toCustomize]],
+		itemCSS: 'dm-mn',
+		corners: false,
+		first: true
 	});
 	
-	$(document.getElementById('mainMenu')).register();
-
 	function toHome(){
 		$('body').animate({scrollTop: 0});
 	}
 	function toGetStarted(){
 		$('body').animate({scrollTop: $(document.getElementById('getStarted')).position().top});
 	}
+	function toCSS(){
+		$('body').animate({scrollTop: $(document.getElementById('components')).position().top});
+		transition.slideTo('main', 'page-1');
+	}
 	function toComponents(){
 		$('body').animate({scrollTop: $(document.getElementById('components')).position().top});
+		transition.slideTo('main', 'page-2');
 	}
+	function toCustomize(){
+		$('body').animate({scrollTop: $(document.getElementById('components')).position().top});
+		transition.slideTo('main', 'page-3');
+	}
+
+	// Navigation
+	$(document.getElementById('sideNavCSS')).navigation({
+		itemFn: ['#scaffolding', '#panes', '#headings', '#labels', '#buttons'],
+		offset: 770
+	});
+
+	$(document.getElementById('sideNavComponents')).navigation({
+		itemFn: ['#modal', '#toggle', '#progressBar', '#boxSlide', '#navigation'],
+		offset: 770
+	});
+
+	$(document.getElementById('sideNavCustomize')).navigation({
+		itemFn: ['#selectPlatform', '#selectCSS', '#selectComponents', '#download'],
+		offset: 770
+	});
 
 	/*
 	 * Simulation
@@ -56,7 +85,9 @@ $(function(){
 	// Menu simulation
 
 	$(document.getElementById('menu')).menu({
-		items: [['item 1', func1], ['item 2', func2], ['item 3', func3], ['item empty']]
+		items: [['item 1', func1], ['item 2', func2], ['item 3', func3], ['item empty']],
+		corners: true,
+		first: false
 	});
 
 	function func1(){

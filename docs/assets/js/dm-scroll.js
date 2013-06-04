@@ -1,7 +1,7 @@
 // NOTE: Please do not use, scrolling is not very well supported on devices
 
 $(function(){
-	"use strict";
+	'use strict';
 
 	// TODO: the scrolling is very weak on a tablet, find another event system.
 

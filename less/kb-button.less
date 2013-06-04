@@ -1,5 +1,5 @@
 .btn { padding:4px 12px; display:inline-block; border:1px solid #ddd; border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.30); border-radius:4px; box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); font-size:14px; line-height:20px; text-shadow:0 1px 0 rgba(255, 255, 255, 0.8); background:#fcfcfc; background-image:-webkit-linear-gradient(top, #fff, #e8e8e8); cursor:pointer; }
-.btn-hvr { box-shadow:inset 0 2px 6px rgba(0,0,0,.20); }
+.btn.hvr { box-shadow:inset 0 2px 6px rgba(0,0,0,.20); }
 .btn:focus { box-shadow:inset 0 2px 6px rgba(0,0,0,.20); }
 
 button { border:0; background:transparent; }
@@ -8,7 +8,7 @@ button { border:0; background:transparent; }
 
 .btn-d { background-image:-webkit-linear-gradient(top, #d93b3a, #b53a3e); }
 .btn-w { background-image:-webkit-linear-gradient(top, #fac657, #F89406); }
-.btn-s { background-image:-webkit-linear-gradient(top, #00a261, #51A351); }
+.btn-s { background-image:-webkit-linear-gradient(top, #51A351, #00a261); }
 .btn-b { background-image:-webkit-linear-gradient(top, #4688f1, #04C); }
 
 .btn-g-f { background:#fcfcfc; }
@@ -35,13 +35,13 @@ button { border:0; background:transparent; }
 .tog { padding:6px 10px 6px 33px; position:relative; border:1px solid #ddd; box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.1); background:#f1f1f1; overflow:hidden; cursor:pointer;
     & > div { padding:14px; position:absolute; top:0; bottom:0; left:0; right:31px; box-shadow:0 1px 2px rgba(0, 0, 0, 0.2); background:#f9f9f9; transition:all .2s ease; -moz-transition:all .2s ease; -webkit-transition:all .2s ease; -o-transition:all .2s ease; } }
 
-.tog-on { & > div { left:31px; right:0; } }
+.tog.on { & > div { left:31px; right:0; } }
 
 .tog-lg { padding:11px 10px 11px 50px; font-size:16px; & > div { padding:14px; left:0; right:38px; } }
 .tog-tn { padding:5px 5px 5px 25px; font-size:10px; & > div { padding:6px; left:0; right:20px; } }
 .tog-sm { padding:5px 6px 5px 28px; font-size:12px; & > div { padding:6px; left:0; right:24px; } }
 
-.tog-sm.tog-on { & > div { left:24px; right:0; } }
-.tog-lg.tog-on { & > div { left:38px; right:0; } }
-.tog-tn.tog-on { & > div { left:20px; right:0; } }
+.tog-sm.tog.on { & > div { left:24px; right:0; } }
+.tog-lg.tog.on { & > div { left:38px; right:0; } }
+.tog-tn.tog.on { & > div { left:20px; right:0; } }
 

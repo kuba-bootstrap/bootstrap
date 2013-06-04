@@ -1,5 +1,5 @@
 (function(){
-	"use strict";
+	'use strict';
 
 	window.transition = {
 		register: function(self, pages){
@@ -193,7 +193,7 @@
 
 			timer = setInterval(function(){
 
-				var pos = last.css("-webkit-transform");
+				var pos = last.css('-webkit-transform');
 
 				if(pos){
                 	var boo = pos.split(','),

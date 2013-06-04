@@ -1,18 +1,18 @@
 (function(){
-	"use strict";
+	'use strict';
 
     // Hover extension for tablets 
     // TODO: determine if individual buttons should be extended separately or
     // if extended by class - test whats more efficient
 
 	$('.btn').on(downEvent, function(){
-		$(this).addClass('btn-hvr');
+		$(this).addClass('hvr');
 	}).on(upEvent, function(){
-		$(this).removeClass('btn-hvr');
+		$(this).removeClass('hvr');
 	});
 
 	$('.tog').on(downEvent, function(){
-		$(this).toggleClass('tog-on');
+		$(this).toggleClass('on');
 	});
 
 })();

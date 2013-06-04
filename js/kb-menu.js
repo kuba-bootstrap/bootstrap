@@ -1,18 +1,15 @@
 (function(){
-	"use strict";
+	'use strict';
 
 	// Touch selectors
 	$('.mn').on(upEvent, function(){
-
-		console.log('on menu');
-
-		$('.mn').removeClass('mn-on');
-		$(this).toggleClass('mn-on');
+		$('.mn').removeClass('on');
+		$(this).toggleClass('on');
 		
 		$(window).on(upEvent, function(e){
 			if(e.target.nodeName != 'BUTTON'){
 				$(this).off(upEvent);
-				$('.mn').removeClass('mn-on');
+				$('.mn').removeClass('on');
 			}
 		});
 	});
@@ -22,30 +19,43 @@
 
 	$.extend($.fn, {
 		menu: function(){
-			var args = arguments[0] || { items: [] };
+			var args = arguments[0] || { items: [], itemCSS: '', corners: true, first: true };
 
-			console.log('menu');
+			// handle item CSS when not declared vs declared 
+			if(args.itemCSS == undefined){
+				args.itemCSS = '';
+			} else { 
+				args.itemCSS = ' ' + args.itemCSS;
+			}
 
 			for(var i = 0; i < args.items.length; i++){
 				
-				var corner = 'btn-mid';
-	
-				if(i == 0){
-					corner = 'btn-lef';
-				}else if(i == (args.items.length - 1)){
-					corner = 'btn-rig';
+				var corner = 'btn-mid',
+					first = '';
+
+				if(args.corners == true){
+					if(i == 0){
+						corner = 'btn-lef';
+					}else if(i == (args.items.length - 1)){
+						corner = 'btn-rig';
+					}
+				}
+
+				if(args.first == true && i == 0){
+					first = ' on';
 				}
 	
-				var item = $('<div class="mn"><button class="btn ' + corner + '">' + args.items[i][0] + '</button></div>');
+				var item = $('<div class="mn' + args.itemCSS + first + '"><button class="btn ' + corner + '">' + args.items[i][0] + '</button></div>');
 				var fn = args.items[i][1];
 	
 				this.append(item);
 	
 				if(fn != null){
-				item.bind(downEvent, function(e){
-						$(this).addClass('mn-on');
+					item.bind(downEvent, function(e){
+						$(this).addClass('on');
 					}).bind(upEvent, function(e){
-						$(this).removeClass('mn-on');
+						$('.mn').removeClass('on');
+						$(this).addClass('on');
 					}).bind(upEvent, function(func){
 						return func;
 					}(fn));
