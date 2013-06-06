@@ -6,10 +6,6 @@
 				data = this.data(),
 				startX = 0,
 				split = 0,
-            	on = "ontouchend" in window,
-            	startEvent = (on) ? 'touchstart' : 'mousedown',
-            	moveEvent = (on) ? 'touchmove' : 'mousemove',
-            	stopEvent = (on) ? 'touchend' : 'mouseup',
             	self = this;
 
             data.boxes = [];
@@ -36,7 +32,7 @@
 			data.single = args.single;
 			data.lock = true;
 
-			this.on(startEvent, function(e){
+			this.on(downEvent, function(e){
 
                 	startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
                 	
@@ -44,24 +40,28 @@
                 		var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                 			boxPos = 0;
 
-                		console.log(data.lock);
+                		// cleanup click class
+                		$('.ease-box').removeClass('hvr');
+
                 		if(data.lock == false){
                 				
                 			split = currentX - startX;
                 			startX = startX + split;
                 			boxPos = split + data.scrollSurfacePos;
 	
-
                 			$(data.scrollSurface).removeClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
                 			data.scrollSurfacePos = boxPos;		
                 		}
                 	});
 				})
-				.on(stopEvent, function(e){
+				.on(upEvent, function(e){
 
 					// use the force young skywalker
 
 					console.log('force');
+
+					// cleanup click class
+					$('.ease-box').removeClass('hvr');
 
 					if(data.lock == false){
 						var boxPos = (split * data.force) + data.scrollSurfacePos;

@@ -2,11 +2,12 @@
 	'use strict';
 
 	window.transition = {
-		register: function(self, pages){
+		register: function(self, pages, cleanup){
 			if(!this.pages){
 				this.pages = new Array();
 				this.pagesObj = new Array();
 				this.pointer = new Array();
+				this.cleanup = new Array();
 			}
 
 			var pagesObj = [];
@@ -18,6 +19,7 @@
 			this.pages[self] = pages;
 			this.pagesObj[self] = pagesObj;
 			this.pointer[self] = 0;
+			this.cleanup[self] = cleanup;
 		},
 		addPage: function(self, page){
 
@@ -40,10 +42,10 @@
 					last = $(this.pagesObj[self][this.pointer[self] - 1]);
 
 				// reset
-				this.reset(last, 0, 0, next, 0, 1);
+				this.reset(self, last, 0, 0, next, 0, 1);
 
 				// move
-				this.move(last, 0, 1, next, 0, 0);
+				this.move(self, last, 0, 1, next, 0, 0);
 
 				this.pointer[self]--;
 			}
@@ -55,10 +57,10 @@
 					next = $(this.pagesObj[self][this.pointer[self] + 1]);
 
 				// reset
-				this.reset(last, 0, 1, next, 0, 0);
+				this.reset(self, last, 0, 1, next, 0, 0);
 
 				// move
-				this.move(last, 0, 0, next, 0, 1);
+				this.move(self, last, 0, 0, next, 0, 1);
 
 				this.pointer[self]++;
 			}
@@ -74,10 +76,10 @@
 			if(ind != this.pointer[self]){
 
 				// reset
-				this.reset(last, 0, 1, next, 0, 0);
+				this.reset(self, last, 0, 1, next, 0, 0);
 
 				// move
-				this.move(last, 0, 0, next, 0, 1);
+				this.move(self, last, 0, 0, next, 0, 1);
 
 				this.pointer[self] = ind;
 			}
@@ -89,10 +91,10 @@
 					next = $(this.pagesObj[self][this.pointer[self] - 1]);
 
 				// reset
-				this.reset(last, 0, 1, next, -100, 1);
+				this.reset(self, last, 0, 1, next, -100, 1);
 
 				// move
-				this.move(last, 100, 1, next, 0, 1);
+				this.move(self, last, 100, 1, next, 0, 1);
 
 				this.pointer[self]--;
 			}
@@ -104,10 +106,10 @@
 					next = $(this.pagesObj[self][this.pointer[self] + 1]);
 
 				// reset
-				this.reset(last, 0, 1, next, 100, 1);
+				this.reset(self, last, 0, 1, next, 100, 1);
 
 				// move
-				this.move(last, -100, 1, next, 0, 1);
+				this.move(self, last, -100, 1, next, 0, 1);
 				
 				this.pointer[self]++;
 			}
@@ -136,13 +138,13 @@
 				//console.log('index of to: ' + ind, 'last: ' + last.attr('id'), 'next: ' + next.attr('id'));
 
 				// reset
-				this.reset(last, 0, 1, next, nextLeft, 1);
+				this.reset(self, last, 0, 1, next, nextLeft, 1);
 
 				// move
 				var poop = this; 
 
 				window.setTimeout(function(){
-					poop.move(last, lastLeft, 1, next, 0, 1);
+					poop.move(self, last, lastLeft, 1, next, 0, 1);
 				}, 10);
 
 				this.pointer[self] = ind;
@@ -157,7 +159,7 @@
 		flipTo: function(self, to){
 
 		},
-		reset: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
+		reset: function(self, last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
 			next.removeClass('fx').css({
 				'-webkit-transform': 'translate3d(' + nextLeft + '%,' + 0 + 'px,' + 0 + 'px)',
 				'opacity': nextOpacity,
@@ -176,7 +178,7 @@
 			//console.log('reset last: ', last);
 			//console.log('reset next: ', next);
 		},
-		move: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
+		move: function(self, last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
 			next.addClass('fx').show().css({
 				'-webkit-transform': 'translate3d(' + nextLeft + '%,' + 0 + 'px,' + 0 + 'px)',
 				'opacity': nextOpacity,
@@ -189,7 +191,8 @@
 			});
 
 			var timer = 0,
-				win = $(window).width();
+				win = $(window).width(),
+				it = this;
 
 			timer = setInterval(function(){
 
@@ -202,12 +205,21 @@
 
 					if(bag == lastLeft){
 						last.css({'display': 'none'});
+
+						// if(it.cleanup[self]){
+						// 	it.cleanup[self](next);
+						// }
+
 						clearInterval(timer);
 					}
 				} else { 
 					clearInterval(timer);
 				}
 			}, 100);
+
+			if(it.cleanup[self]){
+				it.cleanup[self](next);
+			}
 
 			// console.log('last: ' + last.attr('id'), 'lastLeft: ' + lastLeft, 'lastOpacity: ' + lastOpacity, 'next: ' + next.attr('id'), 'nextLeft: ' + nextLeft, 'nextOpacity: ' + nextOpacity);
 			//console.log('last class: ' + last.attr('class'), 'next class:' + next.attr('class'));

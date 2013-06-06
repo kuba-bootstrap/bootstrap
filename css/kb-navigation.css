@@ -2,7 +2,7 @@
  * Navigation CSS
  */
 
-.nav { margin:0; border:1px solid #ddd; border-radius:4px; list-style:none; background:#fff; overflow:hidden; }
+.nav { margin:0; position:relative; border:1px solid #ddd; border-radius:4px; list-style:none; background:#fff; overflow:hidden; z-index:3; }
 .nav > li:first-child { border:0; }
 .nav > li { padding:10px 20px; border-top:1px solid #ddd; -moz-transition:all .1s ease-out; -webkit-transition:all .1s ease-out; -o-transition:all .1s ease-out; cursor:pointer; }
 .nav > li:hover, .nav > li:active { background:#f3f3f3; }

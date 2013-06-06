@@ -5,7 +5,7 @@ $(function(){
 
 	// TODO: the scrolling is very weak on a tablet, find another event system.
 
-	var nav = $(document.getElementById('sideNavigation')), 
+	var nav = $(document.getElementById('sideNavCSS')), 
 		navY = nav.position().top - 70,
 		win = $(window);
 
@@ -15,7 +15,7 @@ $(function(){
 		var width = nav.width();
 
 		if(win.scrollTop() >= navY){
-			nav.addClass('afx-top').css('width', width);	
+			nav.addClass('afx-top').css('width', '268px');	
 		}else{
 			nav.removeClass('afx-top');
 		}	

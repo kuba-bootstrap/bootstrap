@@ -4,7 +4,10 @@ $(function(){
 	 */
 
 	// Page
-	transition.register('main', ['page-1', 'page-2', 'page-3']);
+	transition.register('main', ['page-1', 'page-2', 'page-3'], function(self){
+		$('.sp-fir').removeClass('on');
+		$('#nav-' + $(self).attr('id')).addClass('on');
+	});
 
 	// Main Menu
 	$(document.getElementById('mainMenu')).menu({
