@@ -6,6 +6,8 @@
 html, body, button { font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px; color:#3b4854; }
 body { overflow-x:hidden; }
 .fx { -moz-transition:all .6s ease-out; -webkit-transition:all .6s ease-out; -o-transition:all .6s ease-out; }
+.fx-fs {  -moz-transition:all .3s ease-out !important;  -webkit-transition:all .3s ease-out !important;  -o-transition:all .3s ease-out !important; }
+
 .hide { display:none; }
 
  /*

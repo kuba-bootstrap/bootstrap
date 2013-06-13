@@ -15,7 +15,7 @@
  * Mutators - Affix
  */
 
-.afx-bot, .afx-top { position:fixed; }
+.afx-bot, .afx-top { position:fixed; z-index:100; }
 
-.afx-bot { bottom:70px; }
-.afx-top { top:70px; }
+.afx-bot { bottom:80px; }
+.afx-top { top:80px; }

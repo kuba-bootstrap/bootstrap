@@ -25,29 +25,36 @@ $(function(){
 	}
 	function toCSS(){
 		$('body').animate({scrollTop: $(document.getElementById('components')).position().top});
+		$('.dm-card').removeClass('on');
+		$('#nav-page-1').addClass('on');
 		transition.slideTo('main', 'page-1');
+
 	}
 	function toComponents(){
 		$('body').animate({scrollTop: $(document.getElementById('components')).position().top});
+		$('.dm-card').removeClass('on');
+		$('#nav-page-2').addClass('on');
 		transition.slideTo('main', 'page-2');
 	}
 	function toCustomize(){
 		$('body').animate({scrollTop: $(document.getElementById('components')).position().top});
+		$('.dm-card').removeClass('on');
+		$('#nav-page-3').addClass('on');
 		transition.slideTo('main', 'page-3');
 	}
 
 	// Navigation
-	$(document.getElementById('sideNavCSS')).navigation({
+	$(document.getElementById('nav-page-1')).navigation({
 		itemFn: ['#scaffolding', '#panes', '#headings', '#labels', '#buttons'],
 		offset: 770
 	});
 
-	$(document.getElementById('sideNavComponents')).navigation({
+	$(document.getElementById('nav-page-2')).navigation({
 		itemFn: ['#modal', '#toggle', '#progressBar', '#boxSlide', '#navigation'],
 		offset: 770
 	});
 
-	$(document.getElementById('sideNavCustomize')).navigation({
+	$(document.getElementById('nav-page-3')).navigation({
 		itemFn: ['#selectPlatform', '#selectCSS', '#selectComponents', '#download'],
 		offset: 770
 	});
@@ -109,13 +116,21 @@ $(function(){
 	// Modal simulation
 
 	$(document.getElementById('openModal')).on(upEvent, function(){
-		$(document.getElementById('sampleModal')).modal();
+		$(document.getElementById('sampleModal')).modal({
+			 dispose: '', 
+			 cleanClose: false
+		});
 	});
 	$(document.getElementById('openModal2')).on(upEvent, function(){
-		$(document.getElementById('sampleModal2')).modal({ close: false });
+		$(document.getElementById('sampleModal2')).modal({ 
+			close: false 
+		});
 	});
 	$(document.getElementById('sampleCloseModal')).on(upEvent, function(){
-		$(document.getElementById('sampleModal2')).closeModal();
+		$(document.getElementById('sampleModal2')).closeModal({
+			 dispose: '', 
+			 cleanClose: false
+		});
 	});
 
 });

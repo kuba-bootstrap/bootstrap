@@ -70,3 +70,11 @@
  */
 
 .dm-con { min-height:300px; position:relative; }
+.dm-sp-fir { margin-right:24px; border:2px solid #efefef; border-radius:5px; background:#efefef; }
+
+/*
+ * Cards
+ */ 
+
+.dm-card { display:none; position:relative; }
+.dm-card.on { display:block; }
