@@ -1,0 +1,48 @@
+/*
+ * Base CSS
+ */
+
+* { margin:0; padding:0; }
+html, body, button { font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-size:14px; color:#3b4854; }
+html, body { height:100%; overflow:hidden; }
+.fx { -moz-transition:all .6s ease-out; -webkit-transition:all .6s ease-out; -o-transition:all .6s ease-out; }
+
+ /*
+  * Font
+  */
+
+h1, h2, h3, h4, h5, h6, p { margin:10px 0; color:#3B4854; }
+
+p { margin:15px 0; line-height:20px; }
+h1 { font-size:38px; }
+h2 { font-size:30px; }
+h3 { font-size:26px; }
+h4 { font-size:20px; }
+h5 { font-size:16px; }
+h6 { font-size:14px; }
+
+.txt-ctr { text-align:center; }
+.txt-top { margin-top:60px; }
+.h-tte { font-size:48px; font-weight:200; }
+.p-tte { font-size:20px; font-weight:200; }
+
+/*
+ * Content Scafolding
+ */
+
+.con { width:4000px; height:2000px; position:absolute; left:50%; top:50%; margin-left:-2000px; margin-top:-1000px; transform:rotate(45deg); -ms-transform:rotate(45deg); -moz-transform:rotate(45deg); -webkit-transform:rotate(45deg); -o-transform:rotate(45deg); }
+
+.con-white, .con-black { width:50%; height:100%; float:left; overflow:hidden; }
+
+.con-white { background:#333; }
+.con-black { background:#fff;  }
+
+.con-sta, .con-sta-white, .con-sta-black { width:100%; height:100%; } 
+.con-sta-white, .con-sta-black { position:absolute; text-align:center; }
+
+.con-sta { position:relative; }
+.con-sta-white { color:#333; transform:rotate(90deg); -ms-transform:rotate(90deg); -moz-transform:rotate(90deg); -webkit-transform:rotate(90deg); -o-transform:rotate(90deg); }
+.con-sta-black { color:#fff; transform:rotate(-90deg); -ms-transform:rotate(-90deg); -moz-transform:rotate(-90deg); -webkit-transform:rotate(-90deg); -o-transform:rotate(-90deg); }
+
+
+

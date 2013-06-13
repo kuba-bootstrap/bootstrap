@@ -1,0 +1,21 @@
+/*
+ * Misc CSS
+ */
+
+.hr { margin:40px 0; border:0; border-top:1px solid #ddd; }
+
+/*
+ * Mutators - Clearfix
+ */
+
+.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.clearfix { display:inline-block; }
+
+/*
+ * Mutators - Affix
+ */
+
+.afx-bot, .afx-top { position:fixed; z-index:100; }
+
+.afx-bot { bottom:80px; }
+.afx-top { top:80px; }

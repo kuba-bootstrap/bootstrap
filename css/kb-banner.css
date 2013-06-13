@@ -1,0 +1,16 @@
+/*
+ * Banner CSS
+ */
+
+.ban { padding-bottom:50px; text-align:right; background:#333; }
+.ban-sub { margin-bottom:20px; padding:8px; border-bottom:1px solid #ddd; text-align:center; background:#f8f8f8; }
+
+.ban h1, .ban p { color:#fff; }
+.ban p { font-size:18px; }
+.ban em { font-size:14px; color:#aaa; }
+
+/*
+ * Mutators - Static Header
+ */
+
+.ban-top { padding-top:90px; }
