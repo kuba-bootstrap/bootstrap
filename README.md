@@ -1,6 +1,8 @@
 ## [Kuba-bootstrap v0.0.1] (http://kuba-bootstrap.github.io/bootstrap/)
 
-Kuba-bootstrap is a free open source projcet for creating components specifically for mobile devices and iOS/Android webview apps like ones made with Phonegap. This project is not meant to support legacy systems. 
+Kuba-bootstrap is a free open source project for creating components specifically for mobile devices, iOS/Android webview apps and mobile browsers. This project is not meant to support legacy browsers.
+
+To get started, checkout [http://kuba-bootstrap.github.io/bootstrap/] (http://kuba-bootstrap.github.io/bootstrap/)
 
 
 
@@ -12,11 +14,11 @@ jQuery, FontAwesome.
 
 ## Authors
 
-** Jakub Szerszen **
+**Jakub Szerszen**
 
 + [https://github.com/jszersze] (https://github.com/jszersze)
 
-** Gabe Hopper **
+**Gabe Hopper**
 
 + [https://github.com/gabehopper] (https://github.com/gabehopper)
 
