@@ -16,6 +16,12 @@
 .hdr > .con { height:46px; }
 
 /*
+ * Banner
+ */
+
+.ban-sub p { line-height:12px; }
+
+/*
  * Container
  */
 
@@ -55,7 +61,7 @@
  * Logo
  */
 
-.dm-logo { width:46px; height:46px; position:absolute; background:#53a93f; }
+.dm-logo { width:46px; height:46px; position:absolute; background:#53a93f url(../ico/logo-sm.png); }
 
 /*
  * Menu
