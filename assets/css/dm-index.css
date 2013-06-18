@@ -61,7 +61,7 @@
  * Logo
  */
 
-.dm-logo { width:46px; height:46px; position:absolute; background:#53a93f url(../ico/logo-sm.png); }
+.dm-logo { width:50px; height:46px; position:absolute; background:#53a93f url(../ico/logo-sm.png) center; }
 
 /*
  * Menu
