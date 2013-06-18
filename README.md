@@ -24,7 +24,7 @@ jQuery, FontAwesome.
 
 
 
-## Copyright and license
+## [Copyright and license] (https://raw.github.com/kuba-bootstrap/bootstrap/master/LICENSE)
 
 Copyright (c) 2013 kuba-bootstrap
 
