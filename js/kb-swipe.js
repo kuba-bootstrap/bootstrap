@@ -5,17 +5,13 @@
         var args = arguments[0] || { swipeTime: 900, swipeX: 200, left: left, right: right, leftProp: null, rightProp: null };
 
         var startX = 0,
-            startTime = 0,
-            on = "ontouchend" in window,
-            startEvent = (on) ? 'touchstart' : 'mousedown',
-            moveEvent = (on) ? 'touchmove' : 'mousemove',
-            stopEvent = (on) ? 'touchend' : 'mouseup';
+            startTime = 0;
 
-        this.on(startEvent, function(e){
+        this.on(downEvent, function(e){
                 startTime = e.timeStamp;
                 startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
             })
-            .on(stopEvent, function(e){
+            .on(upEvent, function(e){
                 startTime = 0;
                 startX = 0;
             })
