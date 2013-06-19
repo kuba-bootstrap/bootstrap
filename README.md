@@ -1,6 +1,6 @@
 ## [Kuba-bootstrap v0.0.1] (http://kuba-bootstrap.github.io/bootstrap/) [![Build Status](https://secure.travis-ci.org/kuba-bootstrap/bootstrap.png)](http://travis-ci.org/kuba-bootstrap/bootstrap)
 
-Kuba-bootstrap is a free open source project for creating components specifically for mobile devices, iOS/Android webview apps and mobile browsers. This project is not meant to support legacy browsers.
+Kuba-bootstrap is an open source project for creating modularized components specifically for mobile devices and iOS/Android webview apps. This project is not meant to support legacy browsers.
 
 To get started, checkout [http://kuba-bootstrap.github.io/bootstrap/] (http://kuba-bootstrap.github.io/bootstrap/)
 
@@ -8,7 +8,15 @@ To get started, checkout [http://kuba-bootstrap.github.io/bootstrap/] (http://ku
 
 ## Dependencies
 
-jQuery, FontAwesome.
+CSS/Less - Using pure style does not require dependencies
+Components - Requires jQuery (may also require FontAwesome that can be overwritten).
+
+
+
+## Bug tracker
+
+Have a bug or a feature request? [Please open a new issue] (https://github.com/kuba-bootstrap/bootstrap/issues?state=open). 
+Before opening any issue, please search for existing issues.
 
 
 

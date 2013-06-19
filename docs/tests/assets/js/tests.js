@@ -2,7 +2,9 @@
  * -- Base
  */
 
- // -- This test checks that the various mouse/touch events are being initialized
+// -- This test checks that the various mouse/touch events are being initialized
+// -- and that the format of the events have spaces at the end (this is important for
+// -- the backbone custom events).
 
 test('base - events', function(){
 
@@ -32,7 +34,8 @@ test('base - events', function(){
  * -- Buttons
  */
 
-// -- These tests are designed to determine if an appropriate class was added based on the mouse state over the control
+// -- These tests are designed to determine if an appropriate class was added based 
+// -- on the mouse state over the control (important for various css attributes).
 
 asyncTest( "button - down", function() {
   
