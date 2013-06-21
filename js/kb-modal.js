@@ -37,6 +37,8 @@
                 self.closeModal();
                 if(onCloseCallback) onCloseCallback();
             });
+
+            return this;
         },
         closeModal: function(dispose){
             var data = this.data();
@@ -48,6 +50,8 @@
 
             if(dispose) data.dispose = dispose;
             if(data.dispose && data.dispose != 'off') data.dispose();
+
+            return true;
         }
     });
 })();

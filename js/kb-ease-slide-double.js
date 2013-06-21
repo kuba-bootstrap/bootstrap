@@ -82,6 +82,8 @@
 
 					self.off(moveEvent);
 				});
+
+				return this;
 		},
 		initializeDouble: function(){
 			var data = this.data(),
@@ -130,6 +132,8 @@
 			}else{
 				data.lock = true;
 			}
+
+			return true;
 		},
 		addEaseBoxDouble: function(box){
 			var data = this.data(),
@@ -137,7 +141,9 @@
 				boxes = data.boxes.length;
 
 			data.boxes.push(box);
-			this.calculatePosition(boxes, data.boxes.length - 1);	
+			this.calculatePosition(boxes, data.boxes.length - 1);
+
+			return this;	
 		},
 		calculatePosition: function(box, index){
 			var data = this.data(),
@@ -165,6 +171,8 @@
 		
 			data.boxesPos.push(pos);
 			data.pointerX++;
+
+			return this;
 		}
 	});	
 })();

@@ -12,14 +12,18 @@
 
 			var pagesObj = [];
 
-			for(var i = 0; i < pages.length; i++){
-				pagesObj.push(document.getElementById(pages[i]));
+			if(pages){
+				for(var i = 0; i < pages.length; i++){
+					pagesObj.push(document.getElementById(pages[i]));
+				}
 			}
 
 			this.pages[self] = pages;
 			this.pagesObj[self] = pagesObj;
 			this.pointer[self] = 0;
 			this.cleanup[self] = cleanup;
+
+			return this;
 		},
 		addPage: function(self, page){
 
@@ -27,6 +31,8 @@
 
 			this.pages[self].push(page);
 			this.pagesObj[self].push(document.getElementById(page));
+
+			return this;
 		},
 		addPageObject: function(self, page, obj){
 
@@ -34,6 +40,8 @@
 
 			this.pages[self].push(page);
 			this.pagesObj[self].push(obj);
+
+			return this;
 		},
 		fadeBack: function(self){
 			console.log('kick: fadeBack ', this.pointer[self]);
@@ -49,6 +57,8 @@
 
 				this.pointer[self]--;
 			}
+
+			return this;
 		},
 		fadeNext: function(self){
 			console.log('kick: fadeNext ', this.pointer[self]);
@@ -64,6 +74,8 @@
 
 				this.pointer[self]++;
 			}
+
+			return this;
 		},
 		fadeTo: function(self, to){
 			console.log('kick: fadeTo ', this.pointer[self]);
@@ -83,6 +95,8 @@
 
 				this.pointer[self] = ind;
 			}
+
+			return this;
 		},
 		slideBack: function(self){
 			console.log('kick: slideNext ', this.pointer[self]);
@@ -98,6 +112,8 @@
 
 				this.pointer[self]--;
 			}
+
+			return this;
 		},
 		slideNext: function(self){
 			console.log('kick: slideNext ', this.pointer[self]);
@@ -113,6 +129,8 @@
 				
 				this.pointer[self]++;
 			}
+
+			return this;
 		},
 		slideTo: function(self, to){ // note: in use by ustyme
 			//console.log('_______________________________');
@@ -149,15 +167,20 @@
 
 				this.pointer[self] = ind;
 			}
+
+			return this;
 		},
 		flipBack: function(self){
 
+			return this;
 		},
 		flipNext: function(self){
 
+			return this;
 		},
 		flipTo: function(self, to){
 
+			return this;
 		},
 		reset: function(self, last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
 			next.removeClass('fx').css({
@@ -177,6 +200,8 @@
 
 			//console.log('reset last: ', last);
 			//console.log('reset next: ', next);
+
+			return this;
 		},
 		move: function(self, last, lastLeft, lastOpacity, next, nextLeft, nextOpacity){
 			next.addClass('fx').show().css({
@@ -226,6 +251,8 @@
 
 			//console.log('move last: ', last);
 			//console.log('move next: ', next);
+
+			return this;
 		}
 	};
 

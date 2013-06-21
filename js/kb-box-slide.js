@@ -27,6 +27,8 @@
 			}
 
 			this.initialize();
+
+			return this;
 		},
 		initialize: function(){
 			var data = this.data();
@@ -39,15 +41,19 @@
 					$(data.boxes[i]).css('left', ((i + 1) * split) + '%');
 				}
 			}
+
+			return this;
 		},
 		addBox: function(box){
 			var data = this.data();
 
 			data.boxes.push(box);
 			if(data.pointer == 0){
-				console.log('addBox: init');
+				// console.log('addBox: init');
 				this.initialize();
 			}
+
+			return this;
 		},
 		moveBox: function(direction){
 			var data = this.data(),
@@ -68,6 +74,8 @@
 					data.pointer++;
 				}
 			}
+
+			return this;
 		},
 		moveLeft: function(self){
 			if(self != null){

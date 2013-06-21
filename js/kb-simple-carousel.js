@@ -46,6 +46,8 @@
 					right: moveLeft
 				});
 			}
+
+			return this;
         },
         simpleCarouselMove: function(dots, to){
         	var data = this.data(),
@@ -59,6 +61,8 @@
         	data.slider.css("-webkit-transform", "translate3d(" + x + "px, " + 0 + "px, " + 0 + "px)");
 
         	data.pointer = to;
+
+        	return this;
         }
     });
 

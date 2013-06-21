@@ -40,6 +40,8 @@
                     startX = 0;
                 }
             });
+
+        return this;
     };
 
     // Safety when null

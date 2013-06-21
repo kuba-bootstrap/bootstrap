@@ -61,6 +61,8 @@
 					}(fn));
 				}
 			};
+
+			return this;
 		},
 		registerMenu: function(button, type, target, excluded){
 
@@ -94,9 +96,13 @@
 					}
 				});
 			});
+
+			return this;
 		},
 		addMenuItem: function(){
 			console.log('add');
+
+			return this;
 		}
 	});
 
