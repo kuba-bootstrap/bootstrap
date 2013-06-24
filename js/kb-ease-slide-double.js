@@ -49,7 +49,7 @@
                 			startX = startX + split;
                 			boxPos = split + data.scrollSurfacePos;
 	
-                			$(data.scrollSurface).removeClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
+                			$(data.scrollSurface).removeClass('fx-sl').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
                 			data.scrollSurfacePos = boxPos;		
                 		}
                 	});
@@ -73,7 +73,7 @@
 							boxPos = data.rightLimit;
 						}
 	
-						$(data.scrollSurface).addClass('fx').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
+						$(data.scrollSurface).addClass('fx-sl').css("-webkit-transform", "translate3d(" + boxPos + "px, " + 0 + "px, " + 0 + "px)");
 	
 						data.scrollSurfacePos = boxPos;
 					}
