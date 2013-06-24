@@ -7,7 +7,9 @@
 
 .ban h1, .ban p { color:#fff; }
 .ban p { font-size:18px; }
-.ban em { font-size:14px; color:#aaa; }
+.ban em { margin-left:15px; font-size:14px; color:rgba(255,255,255,.4); }
+.ban a { margin-left:15px; font-size:14px; text-decoration:none; color:rgba(255,255,255,.6); }
+.ban a:hover { color:rgba(255,255,255,.9); }
 
 /*
  * Mutators - Static Header
