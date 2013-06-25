@@ -18,6 +18,6 @@ $(function(){
 
   	// View declaration
 
-  	var carousel = new View({parentEl: '#pane', dots: ['#dot-1', '#dot-2', '#dot-3'], slider: '#slider', distance: 300, swipe: true});
+  	var carousel = new View({parentEl: '#pane', dots: ['#dot-1', '#dot-2', '#dot-3'], slider: '#slider', distance: 858, swipe: true});
 
 });

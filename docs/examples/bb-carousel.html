@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Backbone Slider - Component Test</title>
+    <title>Backbone Carousel - Component</title>
     <meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../../css/kb-button.css" />
     <link rel="stylesheet" href="../../css/kb-pane.css" />
     <link rel="stylesheet" href="../../css/kb-modal.css" />
+    <link rel="stylesheet" href="../../css/kb-carousel.css" />
     <link rel="stylesheet" href="../../css/kb-progress-bar.css" />
     <link rel="stylesheet" href="../../css/kb-box-slide.css" />
     <link rel="stylesheet" href="../../css/kb-misc.css" />
@@ -27,17 +28,23 @@
     
     <div class="con"> 
         <div class="pane" id="pane">
-            <button class="btn" id="modalButton">modal</button>
-        </div>
-        <div class="pane" id="paneOptions">
-            <button class="btn" id="modalOptionsButton">modal</button>
+            
         </div>
     </div>
 
     <!-- template -->
-    <script type="text/template" id="tile">
-        <div class="mdl-hrd"></div>
-        <div class="mdl-con"></div>
+    <script type="text/template" id="item">
+        <div class="cr-sl fx-fs" id="slider">
+            <div>item 1</div>
+            <div>item 2</div>
+            <div>item 3</div>
+        </div>
+
+        <div class="dot-mn">
+            <span id="dot-1" class="on"></span>
+            <span id="dot-2"></span>
+            <span id="dot-3"></span>
+        </div>
     </script>
 
     <!-- assets -->
@@ -48,9 +55,10 @@
     
     <!-- component -->
     <script src="../../js/kb-base.js"></script>
-    <script src="../../js/backbone/kb-bb-slider.js"></script>
+    <script src="../../js/kb-swipe.js"></script>
+    <script src="../../js/backbone/kb-bb-carousel.js"></script>
    
     <!-- demo -->
-    <script src="js/dm-bb-slider.js"></script>
+    <script src="js/dm-bb-carousel.js"></script>
 </body>
 </html>

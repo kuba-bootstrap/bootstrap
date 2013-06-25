@@ -2,10 +2,10 @@
  * Carousel CSS
  */
 
-.dot-mn { margin-left:-9px; position:absolute; left:50%; }
+.dot-mn { margin-left:-9px; position:absolute; left:50%; bottom:0; }
 .dot-mn > span { width:9px; height:9px; display:inline-block; border:1px solid #eaeaea; border-radius:6px; background:#efefef; }
 .dot-mn > span.on { background:#000; }
 
-.cr { width:100%; position:absolute; overflow:hidden; }
-.cr-sl { position:relative; }
-.cr-sl > div { width:300px; height:100px; float:left; display:block; background:#aaa; }
+.cr { width:100%; position:relative; overflow:hidden; }
+.cr-sl { width:2574px; position:relative; }
+.cr-sl > div { width:858px; height:100px; float:left; display:block; background:#aaa; }
