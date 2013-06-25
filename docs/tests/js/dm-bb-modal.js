@@ -20,7 +20,6 @@ $(function(){
 
     // View declaration
 
-	  var modal = new View({button: '#modalButton'});
-    $('#pane').append(modal.render().el);
+	  var modal = new View({parentEl: '#pane', button: '#modalButton'});
 
 });

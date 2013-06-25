@@ -18,7 +18,6 @@ $(function(){
 
   	// View declaration
 
-  	var carousel = new View({dots: ['#dot-1', '#dot-2', '#dot-3'], slider: '#slider', distance: 300});
-  	$('#pane').append(carousel.render().el);
+  	var carousel = new View({parentEl: '#pane', dots: ['#dot-1', '#dot-2', '#dot-3'], slider: '#slider', distance: 300, swipe: true});
 
 });

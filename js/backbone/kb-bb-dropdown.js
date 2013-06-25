@@ -11,7 +11,9 @@
         tagName: 'ul',
         className: 'dd',
         dropdownInitialize: function(options) {
-      		  this.dropdown();
+      		  var parentEl = this.options.parentEl || '#body';
+            $(parentEl).append(this.render().el);
+            this.dropdown();
       		  if(this.model){
       			    this.model.on('change', this.dropdown, this);
       		  }

@@ -10,33 +10,49 @@
   	_.extend(Carousel.prototype, Backbone.View.prototype, {
         className: 'cr',
         carouselInitialize: function(options) {
-      	    this.carousel();
-            this.setElement(this.el);
+            var parentEl = this.options.parentEl || '#body';
+      	    $(parentEl).append(this.render().el);
+            this.carousel();
     	},
     	carousel: function(){
             var self = this,
-                limit = -1;
+                generateCallback = function(it) {
+                    return function(){
+                        self.moveCarousel(self.dots[it], it);
+                    };
+                };
 
+            this.limit = -1;
             this.dots = this.options.dots || [];
             this.slider = $(this.options.slider);
             this.pointer = 0;
             this.distance = this.options.distance || 1;
 
             for(var i = 0; i < this.dots.length; i++){
-                var generateCallback = function(it) {
-                    return function(){
-                        // console.log('hit');
-                        self.moveCarousel(this.dots[it], it);
-                    };
-                }
-                limit++;
+                this.limit++;
                 $(this.dots[i]).on(upEvent, generateCallback(i));
-
-                // console.log(this.dots[i].length);
             }
+
+            if(this.options.swipe) this.registerSwipe();
 
     	},
         registerSwipe: function(){
+            var self = this;
+
+            function moveRight(){
+                if(self.pointer < self.limit){
+                    self.pointer++;
+                    self.moveCarousel(self.dots[self.pointer], self.pointer);
+                }
+            }
+
+            function moveLeft(){
+                if(self.pointer > 0){
+                    self.pointer--;
+                    self.moveCarousel(self.dots[self.pointer], self.pointer);
+                } 
+            }
+
             this.slider.swipe({ 
                 swipeTime: 1000, 
                 swipeX: 50, 
@@ -44,36 +60,14 @@
                 right: moveLeft
             });
         },
-        moveLeft: function(){
-            console.log('moveLeft');
-
-            var self = this;
-
-            if(this.pointer > 0){
-                this.pointer--;
-                self.moveCarousel(this.dots[this.pointer], this.pointer);
-            }
-        },
-        moveRight: function(){
-            console.log('move right');
-
-            var self = this;
-
-            if(this.pointer < limit){
-                this.pointer++;
-                self.moveCarousel(this.dots[this.pointer], this.pointer);
-            }
-        },
         moveCarousel: function(dots, to){
-            console.log('move');
-
             var x = (to * this.distance) * -1;
 
             for(var i = 0; i < this.dots.length; i++){
-                $('#' + this.dots[i]).removeClass('on');
+                $(this.dots[i]).removeClass('on');
             }
 
-            $('#' + dots).addClass('on');
+            $(dots).addClass('on');
             this.slider.css("-webkit-transform", "translate3d(" + x + "px, " + 0 + "px, " + 0 + "px)");
 
             this.pointer = to;

@@ -10,7 +10,9 @@
   	_.extend(Modal.prototype, Backbone.View.prototype, {
         className: 'mdl',
         modalInitialize: function(options) {
-      	    this.modal();
+      	    var parentEl = this.options.parentEl || '#body';
+            $(parentEl).append(this.render().el);
+            this.modal();
     	},
     	modal: function(){
             var self = this;

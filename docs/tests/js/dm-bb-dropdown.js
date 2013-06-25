@@ -18,8 +18,7 @@ $(function(){
 
   	// View declaration
 
-  	var dropdown = new View({buttons: ['#staticMenuButton'] });
-  	$('#staticPane').append(dropdown.render().el);
+  	var dropdown = new View({parentEl: '#staticPane', buttons: ['#staticMenuButton'] });
 
 });
 
@@ -56,7 +55,6 @@ $(function(){
 
 	// View declaration
 
-	var dropdown = new View({buttons: ['#dynamicMenuButton'], items: items });
-	$('#dynamicPane').append(dropdown.render().el);
+	var dropdown = new View({parentEl: '#dynamicPane', buttons: ['#dynamicMenuButton'], items: items });
 
 });
