@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backbone Menu - Component Test</title>
+    <meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../../css/kb-base.css" />
+    <link rel="stylesheet" href="../../css/kb-header.css" />
+    <link rel="stylesheet" href="../../css/kb-banner.css" />
+    <link rel="stylesheet" href="../../css/kb-table.css" />
+    <link rel="stylesheet" href="../../css/kb-dropdown.css" />
+    <link rel="stylesheet" href="../../css/kb-navigation.css" />
+    <link rel="stylesheet" href="../../css/kb-label.css" />
+    <link rel="stylesheet" href="../../css/kb-button.css" />
+    <link rel="stylesheet" href="../../css/kb-pane.css" />
+    <link rel="stylesheet" href="../../css/kb-modal.css" />
+    <link rel="stylesheet" href="../../css/kb-progress-bar.css" />
+    <link rel="stylesheet" href="../../css/kb-box-slide.css" />
+    <link rel="stylesheet" href="../../css/kb-misc.css" />
+</head>
+
+<body>
+    
+    <div class="con"> 
+        <div class="pane" id="staticPane">
+            <div class="clearfix">
+                <button class="btn mn" id="staticMenuButton">static menu</button>
+            </div>
+        </div>
+
+        <div class="pane" id="dynamicPane">
+            <div class="clearfix">
+                <button class="btn mn" id="dynamicMenuButton">dynamic menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- template -->
+    <script type="text/template" id="staticMenu">
+        <li>item 1</li>
+        <li>item 2</li>
+    </script>
+
+    <script type="text/template" id="dynamicMenu">
+        <li>{{item}}</li>
+    </script>
+
+    <!-- assets -->
+    <script src="assets/jquery-1.9.0.min.js"></script>
+    <script src="assets/underscore-min.js"></script>
+    <script src="assets/handlebars.js"></script>
+    <script src="assets/backbone-min.js"></script>
+    
+    <!-- component -->
+    <script src="../../js/kb-base.js"></script>
+    <script src="../../js/kb-bb-dropdown.js"></script>
+   
+    <!-- demo -->
+    <script src="js/dm-bb-dropdown.js"></script>
+</body>
+</html>

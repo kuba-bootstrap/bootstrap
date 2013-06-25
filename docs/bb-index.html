@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kuba-bootstrap</title>
+    <meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="../css/kb-base.css" />
+    <link rel="stylesheet" href="../css/kb-header.css" />
+    <link rel="stylesheet" href="../css/kb-banner.css" />
+    <link rel="stylesheet" href="../css/kb-table.css" />
+    <link rel="stylesheet" href="../css/kb-navigation.css" />
+    <link rel="stylesheet" href="../css/kb-label.css" />
+    <link rel="stylesheet" href="../css/kb-button.css" />
+    <link rel="stylesheet" href="../css/kb-pane.css" />
+    <link rel="stylesheet" href="../css/kb-modal.css" />
+    <link rel="stylesheet" href="../css/kb-progress-bar.css" />
+    <link rel="stylesheet" href="../css/kb-box-slide.css" />
+    <link rel="stylesheet" href="../css/kb-misc.css" />
+    <link rel="stylesheet" href="../css/kb-footer.css" />
+
+    <link rel="stylesheet" href="assets/css/font-awesome.css" />
+    <link rel="stylesheet" href="assets/css/dm-index.css" />
+</head>
+<body>
+
+    <div class="hdr hdr-top">
+        <div class="dm-logo"></div>
+        <div class="con">
+            <div class="clearfix" id="mainMenu">
+            </div>
+        </div>
+    </div>
+
+    <div class="ban ban-top">
+        <div class="con">
+            <h1>Kuba Bootstrap</h1>
+            <p>Components for mobile devices</p>
+            <button class="btn btn-lg" id="download">Download</button>
+            <p><em>Version 0.0.1</em></p>
+        </div>
+    </div>
+    <div class="ban-sub">
+        <div class="con">
+            <p>Hi there</p>
+        </div>
+    </div>
+
+    <div class="con">
+        <h1 class="txt-ctr txt-top h-tte">Hello there champ!</h1>
+        <p class="txt-ctr p-tte">So you think you want some cool components for mobile web, huh?</p>
+        <hr class="hr" id="getStarted"></hr>
+    </div>
+
+    <div class="con">
+        <h1 class="txt-ctr h-tte">Getting Started</h1>
+        <p class="txt-ctr p-tte">Before we begin this wonderful journey lets take a second to understand what we are looking at.</p>
+        <hr class="hr" id="components"></hr>
+    </div>
+
+    <!-- Side Navigation -->
+    <div class="con">
+        <div class="sp3 sp-fir dm-sp-fir" id="side-nav">
+            <ul class="nav dm-card on" id="nav-page-1">
+                <li>Scaffolding<i class="icon-chevron-right"></i></li>
+                <li>Panes<i class="icon-chevron-right"></i></li>
+                <li>Headings<i class="icon-chevron-right"></i></li>
+                <li>Labels<i class="icon-chevron-right"></i></li>
+                <li>Buttons<i class="icon-chevron-right"></i></li>
+            </ul>
+
+            <ul class="nav dm-card" id="nav-page-2">
+                <li>Modal<i class="icon-chevron-right"></i></li>
+                <li>Toggle<i class="icon-chevron-right"></i></li>
+                <li>Progress bars<i class="icon-chevron-right"></i></li>
+                <li>Box slide<i class="icon-chevron-right"></i></li>
+                <li>Navigation<i class="icon-chevron-right"></i></li>
+            </ul>
+
+            <ul class="nav dm-card" id="nav-page-3">
+                <li>Select platform<i class="icon-chevron-right"></i></li>
+                <li>Select CSS elements<i class="icon-chevron-right"></i></li>
+                <li>Select components<i class="icon-chevron-right"></i></li>
+                <li>Download<i class="icon-chevron-right"></i></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="dm-con">
+        
+        <!-- CSS Elements -->
+        <div class="con-mov" id="page-1">
+            <div class="con">
+                <div class="sp3 sp-fir"></div>
+
+                <div class="sp6">
+                    <h3 id="scaffolding">Scaffolding</h3>
+                    <p>Scaffolding example</p>
+
+                    <div class="span-demo clearfix">
+                        <div class="sp1">
+                            <div class="span-block">1</div>
+                        </div>
+                        <div class="sp1">
+                            <div class="span-block">1</div>
+                        </div>
+                        <div class="sp1">
+                            <div class="span-block">1</div>
+                        </div>
+                        <div class="sp1">
+                            <div class="span-block">1</div>
+                        </div>
+                        <div class="sp1">
+                            <div class="span-block">1</div>
+                        </div>
+                        <div class="sp1">
+                            <div class="span-block">1</div>
+                        </div>
+                        <div class="sp2">
+                            <div class="span-block">2</div>
+                        </div>
+                        <div class="sp4">
+                            <div class="span-block">4</div>
+                        </div>
+                        <div class="sp3">
+                            <div class="span-block">3</div>
+                        </div>
+                        <div class="sp3">
+                            <div class="span-block">3</div>
+                        </div>
+                        <div class="sp6">
+                            <div class="span-block">6</div>
+                        </div>
+                    </div>
+
+                    <hr class="hr" />
+
+                    <h3 id="panes">Panes</h3>
+                    <p>Something to say.</p>
+
+                    <div class="pane">
+                        <h5>Pane</h5>
+                        <p>Here is a standard pane. Implementation class <span class="lbl">pane</span></p>
+                    </div>
+                    <div class="pane-f">
+                        <p>Pane footer. Implementation class <span class="lbl">pane-f</span></p>
+                    </div>
+
+                    <hr class="hr" />
+
+                    <h3 id="headings">Headings</h3>
+                    <p>Here are all available headings from <span class="lbl">h1</span> to <span class="lbl">h6</span>.</p>
+
+                    <table class="tbl tbl-rnd tbl-str">
+                        <thead>
+                            <tr>
+                                <th>Heading</th>
+                                <th>Markup</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><h1>Heading</h1></td>
+                                <td><span class="lbl">h1</span></td>
+                            </tr>
+                            <tr>
+                                <td><h2>Heading</h2></td>
+                                <td><span class="lbl">h2</span></td>
+                            </tr>
+                            <tr>
+                                <td><h3>Heading</h3></td>
+                                <td><span class="lbl">h3</span></td>
+                            </tr>
+                            <tr>
+                                <td><h4>Heading</h4></td>
+                                <td><span class="lbl">h4</span></td>
+                            </tr>
+                            <tr>
+                                <td><h5>Heading</h5></td>
+                                <td><span class="lbl">h5</span></td>
+                            </tr>
+                            <tr>
+                                <td><h6>Heading</h6></td>
+                                <td><span class="lbl">h6</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr class="hr" />
+
+                    <h3 id="labels">Labels</h3>
+                    <p>The easiest way to label areas of interest is to insert a <span class="lbl">lbl</span> into your text.</p>
+
+                    <table class="tbl tbl-rnd tbl-str">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Label</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Default</td>
+                                <td><span class="lbl">lbl</span></td>
+                            </tr>
+                            <tr>
+                                <td>Warning</td>
+                                <td><span class="lbl lbl-w">lbl lbl-w</span></td>
+                            </tr>
+                            <tr>
+                                <td>Danger</td>
+                                <td><span class="lbl lbl-d">lbl lbl-d</span></td>
+                            </tr>
+                            <tr>
+                                <td>Confirm</td>
+                                <td><span class="lbl lbl-s">lbl lbl-s</span></td>
+                            </tr>
+                            <tr>
+                                <td>Info</td>
+                                <td><span class="lbl lbl-b">lbl lbl-b</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr class="hr" />
+
+                    <h3 id="buttons">Buttons</h3>
+                    <p>Buttons are very simple to implement.</p>
+
+                    <table class="tbl tbl-rnd tbl-str">
+                        <thead>
+                            <tr>
+                                <th>Button</th>
+                                <th>class=""</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><button class="btn btn-d btn-lg">Button</button></td>
+                                <td><span class="lbl">btn btn-lg</span></td>
+                                <td>Large button</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-d btn">Button</button></td>
+                                <td><span class="lbl">btn</span></td>
+                                <td>Default button</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-d btn-sm">Button</button></td>
+                                <td><span class="lbl">btn btn-sm</span></td>
+                                <td>Small button</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-d btn-tn">Button</button></td>
+                                <td><span class="lbl">btn btn-tn</span></td>
+                                <td>Tiny button</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr class="hr" />
+
+                    <p>Here are some predefined button types that can be used around your application.</p>
+
+                    <table class="tbl tbl-rnd tbl-str">
+                        <thead>
+                            <tr>
+                                <th>Button</th>
+                                <th>class=""</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><button class="btn">Default</button></td>
+                                <td><span class="lbl">btn</span></td>
+                                <td>This is the default button</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-w">Warning</button></td>
+                                <td><span class="lbl">btn btn-w</span></td>
+                                <td>This button is for actions such as removing and deleting</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-d">Danger</button></td>
+                                <td><span class="lbl">btn btn-d</span></td>
+                                <td>This button is for important notification confirmations</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-s">Save</button></td>
+                                <td><span class="lbl">btn btn-s</span></td>
+                                <td>This button is for saving or updating information</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-b">Next</button></td>
+                                <td><span class="lbl">btn btn-b</span></td>
+                                <td>This button is for completing multiple step forms</td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-l">Link</button></td>
+                                <td><span class="lbl">btn btn-l</span> <span class="lbl">a</span></td>
+                                <td>This button is for linking to other categories</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="tbl tbl-rnd tbl-str">
+                        <thead>
+                            <tr>
+                                <th>Button</th>
+                                <th>class=""</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><button class="btn btn-g-f">Gray Flat</button></td>
+                                <td><span class="lbl">btn btn-g-f</span></td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-w-f">Warning Flat</button></td>
+                                <td><span class="lbl">btn btn-w-f</span></td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-d-f">Danger Flat</button></td>
+                                <td><span class="lbl">btn btn-d-f</span></td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-s-f">Save Flat</button></td>
+                                <td><span class="lbl">btn btn-s-f</span></td>
+                            </tr>
+                            <tr>
+                                <td><button class="btn btn-b-f">Next Flat</button></td>
+                                <td><span class="lbl">btn btn-b-f</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr class="hr" />
+
+                    <p>Here are some examples of buttons in groups. </p>
+
+                    <table class="tbl tbl-rnd">
+                        <thead>
+                            <tr>
+                                <th>Button</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-d btn-lef">Left</button>
+                                    <button class="btn btn-d btn-mid">Middle</button>
+                                    <button class="btn btn-d btn-rig">Right</button>
+                                </td>
+                                <td>Button group for navigation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Components -->
+        <div class="con-mov" id="page-2">
+            <div class="con">
+                <div class="sp3 sp-fir"></div>
+
+                <div class="sp6">
+
+                    <h3 id="modal">Modal</h3>
+                    <p>The generic modal has 2 basic options. First displays a 'close' button in the header
+                        portions on the modal - by enabling <span class="lbl">close: true</span> in the extension (it will also automatically default to true).</p>
+
+                    <div class="pane">
+                        <button class="btn" id="openModal">Modal!</button>
+                        <div class="mdl" id="sampleModal">
+                            <div class="mdl-hrd"><h3>Hello there!</h3></div>
+                            <div class="mdl-con">Some content here, yay!</div>
+                        </div>
+                    </div>
+
+                    <p>or setting the option to false <span class="lbl">close: false</span>, to allow for your own modal closing procedure</p>
+
+                    <div class="pane">
+                        <button class="btn" id="openModal2">Modal Width Options</button>
+                        <div class="mdl" id="sampleModal2">
+                            <div class="mdl-hrd"><h3>Hello there!</h3></div>
+                            <div class="mdl-con">Some content here, yay!</div>
+                            <div class="mdl-ftr">
+                                <button class="btn" id="sampleCloseModal">Close</button>
+                                <button class="btn btn-b">Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="hr" />
+
+                    <h3 id="toggle">Toggle</h3>
+                    <p>The following toggle button works!</p>
+
+                    <div class="pane">
+                        <button class="tog"><div></div>off</button>
+                        <button class="tog"><div></div>off</button>
+                    </div>
+
+                    <table class="tbl tbl-rnd">
+                        <thead>
+                            <tr>
+                                <th>Button</th>
+                                <th>class=""</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><button class="tog tog-lg"><div></div>off</button></td>
+                                <td><span class="lbl">tog tog-lg</span></td>
+                            </tr>
+                            <tr>
+                                <td><button class="tog"><div></div>off</button></td>
+                                <td><span class="lbl">tog</span></td>
+                            </tr>
+                            <tr>
+                                <td><button class="tog tog-sm"><div></div>off</button></td>
+                                <td><span class="lbl">tog tog-sm</span></td>
+                            </tr>
+                            <tr>
+                                <td><button class="tog tog-tn"><div></div>off</button></td>
+                                <td><span class="lbl">tog tog-tn</span></td>
+                            </tr>
+                        <tbody>
+                    </table>
+
+                    <hr class="hr" />
+
+                    <h2 id="progressBar">Prograss bar</h2>
+                    <p>Here are some examples of the progress bar implemented.</p>
+                
+                    <button class="btn btn-blk" id="moveProgressBar">Move Progress Bar</button>
+
+                    <div class="prg">
+                        <div style="width:70%;" id="progressBar1"></div>
+                    </div>   
+                    <div class="prg prg-w">
+                        <div style="width:40%;" id="progressBar2"></div>
+                    </div> 
+                    <div class="prg prg-s">
+                        <div style="width:90%;" id="progressBar3"></div>
+                    </div>
+
+                    <hr class="hr" />
+
+                    <h2 id="boxSlide">Box slide</h2>
+                    <p>This component allows you to swipe/advance across multiple panes.</p>
+
+                    <div class="pane box-con" id="box">
+                        <div class="box fx" id="box_1">1</div>
+                        <div class="box fx" id="box_2">2</div>
+                        <div class="box fx" id="box_3">3</div>
+                        <div class="box fx" id="box_4">4</div>
+
+                        <div class="box-nav">
+                            <a class="btn btn-lef" id="prev">Previous</a>
+                            <a class="btn btn-rig" id="next">Next</a>
+                        </div>
+                    </div>
+
+                    <hr class="hr" />
+
+                    <h2 id="navigation">Navigation</h2>
+                    <p>Something navigation</p> 
+
+                    <div class="pane">
+                        <div class="clearfix" id="menu"></div>
+                    </div>
+                    <div class="pane">
+                        <div class="clearfix" id="mainMenu">
+                            <div class="mn"><button class="btn btn-lef">One</button><ul class="dd"><li>1</li><li>2</li></ul></div>
+                            <div class="mn"><button class="btn btn-mid">Two</button><ul class="dd"><li>3</li><li>4</li></ul></div>
+                            <div class="mn"><button class="btn btn-rig">Three</button><ul class="dd"><li>6</li><li>6</li></ul></div>
+                        </div>
+                    </div>
+
+                    <hr class="hr" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Customize -->
+        <div class="con-mov" id="page-3">
+            <div class="con">
+                <div class="sp3 sp-fir"></div>
+
+                <div class="sp6">
+                    <h3 id="selectPlatform">1. Select platform</h3>
+                    <p>
+                        Choose the supporting platform you will use in your project. This will generate 
+                        the most optimized version of component libraries for that platform.
+                    </p>
+                    <hr class="hr" />
+                    
+                    <div class="span-demo clearfix">
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                            <p>Backbone</p>
+                        </div>
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                    </div>
+
+                    <hr class="hr" />
+
+                    <h3 id="selectCSS">2. Select CSS elements</h3>
+                    <p>
+                        Select the base CSS elements you want to use in your project. All style attributes 
+                        can be further adjusted by your stylesheet.
+                    </p>
+                    <hr class="hr" />
+
+                    <div class="span-demo clearfix">
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                    </div>
+                    
+                    <hr class="hr" />
+
+                    <h3 id="selectComponents">3. Select components</h3>
+                    <p>Choose component you want to use.</p>
+                    <hr class="hr" />
+                    
+                    <div class="span-demo clearfix">
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                        <div class="sp2">
+                            <button class="tog tog-sm"><div></div>off</button>
+                        </div>
+                    </div>
+
+                    <hr class="hr" />
+
+                    <h3 id="download">4. Download</h3>
+                    <button class="btn btn-blk btn-lg btn-s">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <footer class="fot">Kuba Bootstrap</footer> -->
+
+    <script src="assets/js/jquery-1.9.0.min.js"></script>
+    <script src="../js/kb-swipe.js"></script>
+    <script src="../js/kb-box-slide.js"></script>
+    <script src="../js/kb-base.js"></script>
+    <script src="../js/kb-button.js"></script>
+    <script src="../js/kb-menu.js"></script>
+    <script src="../js/kb-modal.js"></script>
+    <script src="../js/kb-transition.js"></script>
+    <script src="../js/kb-navigation.js"></script> 
+
+    <script src="assets/js/dm-index.js"></script>
+    <script src="assets/js/dm-scroll.js"></script>
+</body>
+</html>

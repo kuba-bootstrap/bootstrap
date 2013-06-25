@@ -133,7 +133,7 @@
 				data.lock = true;
 			}
 
-			return true;
+			return this;
 		},
 		addEaseBoxDouble: function(box){
 			var data = this.data(),
