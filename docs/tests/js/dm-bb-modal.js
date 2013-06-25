@@ -4,22 +4,23 @@
 
 $(function(){
 
-	var View = Modal.extend({
-		template: Handlebars.compile($('#modal').html()),
-    	initialize: function(options) {
-      		console.log('regular initialize');
-    	},
-    	render: function() {
-      		this.$el.addClass('mdl').html(this.template(this));
+    var View = Modal.extend({
+	      template: Handlebars.compile($('#modal').html()),
+    	  initialize: function(options) {
+      	    console.log('initialize');
+    	  },
+    	  render: function() {
+      	    this.$el.html(this.template(this));
       		
-      		return this;
-    	}
-	});
+            console.log('render');
 
-	// View declaration
+      		  return this;
+    	  }
+    });
 
-	var modal = new View({button: '#modalButton'});
+    // View declaration
 
-  	$('#pane').append(modal.render().el);
+	  var modal = new View({button: '#modalButton'});
+    $('#pane').append(modal.render().el);
 
 });

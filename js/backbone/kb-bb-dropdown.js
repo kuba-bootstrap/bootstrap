@@ -8,6 +8,8 @@
   	Dropdown.extend = Backbone.View.extend;
 
   	_.extend(Dropdown.prototype, Backbone.View.prototype, {
+        tagName: 'ul',
+        className: 'dd',
         dropdownInitialize: function(options) {
       		  this.dropdown();
       		  if(this.model){

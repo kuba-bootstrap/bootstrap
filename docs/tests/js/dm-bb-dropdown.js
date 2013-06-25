@@ -5,13 +5,12 @@
 $(function(){
 
 	var View = Dropdown.extend({
-    	tagName: 'ul',
     	template: Handlebars.compile($('#staticMenu').html()),
     	initialize: function(options) {
-      		console.log('regular initialize');
+      		console.log('initialize');
     	},
     	render: function() {
-      		this.$el.addClass('dd').html(this.template(this));
+      		this.$el.html(this.template(this));
       		
       		return this;
     	}
@@ -20,7 +19,6 @@ $(function(){
   	// View declaration
 
   	var dropdown = new View({buttons: ['#staticMenuButton'] });
-
   	$('#staticPane').append(dropdown.render().el);
 
 });
@@ -32,13 +30,10 @@ $(function(){
 $(function(){
 
 	var View = Dropdown.extend({
-		tagName: 'ul',
 		initialize: function(options){
-
+			console.log('initialize');
 		},
 		render: function(){
-			this.$el.addClass('dd');
-
 			return this;
 		}
 	});
@@ -47,7 +42,6 @@ $(function(){
 
 	var model = Backbone.Model.extend({
 		item: '',
-
 	});
 
 	var item_1 = new model({item: 'item 1'}),
@@ -63,7 +57,6 @@ $(function(){
 	// View declaration
 
 	var dropdown = new View({buttons: ['#dynamicMenuButton'], items: items });
-
 	$('#dynamicPane').append(dropdown.render().el);
 
 });

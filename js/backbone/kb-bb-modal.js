@@ -2,50 +2,51 @@
     
     var Modal = function(options) {
         Backbone.View.call(this, options);
-    	  this.modalInitialize(options);
+    	this.modalInitialize(options);
   	};
 
   	Modal.extend = Backbone.View.extend;
 
   	_.extend(Modal.prototype, Backbone.View.prototype, {
+        className: 'mdl',
         modalInitialize: function(options) {
       	    this.modal();
-    	  },
-    	  modal: function(){
+    	},
+    	modal: function(){
             var self = this;
+
+            if(!this.options.closeButton){
+                this.cl = 'icon-remove';
+            }
 
             $(this.options.button).on(upEvent, function(){
                 self.openModal();
             });
-    	  },
+    	},
         openModal: function(){
-            var cl = '',
-                close = $('<button class="mdl-cls' + cl + '" id="closeModal"></button>');
+            var self = this,
+                cl = '',
+                close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal"></button>');
 
-            // if modal background doesn't exist add one
             if($('#modalBack').length == 0){
                 $('body').append('<div class="mdl-bck" id="modalBack"></div>');
             }
 
-            this.$el.append(close);
-      
+            if($('#closeModal').length == 0){
+                this.$el.append(close);
+            }
+
             $('#modalBack').show();
             this.$el.show();
 
             close.on(upEvent, function(){
                 self.closeModal();
-                if(onCloseCallback) onCloseCallback();
             });
         },
-    	  closeModal: function(){
-    		    this.$el.hide();
+    	closeModal: function(){
+    		this.$el.hide();
             $('#modalBack').hide();
-            $('#closeModal').remove();
-            this.$el.remove();
-
-            // if(dispose) data.dispose = dispose;
-            // if(data.dispose && data.dispose != 'off') data.dispose();
-    	  }
+    	}
   	});
 
   	window.Modal = Modal;
