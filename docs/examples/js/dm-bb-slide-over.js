@@ -18,6 +18,6 @@ $(function(){
 
   	// View declaration
 
-  	var slideOver = new View({parentEl: '#pane', button: '#pageButton', offset: 80, direction: 'left'});
+  	var slideOver = new View({parentEl: '#container', slideEl: '#topPage', button: '#pageButton', offset: 80, direction: 'left'});
 
 });

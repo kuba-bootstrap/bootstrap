@@ -25,15 +25,16 @@
 
 <body>
     
-    <div class="con"> 
-        <div class="pane" id="pane">
-            <button class="btn" id="pageButton">modal</button>
-        </div>
-    </div>
+    <div id="container"></div>
 
     <!-- template -->
     <script type="text/template" id="page">
-        <div class="pane">hi</div>
+        <div class="page dark">
+            <p>This is the lower layer</p>
+        </div>
+        <div class="page fx" id="topPage">
+            <button class="btn" id="pageButton">reveal</button>
+        </div>
     </script>
 
     <!-- assets -->
