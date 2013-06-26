@@ -11,8 +11,8 @@
         tagName: 'ul',
         className: 'dd',
         dropdownInitialize: function(options) {
-      		  var parentEl = this.options.parentEl || '#body';
-            $(parentEl).append(this.render().el);
+      		  this.parentEl = this.options.parentEl || '#body';
+            $(this.parentEl).append(this.render().el);
             this.dropdown();
       		  if(this.model){
       			    this.model.on('change', this.dropdown, this);
@@ -22,7 +22,9 @@
     		    if(this.options.items){
     			      this.options.items.forEach(this.loadItems, this);
     		    }
-    		    this.options.buttons.forEach(this.registerButton, this);
+            if(this.options.buttons){
+    		        this.options.buttons.forEach(this.registerButton, this);
+            }
     	  },
     	  loadItems: function(item){
     		    this.$el.append('<li>' + item.attributes.item + '</li>');

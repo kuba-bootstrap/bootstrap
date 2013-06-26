@@ -1,10 +1,10 @@
 /*
- * -- Example - static
+ * - Example - static
  */
 
 $(function(){
 
-	var View = Slider.extend({
+	var View = Transition.extend({
     	template: Handlebars.compile($('#staticMenu').html()),
     	initialize: function(options) {
       		console.log('initialize');
@@ -18,6 +18,6 @@ $(function(){
 
   	// View declaration
 
-  	var slider = new View({parentEl: '#staticPane', tiles [], });
+  	var transition = new View({parentEl: '#staticPane', buttons: ['#staticMenuButton'] });
 
 });

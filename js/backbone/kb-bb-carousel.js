@@ -10,8 +10,8 @@
   	_.extend(Carousel.prototype, Backbone.View.prototype, {
         className: 'cr',
         carouselInitialize: function(options) {
-            var parentEl = this.options.parentEl || '#body';
-      	    $(parentEl).append(this.render().el);
+            this.parentEl = this.options.parentEl || '#body';
+      	    $(this.parentEl).append(this.render().el);
             this.carousel();
     	},
     	carousel: function(){
@@ -33,7 +33,7 @@
                 $(this.dots[i]).on(upEvent, generateCallback(i));
             }
 
-            if(this.options.swipe) this.registerSwipe();
+            if(this.options.swipe == true) this.registerSwipe();
 
     	},
         registerSwipe: function(){
