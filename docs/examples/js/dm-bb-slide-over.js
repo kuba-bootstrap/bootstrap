@@ -4,8 +4,8 @@
 
 $(function(){
 
-	var View = Slider.extend({
-    	template: Handlebars.compile($('#staticMenu').html()),
+	var View = SlideOver.extend({
+    	template: Handlebars.compile($('#page').html()),
     	initialize: function(options) {
       		console.log('initialize');
     	},
@@ -18,6 +18,6 @@ $(function(){
 
   	// View declaration
 
-  	var slider = new View({parentEl: '#staticPane', buttons: ['#staticMenuButton'] });
+  	var slideOver = new View({parentEl: '#pane', button: '#pageButton', offset: 80, direction: 'left'});
 
 });

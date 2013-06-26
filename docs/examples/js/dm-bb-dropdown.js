@@ -40,7 +40,7 @@ $(function(){
 	// Model mockup
 
 	var model = Backbone.Model.extend({
-		item: '',
+		item: ''
 	});
 
 	var item_1 = new model({item: 'item 1'}),
