@@ -18,7 +18,7 @@ $(function(){
 
   	// View declaration
 
-  	var dropdown = new View({parentEl: '#staticPane', buttons: ['#staticMenuButton'] });
+  	var dropdown = new View({parentEl: '#staticPane', buttons: ['#staticMenuButton', '.icon-remove'] });
 
 });
 

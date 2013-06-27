@@ -37,19 +37,22 @@
             }
     	  },
     	  registerButton: function(item){
-
     		    var self = this;
 
-    		    $(item).on(upEvent, function(){
+    		    $(item).on(upEvent, function(e){
+                e.stopPropagation();
+
+                var className = $(this).attr('class');
+
     			      $('.dd').removeClass('on');
     			      self.$el.addClass('on');
 
-    			      $(window).on(upEvent, function(e){
-					          if(e.target.nodeName != 'BUTTON'){
-						            $(this).off(upEvent);
-						            self.$el.removeClass('on');
-					          }
-				        });
+                $(window).on(upEvent, function(e){
+                    if(e.target.className != className){
+                        $(this).off(upEvent);
+                        self.$el.removeClass('on');
+                    }
+                });
     		    });
     	  }
   	});
