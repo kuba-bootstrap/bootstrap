@@ -27,7 +27,9 @@
             }
     	  },
     	  loadItems: function(item){
-            if(this.options.itemTemplate){
+            if(this.options.itemView){
+                this.$el.append(new this.options.itemView({item: item}).render().el);
+            } else if(this.options.itemTemplate){
                 var template = Handlebars.compile($(this.options.itemTemplate).html())       
                 this.$el.append(template(item.toJSON()));
             } else {

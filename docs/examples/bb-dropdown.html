@@ -26,23 +26,39 @@
 <body>
     
     <div class="con"> 
+        
+        <!-- static template -->
         <div class="pane" id="staticPane">
             <div class="clearfix">
-                <button class="btn mn" id="staticMenuButton">static menu</button>
+                <button class="btn btn-b mn" id="staticMenuButton">static menu</button>
             </div>
         </div>
+        <div class="pane-f">I have a static menu and I dont want to build anything custom to drive the dropdown.</div>
 
+        <!-- dynamic items/static template -->
         <div class="pane" id="dynamicPane">
             <div class="clearfix">
-                <button class="btn mn" id="dynamicMenuButton">dynamic menu</button>
+                <button class="btn btn-b mn" id="dynamicMenuButton">dynamic menu</button>
             </div>
         </div>
+        <div class="pane-f">I have a simple drop down structure but my items might change based on the model.</div>
 
+        <!-- dynamic items/dynamic template -->
         <div class="pane" id="dynamicTemplatePane">
             <div class="clearfix">
-                <button class="btn mn" id="dynamicTemplateMenuButton">dynamic template menu</button>
+                <button class="btn btn-b mn" id="dynamicTemplateMenuButton">dynamic template menu</button>
             </div>
         </div>
+        <div class="pane-f">I want a cool template to decorate my items with to different pieces of information.</div>
+
+        <!-- dynamic items/sub view for items -->
+        <div class="pane" id="subViewPane">
+            <div class="clearfix">
+                <button class="btn btn-b mn" id="subViewMenuButton">sub view menu</button>
+            </div>
+        </div>
+        <div class="pane-f">I want it all! I want my items to be actionable and cool looking.</div>
+
     </div>
 
     <!-- template -->
@@ -53,6 +69,10 @@
 
     <script type="text/template" id="dynamicMenu">
         <li><h3>{{name}}</h3>{{text}}</li>
+    </script>
+
+    <script type="text/template" id="dynamicMenuWithActions">
+        <li><h3>{{name}}</h3><button class="btn" id="{{click}}">{{click}}</button></li>
     </script>
 
     <!-- assets -->
