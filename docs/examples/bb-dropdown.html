@@ -37,6 +37,12 @@
                 <button class="btn mn" id="dynamicMenuButton">dynamic menu</button>
             </div>
         </div>
+
+        <div class="pane" id="dynamicTemplatePane">
+            <div class="clearfix">
+                <button class="btn mn" id="dynamicTemplateMenuButton">dynamic template menu</button>
+            </div>
+        </div>
     </div>
 
     <!-- template -->
@@ -46,7 +52,7 @@
     </script>
 
     <script type="text/template" id="dynamicMenu">
-        <li>{{item}}</li>
+        <li><h3>{{name}}</h3>{{text}}</li>
     </script>
 
     <!-- assets -->

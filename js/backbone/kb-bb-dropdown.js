@@ -27,7 +27,12 @@
             }
     	  },
     	  loadItems: function(item){
-    		    this.$el.append('<li>' + item.attributes.item + '</li>');
+            if(this.options.itemTemplate){
+                var template = Handlebars.compile($(this.options.itemTemplate).html())       
+                this.$el.append(template(item.toJSON()));
+            } else {
+    		        this.$el.append('<li>' + item.attributes.item + '</li>');
+            }
     	  },
     	  registerButton: function(item){
 
