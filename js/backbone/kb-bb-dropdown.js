@@ -14,8 +14,8 @@
       		  this.parentEl = this.options.parentEl || '#body';
             $(this.parentEl).append(this.render().el);
             this.dropdown();
-      		  if(this.model){
-      			    this.model.on('change', this.dropdown, this);
+      		  if(this.options.items){
+      			    this.options.items.on('change', this.dropdown, this);
       		  }
     	  },
     	  dropdown: function(){
