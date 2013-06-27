@@ -46,8 +46,6 @@ $(function(){
 		ok(c.pointer == 0, 'carousel pointer');
 		ok(c.slider[0] == undefined, 'carousel slider');
 
-		console.log(c);
-
 	});
 
 });
