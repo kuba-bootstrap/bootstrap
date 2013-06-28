@@ -34,4 +34,5 @@
 
 .mn.on > ul { display:block; }
 .dd-on > ul { display:block; }
-.dd.on { /*margin-top:32px;*/ display:block; }
+.dd.on { display:block; }
+.dd.on:empty { display:none; }
