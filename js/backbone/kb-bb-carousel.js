@@ -10,7 +10,7 @@
   	_.extend(Carousel.prototype, Backbone.View.prototype, {
         className: 'cr',
         carouselInitialize: function(options) {
-            this.parentEl = this.options.parentEl || '#body';
+            this.parentEl = this.options.parentEl || 'body';
       	    $(this.parentEl).append(this.render().el);
             this.carousel();
     	},

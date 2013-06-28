@@ -11,7 +11,7 @@
         tagName: 'ul',
         className: 'dd',
         dropdownInitialize: function(options) {
-      		  this.parentEl = this.options.parentEl || '#body';
+      		  this.parentEl = this.options.parentEl || 'body';
             $(this.parentEl).append(this.render().el);
             this.dropdown();
       		  if(this.options.items){

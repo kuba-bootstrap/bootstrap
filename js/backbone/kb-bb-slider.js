@@ -9,7 +9,7 @@
 
     _.extend(Slider.prototype, Backbone.View.prototype, {
         sliderInitialize: function(options) {
-            this.parentEl = this.options.parentEl || '#body';
+            this.parentEl = this.options.parentEl || 'body';
             $(this.parentEl).append(this.render().el);
             this.slider();
         },

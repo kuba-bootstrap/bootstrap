@@ -9,7 +9,7 @@
 
     _.extend(Transition.prototype, Backbone.View.prototype, {
         transitionInitialize: function(options) {
-            this.parentEl = this.options.parentEl || '#body';
+            this.parentEl = this.options.parentEl || 'body';
             $(this.parentEl).append(this.render().el);
             this.transition();
         },

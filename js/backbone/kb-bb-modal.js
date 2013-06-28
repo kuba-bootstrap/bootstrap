@@ -10,9 +10,13 @@
   	_.extend(Modal.prototype, Backbone.View.prototype, {
         className: 'mdl',
         modalInitialize: function(options) {
-      	    this.parentEl = this.options.parentEl || '#body';
+      	    this.parentEl = this.options.parentEl || 'body';
             $(this.parentEl).append(this.render().el);
             this.modal();
+
+            if(this.options.open){
+                this.openModal();
+            }
     	},
     	modal: function(){
             var self = this;
@@ -34,9 +38,7 @@
                 $('body').append('<div class="mdl-bck" id="modalBack"></div>');
             }
 
-            if($('#closeModal').length == 0){
-                this.$el.append(close);
-            }
+            this.$el.append(close);
 
             $('#modalBack').show();
             this.$el.show();
@@ -48,6 +50,7 @@
     	closeModal: function(){
     		this.$el.hide();
             $('#modalBack').hide();
+
     	}
   	});
 

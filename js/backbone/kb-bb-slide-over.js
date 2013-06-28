@@ -9,7 +9,7 @@
 
   	_.extend(SlideOver.prototype, Backbone.View.prototype, {
         slideOverInitialize: function(options) {
-      	    this.parentEl = this.options.parentEl || '#body';
+      	    this.parentEl = this.options.parentEl || 'body';
             $(this.parentEl).append(this.render().el);
             this.slideOver();
     	  },
