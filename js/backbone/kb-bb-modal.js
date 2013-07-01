@@ -31,7 +31,6 @@
     	},
         openModal: function(){
             var self = this,
-                cl = '',
                 close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal"></button>');
 
             if($('#modalBack').length == 0){
