@@ -51,6 +51,8 @@
     		this.$el.hide();
             $('#modalBack').hide();
 
+            if(this.dispose) this.dispose();
+
     	}
   	});
 
