@@ -1,9 +1,13 @@
-(function(){
+(function() {
 
-	var Transition = function(options) {
+    var Transition = function(options) {
         Backbone.View.call(this, options);
         this.transitionInitialize(options);
     };
+
+    var root = this;
+    root.kb = root.kb || {};
+    root.kb.Transition = Transition;
 
     Transition.extend = Backbone.View.extend;
 
@@ -18,10 +22,10 @@
 
         },
         moveTransition: function(){
-        	
+            
         }
-  	});
+    });
 
-  	window.Transition = Transition;	
+    window.Transition = Transition;
 
-})();
+}).call(this);
