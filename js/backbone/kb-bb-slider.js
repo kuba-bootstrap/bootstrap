@@ -41,8 +41,8 @@
             // TODO This will overwrite any existing className, don't do this!
             this.view.prototype.className = 'ease-box-double';
 
-            // _boxes is the rendered view objects from the model
-            this._boxes = [];
+            // Save the rendered view objects from each model
+            this._views = [];
 
             // Default to a single row
             this._single = _.isBoolean(o.single) ? o.single : true;
@@ -62,6 +62,10 @@
             // Combine into one function
             this.positionItems();
             this.bindEvents();
+
+            // Listen for 'add' and 'reset' events in the collection
+            this.listenTo(this.collection, 'add', this.addItem);
+            this.listenTo(this.collection, 'reset', this.resetItems);
         },
         sliderTemplate: '<div class="con-slide-d" style="position:relative"></div>',
         render: function() {
@@ -70,23 +74,35 @@
             this.$scrollSurface = this.$('.con-slide-d');
             return this;
         },
+        // TODO Combine functionality with resetItems / positionItems
+        addItem: function(item) {
+            var view = new this.view({model: item});
+            this._views.push(view);
+            this.$scrollSurface.append(view.render().el);
+
+            // TODO A better way to find index?
+            var index = this.collection.indexOf(item);
+            this.calculatePosition(view.$el, index);
+        },
         resetItems: function() {
             // Reset existing items
-            this.$scrollSurface.html();
-            this._boxes = [];
+            this.$scrollSurface.html('');
+            this._views = [];
+            this._rightLimit = 0;
 
             // Render all elements with the given view
-            _.each(this.collection.models, function(m, index) {
+            _.each(this.collection.models, function(m) {
                 var view = new this.view({model: m});
                 // TODO better way to tie a model and its view together?
-                this._boxes.push(view);
+                this._views.push(view);
                 this.$scrollSurface.append(view.render().el);
             }, this);
 
             // Determine the width and height of a box
-            if (this._boxes.length) {
-                this._width = this._boxes[0].$el.outerWidth();
-                this._height = this._boxes[0].$el.outerHeight();
+            // Items must be the same size!
+            if (this._views.length) {
+                this._width = this._views[0].$el.outerWidth();
+                this._height = this._views[0].$el.outerHeight();
             }
 
             // TODO Combine functionality
@@ -96,12 +112,12 @@
             // Reset variables
             this._columns = 0;
 
-            // The _boxes array is populated by the resetItems function
+            // The _views array is populated by the resetItems function
             var len = this.collection.length;
             if (len) {
                 this._pointerX = 0;
                 this._pointerY = 1;
-                _.each(this._boxes, function(view, index) {
+                _.each(this._views, function(view, index) {
                     this.calculatePosition(view.$el, index);
                 }, this);
             }
