@@ -1,31 +1,23 @@
 (function() {
 
     var Transition = function(options) {
-        Backbone.View.call(this, options);
-        this.transitionInitialize(options);
+        console.log('transition constructor function!')
+        // Create the registry
+
     };
 
     var root = this;
     root.kb = root.kb || {};
     root.kb.Transition = Transition;
 
-    Transition.extend = Backbone.View.extend;
+    // TODO Extend?
 
-    _.extend(Transition.prototype, Backbone.View.prototype, {
-        transitionInitialize: function(options) {
-            this.parentEl = this.options.parentEl || 'body';
-            $(this.parentEl).append(this.render().el);
-            this.transition();
-        },
-        transition: function(){
-            var self = this;
+    _.extend(Transition.prototype, Backbone.Events, {
 
-        },
-        moveTransition: function(){
-            
-        }
     });
 
+    // TODO Temporarily place the Transition on the root namespace
+    // In the future, only the kb namespace will work
     window.Transition = Transition;
 
 }).call(this);

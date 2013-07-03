@@ -156,7 +156,7 @@
                     boxPos = deltaX + self._scrollSurfacePos;
 
                     // TODO A more common CSS style
-                    self.$scrollSurface.css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
+                    self.$scrollSurface.removeClass('fx').css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
 
                     // TODO This seems overly complicated
                     self._scrollSurfacePos = boxPos;
@@ -164,20 +164,30 @@
                 });
             // TODO Should also be called when mouse leaves frame
             }).on(upEvent, function(e) {
-                boxPos = (deltaX * self._force) + self._scrollSurfacePos;
-
-                var viewport = self._rightLimit - $(window).width();
-                // If the viewport is to the left of the boxes, return the
-                // left edge of the viewport to the start of the boxes.
-                if (boxPos > 0) {
-                    boxPos = 0;
-                // If the viewport is to the right of the boxes, return the
-                // right edge of the viewport to the end of the boxes.
-                } else if (boxPos < -viewport) {
-                    boxPos = -viewport;
+                // TODO Hard-coded threshold for movement
+                // Only move if deltaX is > 4
+                if (Math.abs(deltaX) > 3) {
+                    boxPos = (deltaX * self._force) + self._scrollSurfacePos;
                 }
 
-                self.$scrollSurface.css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
+                var viewport = self.$el.width();
+                // If the content is smaller than the width of the viewport,
+                // anchor the content to the left of the viewport
+                if (viewport > self._rightLimit) {
+                    boxPos = 0;
+                } else {
+                    var overflowWidth = self._rightLimit - viewport;
+                    // If the viewport is to the left of the boxes, return the
+                    // left edge of the viewport to the start of the boxes
+                    if (boxPos > 0) {
+                        boxPos = 0;
+                    // If the viewport is to the right of the boxes, return
+                    // the right edge of the viewport to the end of the boxes
+                    } else if (boxPos < -overflowWidth) {
+                        boxPos = -overflowWidth;
+                    }
+                }
+                self.$scrollSurface.addClass('fx').css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
                 self._scrollSurfacePos = boxPos;
 
                 // TODO Should be reset on mouse/touch down, not up?
