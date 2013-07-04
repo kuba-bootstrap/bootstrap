@@ -1,36 +1,10 @@
-/*
- * - Example - static
- */
+$(function() {
+    var set_1 = new kb.Transition({
+        pages: ['page_1', 'page_2', 'page_3', 'page_4'],
+    });
 
-$(function(){
-
-
-  var trans = new Transition({
-    speed: 100,
-    pages: [],
-  });
-
-
-  trans.register(...pages)
-
-  trans.slideTo()
-
-
-
-	var View = Transition.extend({
-    	template: Handlebars.compile($('#staticMenu').html()),
-    	initialize: function(options) {
-      		console.log('initialize');
-    	},
-    	render: function() {
-      		this.$el.html(this.template(this));
-      		
-      		return this;
-    	}
-  	});
-
-  	// View declaration
-
-  	var transition = new View({parentEl: '#staticPane', buttons: ['#staticMenuButton'] });
-
+    $('.page-slider').on('click', function(e) {
+        var dest = $(e.target).attr('data-dest');
+        set_1.slideTo(dest);
+    });
 });

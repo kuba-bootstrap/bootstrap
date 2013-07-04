@@ -25,24 +25,72 @@
 
 <body>
     
-    <div class="con"> 
-        <div class="pane" id="pane">
-            <button class="btn" id="modalButton">modal</button>
-        </div>
-        <div class="pane" id="paneOptions">
-            <button class="btn" id="modalOptionsButton">modal</button>
+    
+    <div class="hdr hdr-top">
+        <div class="con">
+            <div class="clearfix" id="mainMenu">
+            </div>
         </div>
     </div>
 
-    <!-- template -->
-    <script type="text/template" id="modal">
-        <div class="mdl-hrd">
-            <h4>Sample Modal</h4>
+    <div class="ban ban-top">
+        <div class="con">
+            <h1>Kuba-bootstrap</h1>
+            <p>Components for mobile devices</p>
+            <button class="btn btn-lg" id="download">Download</button>
+            <p><em>Version 0.0.1</em></p>
         </div>
-        <div class="mdl-con">
-            <p>Generated from static template</p>
+    </div>
+    <div class="ban-sub">
+        <div class="con">
+            <p>Hi there</p>
         </div>
-    </script>
+    </div>
+
+    <div class="con-mov" id="page_1">
+        <div class="con">
+            <h2>Page 1</h2>
+            <p>Description</p>
+
+            <div class="pane">
+                <button class="btn page-slider" data-dest="page_3">Slide to page 3</button>
+                <button class="btn page-slider" data-dest="page_4">Slide to page 4</button>
+            </div>  
+        </div>
+    </div>
+    <div class="con-mov b-yellow" id="page_2">
+        <div class="con">
+            <h2>Page 2</h2>
+            <p>Description</p>
+
+            <div class="pane">
+                <button class="btn page-slider" data-dest="page_4">Slide to page 4</button>
+                <button class="btn page-slider" data-dest="page_1">Slide to page 1</button>
+            </div> 
+        </div>
+    </div>
+    <div class="con-mov b-green" id="page_3">
+        <div class="con">
+            <h2>Page 3</h2>
+            <p>Description</p>
+
+            <div class="pane">
+                <button class="btn page-slider" data-dest="page_4">Slide to page 4</button>
+                <button class="btn page-slider" data-dest="page_2">Slide to page 2</button>
+            </div>  
+        </div>
+    </div>
+    <div class="con-mov b-blue" id="page_4">
+        <div class="con">
+            <h2>Page 4</h2>
+            <p>Description</p>
+
+            <div class="pane">
+                <button class="btn page-slider" data-dest="page_1">Slide to page 1</button>
+                <button class="btn page-slider" data-dest="page_3">Slide to page 3</button>
+            </div>  
+        </div>
+    </div>
 
     <!-- assets -->
     <script src="assets/js/jquery-1.9.0.min.js"></script>
