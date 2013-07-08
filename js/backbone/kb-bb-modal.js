@@ -5,6 +5,11 @@
     	this.modalInitialize(options);
   	};
 
+    // Attach Modal to the window, but through the namespace 'kb'
+    var root = this;
+    root.kb = root.kb || {};
+    root.kb.Modal = Modal;
+
   	Modal.extend = Backbone.View.extend;
 
   	_.extend(Modal.prototype, Backbone.View.prototype, {

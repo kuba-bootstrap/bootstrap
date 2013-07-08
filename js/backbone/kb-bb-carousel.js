@@ -5,6 +5,11 @@
     	this.carouselInitialize(options);
   	};
 
+    // Attach Carousel to the window, but through the namespace 'kb'
+    var root = this;
+    root.kb = root.kb || {};
+    root.kb.Carousel = Carousel;
+
   	Carousel.extend = Backbone.View.extend;
 
   	_.extend(Carousel.prototype, Backbone.View.prototype, {
