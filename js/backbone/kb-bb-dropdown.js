@@ -5,6 +5,11 @@
     	  this.dropdownInitialize(options);
   	};
 
+    // Attach Dropdown to the window, but through the namespace 'kb'
+    var root = this;
+    root.kb = root.kb || {};
+    root.kb.Dropdown = Dropdown;
+
   	Dropdown.extend = Backbone.View.extend;
 
   	_.extend(Dropdown.prototype, Backbone.View.prototype, {

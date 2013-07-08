@@ -5,6 +5,11 @@
         this.slideOverInitialize(options);
   	};
 
+    // Attach SlideOver to the window, but through the namespace 'kb'
+    var root = this;
+    root.kb = root.kb || {};
+    root.kb.SlideOver = SlideOver;
+
   	SlideOver.extend = Backbone.View.extend;
 
   	_.extend(SlideOver.prototype, Backbone.View.prototype, {
