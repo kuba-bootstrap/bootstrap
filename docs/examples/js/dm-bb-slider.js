@@ -2,9 +2,17 @@ $(function() {
     // Mock box View
     var BoxView = Backbone.View.extend({
         template: '<%- name %>',
+        events: {
+            'click': 'clicked',
+        },
         render: function() {
             this.$el.html(_.template(this.template, this.model.toJSON()));
             return this;
+        },
+        clicked: function() {
+            if (!this.parent.lock) {
+                console.log('clicked!');
+            }
         },
     });
 

@@ -44,6 +44,12 @@
             // TODO This will overwrite any existing className, don't do this!
             this.view.prototype.className = 'ease-box-double';
 
+            // Allow child views to inspect parent properties (such as lock)
+            this.view.prototype.parent = this;
+
+            // The lock will be set true when the slider is being moved
+            this.lock = false;
+
             // Save the rendered view objects from each model
             this._views = [];
 
@@ -151,12 +157,18 @@
                 e.preventDefault();
                 
                 self.$el.on(moveEvent, function(e) {
+
                     currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
                     boxPos = 0;
 
                     deltaX = currentX - startX;
                     startX += deltaX;
                     boxPos = deltaX + self._scrollSurfacePos;
+
+                    // Once the slide has moved a threshold number of pixels,
+                    // add a lock that child views can inspect
+                    // TODO Hard-coded threshold
+                    if (!self.lock && deltaX > 3) self.lock = true;
 
                     // Create the cross-platform CSS transform
                     var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
@@ -174,7 +186,7 @@
             // TODO Should also be called when mouse leaves frame
             }).on(upEvent, function(e) {
                 // TODO Hard-coded threshold for movement
-                // Only move if deltaX is > 4
+                // Only move if deltaX is greater than a specified threshold
                 if (Math.abs(deltaX) > 3) {
                     boxPos = (deltaX * self._force) + self._scrollSurfacePos;
                 }
@@ -214,6 +226,9 @@
 
                 // Remove the move event handler
                 self.$el.off(moveEvent);
+
+                // Remove the slider "lock" after a tiny delay
+                setTimeout(function() { self.lock = false; });
             });
         },
         calculatePosition: function(box, index) {
