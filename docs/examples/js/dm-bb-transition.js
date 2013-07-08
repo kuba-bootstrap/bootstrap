@@ -1,36 +1,23 @@
-/*
- * - Example - static
- */
+$(function() {
+    var set_1 = new kb.Transition({
+        pages: ['page_1', 'page_2', 'page_3', 'page_4'],
+    });
 
-$(function(){
+    $('.page-slider').on('click', function(e) {
+        var dest = $(e.target).attr('data-dest');
+        set_1.slideTo(dest);
+    });
 
+    function logSlideStart(lastName, lastObj, nextName, nextObj) {
+        console.log('Slide Start:', lastName, lastObj, nextName, nextObj);
+    }
 
-  var trans = new Transition({
-    speed: 100,
-    pages: [],
-  });
+    function logSlideEnd(lastName, lastObj, nextName, nextObj) {
+        console.log('Slide End:', lastName, lastObj, nextName, nextObj);
+    }
 
-
-  trans.register(...pages)
-
-  trans.slideTo()
-
-
-
-	var View = Transition.extend({
-    	template: Handlebars.compile($('#staticMenu').html()),
-    	initialize: function(options) {
-      		console.log('initialize');
-    	},
-    	render: function() {
-      		this.$el.html(this.template(this));
-      		
-      		return this;
-    	}
-  	});
-
-  	// View declaration
-
-  	var transition = new View({parentEl: '#staticPane', buttons: ['#staticMenuButton'] });
+    // Listen to the events being fired by the Transition
+    Backbone.listenTo(set_1, 'slideStart', logSlideStart);
+    Backbone.listenTo(set_1, 'slideEnd', logSlideEnd);
 
 });

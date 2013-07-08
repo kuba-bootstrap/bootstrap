@@ -19,6 +19,9 @@
     Slider.extend = Backbone.View.extend;
 
     _.extend(Slider.prototype, Backbone.View.prototype, {
+        // TODO Allow prefixes to be configured with an option
+        // A blank prefix results in "transform" and is used by modern IE
+        _prefixes: ['', '-webkit-', '-moz-'],
         sliderInitialize: function(options) {
             // Set sane options
             var o = this.options;
@@ -40,6 +43,12 @@
             // Inject the className
             // TODO This will overwrite any existing className, don't do this!
             this.view.prototype.className = 'ease-box-double';
+
+            // Allow child views to inspect parent properties (such as lock)
+            this.view.prototype.parent = this;
+
+            // The lock will be set true when the slider is being moved
+            this.lock = false;
 
             // Save the rendered view objects from each model
             this._views = [];
@@ -148,6 +157,7 @@
                 e.preventDefault();
                 
                 self.$el.on(moveEvent, function(e) {
+
                     currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
                     boxPos = 0;
 
@@ -155,17 +165,28 @@
                     startX += deltaX;
                     boxPos = deltaX + self._scrollSurfacePos;
 
-                    // TODO A more common CSS style
-                    self.$scrollSurface.removeClass('fx').css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
+                    // Once the slide has moved a threshold number of pixels,
+                    // add a lock that child views can inspect
+                    // TODO Hard-coded threshold
+                    if (!self.lock && Math.abs(deltaX) > 3) self.lock = true;
 
-                    // TODO This seems overly complicated
+                    // Create the cross-platform CSS transform
+                    var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
+                    var styles = {};
+                    _.each(self._prefixes, function(prefix) {
+                        styles[prefix + 'transform'] = transform;
+                    });
+
+                    self.$scrollSurface.removeClass('fx').css(styles);
+
+                    // TODO The usage of boxPos seems overly complicated
                     self._scrollSurfacePos = boxPos;
 
                 });
             // TODO Should also be called when mouse leaves frame
             }).on(upEvent, function(e) {
                 // TODO Hard-coded threshold for movement
-                // Only move if deltaX is > 4
+                // Only move if deltaX is greater than a specified threshold
                 if (Math.abs(deltaX) > 3) {
                     boxPos = (deltaX * self._force) + self._scrollSurfacePos;
                 }
@@ -187,7 +208,16 @@
                         boxPos = -overflowWidth;
                     }
                 }
-                self.$scrollSurface.addClass('fx').css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
+
+                // Create the cross-platform CSS transform
+                var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
+                var styles = {};
+                _.each(self._prefixes, function(prefix) {
+                    styles[prefix + 'transform'] = transform;
+                });
+
+                self.$scrollSurface.addClass('fx').css(styles);
+
                 self._scrollSurfacePos = boxPos;
 
                 // TODO Should be reset on mouse/touch down, not up?
@@ -196,6 +226,9 @@
 
                 // Remove the move event handler
                 self.$el.off(moveEvent);
+
+                // Remove the slider "lock" after a tiny delay
+                setTimeout(function() { self.lock = false; });
             });
         },
         calculatePosition: function(box, index) {
@@ -223,7 +256,15 @@
             // Save the x-coord of the right edge for the element farthest
             // to the right. This will be used for force / viewport focus. 
             if (rightEdge > this._rightLimit) this._rightLimit = rightEdge;
-            box.css('-webkit-transform', 'translate3d(' + pos.x + 'px, ' + pos.y + 'px, 0px)');
+
+            // Create the cross-platform CSS transform for box positioning
+            var transform = 'translate3d(' + pos.x + 'px, ' + pos.y + 'px, 0px)';
+            var styles = {};
+            _.each(this._prefixes, function(prefix) {
+                styles[prefix + 'transform'] = transform;
+            });
+
+            box.css(styles);
         
             this._pointerX++;
             return this;
