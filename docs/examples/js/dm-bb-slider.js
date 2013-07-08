@@ -11,7 +11,7 @@ $(function() {
         },
         clicked: function() {
             if (!this.parent.lock) {
-                console.log('clicked!');
+                console.log('clicked view');
             }
         },
     });

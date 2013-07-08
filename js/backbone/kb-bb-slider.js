@@ -168,7 +168,7 @@
                     // Once the slide has moved a threshold number of pixels,
                     // add a lock that child views can inspect
                     // TODO Hard-coded threshold
-                    if (!self.lock && deltaX > 3) self.lock = true;
+                    if (!self.lock && Math.abs(deltaX) > 3) self.lock = true;
 
                     // Create the cross-platform CSS transform
                     var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
