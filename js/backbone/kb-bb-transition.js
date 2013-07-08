@@ -9,8 +9,7 @@
         this.order = []; // [index] = name
         this.$pages = []; // [index] = $(#name)
 
-        // TODO history
-        // pointer starts at 0
+        // TODO Instead of a pointer, maintain a history?
         this.pointer = 0;
 
         for (var i = 0, len = names.length; i < len; i++) {
@@ -24,24 +23,26 @@
         }
 
         // TODO Allow speed to be set as an option
+        // Unfortunately, speed is set by a CSS style, which will need to
+        // be modified on each element
     };
 
+    // Attach Transition to the window, but through the namespace 'kb'
     var root = this;
     root.kb = root.kb || {};
     root.kb.Transition = Transition;
 
     _.extend(Transition.prototype, Backbone.Events, {
-        // TODO slideRight, slideLeft?
         slideTo: function(page) {
             var lastIndex = this.pointer;
             // Get the current page using the pointer
             var lastName = this.order[lastIndex];
-            // TODO Is name needed, or can we use the $page directly?
-            var last = $(this.$pages[this.pointer]);
+            var last = $(this.$pages[lastIndex]);
 
             // Requested page - TODO confirm it exists
             // TODO Make sure the requested page isn't the current page
             var nextIndex = this.pages[page];
+            var nextName = this.order[nextIndex];
             var next = this.$pages[nextIndex];
 
             // Update the pointer / history
@@ -50,16 +51,11 @@
             var lastLeft = (nextIndex < lastIndex) ? 100 : -100;
             var nextLeft = (nextIndex < lastIndex) ? -100 : 100;
 
-            // Reset
+            // Set the initial position of pages
             this.reset(last, 0, 1, next, nextLeft, 1);
 
             // Start the new transition
             var self = this;
-            // TODO What? This needs an explanation
-            setTimeout(function() {
-                self.move(last, lastLeft, 1, next, 0, 1);
-            }, 10);
-            
 
             var cleanup;
             cleanup = function() {
@@ -68,37 +64,69 @@
 
                 // Remove the listener
                 last.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', cleanup);
+
+                // Fire an event for slide
+                self.trigger('slideEnd', lastName, last, nextName, next);
             };
 
+            // The event "transitionend" will fire when the animation ends
             last.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', cleanup);
-        },
-        slideBack: function(page) {
 
+            // Start the move
+            // TODO What's with the timeout? This needs an explanation
+            setTimeout(function() {
+                self.move(last, lastLeft, 1, next, 0, 1);
+                self.trigger('slideStart', lastName, last, nextName, next);
+            }, 10);
+
+        },
+        // TODO Allow prefixes to be configured with an option
+        // A blank prefix results in "transform" and is used by modern IE
+        _prefixes: ['', '-webkit-', '-moz-'],
+        _buildTranslate: function(left) {
+            return ('translate3d(' + left + '%, 0px, 0px)');
         },
         reset: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity) {
-            next.removeClass('fx').css({
-                '-webkit-transform': 'translate3d(' + nextLeft + '%, 0px, 0px)',
+            var nextTranslate = this._buildTranslate(nextLeft);
+            var nextCSS = {
                 'opacity': nextOpacity,
                 'z-index': 1,
-            }).show();
+            };
 
-            last.removeClass('fx').css({
-                '-webkit-transform': 'translate3d(' + lastLeft + '%, 0px, 0px)',
+            var lastTranslate = this._buildTranslate(lastLeft);
+            var lastCSS = {
                 'opacity': lastOpacity,
                 'z-index': 2,
-            }).show();
+            };
+            // TODO Generalize?
+            for (var i = 0, len = this._prefixes.length; i < len; i++) {
+                nextCSS[this._prefixes[i] + 'transform'] = nextTranslate;
+                lastCSS[this._prefixes[i] + 'transform'] = lastTranslate;
+            }
+
+            next.removeClass('fx').css(nextCSS).show();
+            last.removeClass('fx').css(lastCSS).show();
         },
         move: function(last, lastLeft, lastOpacity, next, nextLeft, nextOpacity) {
-            next.addClass('fx').show().css({
-                '-webkit-transform': 'translate3d(' + nextLeft + '%, 0px, 0px)',
+            var nextTranslate = this._buildTranslate(nextLeft);
+            var nextCSS = {
                 'opacity': nextOpacity,
                 'z-index': 2,
-            });
-            last.addClass('fx').css({
-                '-webkit-transform': 'translate3d(' + lastLeft + '%, 0px, 0px)',
+            };
+
+            var lastTranslate = this._buildTranslate(lastLeft);
+            var lastCSS = {
                 'opacity': lastOpacity,
                 'z-index': 1,
-            });
+            };
+            // TODO Generalize?
+            for (var i = 0, len = this._prefixes.length; i < len; i++) {
+                nextCSS[this._prefixes[i] + 'transform'] = nextTranslate;
+                lastCSS[this._prefixes[i] + 'transform'] = lastTranslate;
+            }
+
+            next.addClass('fx').css(nextCSS).show();
+            last.addClass('fx').css(lastCSS).show();
         },
     });
 
