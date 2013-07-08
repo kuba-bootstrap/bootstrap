@@ -50,16 +50,20 @@
 
             if(this.close){
                 close.on(upEvent, function(){
-                    self.closeModal();
+                    self._closeModal();
                 });
             }
         },
-    	closeModal: function(){
-    		// this.$el.hide();
-            $('#modalBack').hide();
-            this.$el.remove();
-
+        _closeModal: function(){
+            this.closeModal();
             if(this.dispose) this.dispose();
+        },
+    	closeModal: function(){
+            $('#modalBack').hide();
+
+            console.log('remove modal');
+
+            this.$el.remove();
     	}
   	});
 
