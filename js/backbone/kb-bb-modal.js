@@ -11,6 +11,7 @@
         className: 'mdl',
         modalInitialize: function(options) {
       	    this.parentEl = this.options.parentEl || 'body';
+            this.close = this.options.close || true;
             $(this.parentEl).append(this.render().el);
             this.modal();
 
@@ -33,7 +34,7 @@
             var self = this,
                 close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal"></button>');
 
-            if($('#modalBack').length == 0){
+            if($('#modalBack').length == 0 && this.close){
                 $('body').append('<div class="mdl-bck" id="modalBack"></div>');
             }
 
@@ -42,16 +43,18 @@
             $('#modalBack').show();
             this.$el.show();
 
-            close.on(upEvent, function(){
-                self.closeModal();
-            });
+            if(this.close){
+                close.on(upEvent, function(){
+                    self.closeModal();
+                });
+            }
         },
     	closeModal: function(){
-    		this.$el.hide();
+    		// this.$el.hide();
             $('#modalBack').hide();
+            this.$el.remove();
 
             if(this.dispose) this.dispose();
-
     	}
   	});
 
