@@ -19,6 +19,9 @@
     Slider.extend = Backbone.View.extend;
 
     _.extend(Slider.prototype, Backbone.View.prototype, {
+        // TODO Allow prefixes to be configured with an option
+        // A blank prefix results in "transform" and is used by modern IE
+        _prefixes: ['', '-webkit-', '-moz-'],
         sliderInitialize: function(options) {
             // Set sane options
             var o = this.options;
@@ -155,10 +158,16 @@
                     startX += deltaX;
                     boxPos = deltaX + self._scrollSurfacePos;
 
-                    // TODO A more common CSS style
-                    self.$scrollSurface.removeClass('fx').css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
+                    // Create the cross-platform CSS transform
+                    var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
+                    var styles = {};
+                    _.each(self._prefixes, function(prefix) {
+                        styles[prefix + 'transform'] = transform;
+                    });
 
-                    // TODO This seems overly complicated
+                    self.$scrollSurface.removeClass('fx').css(styles);
+
+                    // TODO The usage of boxPos seems overly complicated
                     self._scrollSurfacePos = boxPos;
 
                 });
@@ -187,7 +196,16 @@
                         boxPos = -overflowWidth;
                     }
                 }
-                self.$scrollSurface.addClass('fx').css('-webkit-transform', 'translate3d(' + boxPos + 'px, 0px, 0px)');
+
+                // Create the cross-platform CSS transform
+                var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
+                var styles = {};
+                _.each(self._prefixes, function(prefix) {
+                    styles[prefix + 'transform'] = transform;
+                });
+
+                self.$scrollSurface.addClass('fx').css(styles);
+
                 self._scrollSurfacePos = boxPos;
 
                 // TODO Should be reset on mouse/touch down, not up?
@@ -223,7 +241,15 @@
             // Save the x-coord of the right edge for the element farthest
             // to the right. This will be used for force / viewport focus. 
             if (rightEdge > this._rightLimit) this._rightLimit = rightEdge;
-            box.css('-webkit-transform', 'translate3d(' + pos.x + 'px, ' + pos.y + 'px, 0px)');
+
+            // Create the cross-platform CSS transform for box positioning
+            var transform = 'translate3d(' + pos.x + 'px, ' + pos.y + 'px, 0px)';
+            var styles = {};
+            _.each(this._prefixes, function(prefix) {
+                styles[prefix + 'transform'] = transform;
+            });
+
+            box.css(styles);
         
             this._pointerX++;
             return this;
