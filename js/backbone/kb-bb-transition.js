@@ -12,7 +12,7 @@
         // TODO Instead of a pointer, maintain a history?
         this.pointer = 0;
 
-        _.each(names, this._addPage, this);
+        _.each(names, this.addName, this);
         // TODO Allow speed to be set as an option
         // Unfortunately, speed is set by a CSS style, which will need to
         // be modified on each element
@@ -25,17 +25,25 @@
 
     _.extend(Transition.prototype, Backbone.Events, {
         // TODO Allow addition at a specific index
-        addPage: function(name, index) {
+        addName: function(name, index) {
             // TODO Should be an integer
             index = _.isNumber(index) ? index : this.order.length;
-            this._addPage(name, index);
-        },
-        _addPage: function(name, index) {
             // TODO allow either ids or jQuery object with an id
-            var selected = $('#' + name);
+            var $el = $('#' + name);
+            this._add(name, index, $el);
+        },
+        // TODO Standardize the interfaces
+        addElem: function(name, el, index) {
+            // TODO Should be an integer
+            index = _.isNumber(index) ? index : this.order.length;
+            this._add(name, index, $(el));
+        },
+        _add: function(name, index, $el) {
+            // TODO If an item already exists at the given index, it should
+            // move the other pages aside
             // TODO Confirm object exists
             this.order[index] = name;
-            this.$pages[index] = selected;
+            this.$pages[index] = $el;
             // TODO Check for duplicates
             this.pages[name] = index;
         },
