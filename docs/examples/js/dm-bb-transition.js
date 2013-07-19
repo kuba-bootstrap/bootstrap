@@ -3,8 +3,8 @@ $(function() {
         pages: ['page_1', 'page_2', 'page_3'],
     });
 
-    set_1.addName('page_3');
     set_1.addElem('page_4', document.getElementById('page_4'));
+    set_1.addName('page_3', 3);
 
     $('.page-slider').on('click', function(e) {
         var dest = $(e.target).attr('data-dest');

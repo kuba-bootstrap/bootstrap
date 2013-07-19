@@ -24,7 +24,6 @@
     root.kb.Transition = Transition;
 
     _.extend(Transition.prototype, Backbone.Events, {
-        // TODO Allow addition at a specific index
         addName: function(name, index) {
             // TODO Should be an integer
             index = _.isNumber(index) ? index : this.order.length;
@@ -32,32 +31,58 @@
             var $el = $('#' + name);
             this._add(name, index, $el);
         },
-        // TODO Standardize the interfaces
+        // TODO Standardize the interfaces for adding names / HTML / jQuery
         addElem: function(name, el, index) {
             // TODO Should be an integer
             index = _.isNumber(index) ? index : this.order.length;
             this._add(name, index, $(el));
         },
         _add: function(name, index, $el) {
-            // TODO If an item already exists at the given index, it should
-            // move the other pages aside
-            // TODO Confirm object exists
-            this.order[index] = name;
-            this.$pages[index] = $el;
-            // TODO Check for duplicates
-            this.pages[name] = index;
+            // If an item already exists at the given index, make room for the
+            // new item by incrementing the rest of the array
+            // TODO What about intentional replacement?
+            // TODO Confirm $el exists
+            // TODO Check for duplicate names
+            if (index in this.order) {
+                this.order.splice(index, 0, name);
+                this.$pages.splice(index, 0, $el);
+                
+                // Re-index all the page names, this will include the new name
+                // index may be sparse!
+                for (var i = 0, len = this.order.length; i < len; i++) {
+                    var name = this.order[i];
+                    if (name) this.pages[name] = i;
+                }
+            } else {
+                this.order[index] = name;
+                this.$pages[index] = $el;
+                this.pages[name] = index;
+            }
         },
+        // The transition events will fire when the animation ends
+        // TODO Narrow the prefixes by sniffing
+        transitionEvents: 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd',
         slideTo: function(page) {
             var lastIndex = this.pointer;
-            // Get the current page using the pointer
-            var lastName = this.order[lastIndex];
-            var last = $(this.$pages[lastIndex]);
-
             // Requested page - TODO confirm it exists
-            // TODO Make sure the requested page isn't the current page
             var nextIndex = this.pages[page];
+
+            // If the requested page is the current page, do nothing
+            if (nextIndex == lastIndex) return; 
+
+            // Get the current page (which will become last) using the pointer
+            var lastName = this.order[lastIndex];
             var nextName = this.order[nextIndex];
+            
+            // Get the jQuery last and next pages
+            var last = $(this.$pages[lastIndex]);
             var next = this.$pages[nextIndex];
+
+            // Turn off any transitionEnds attached to the next element
+            // Without this off(), if a user clicks too fast, the page may
+            // be hidden
+            // TODO Trigger a slideEnd if there was a transition in progress
+            next.off(this.transitionEvents, transitionEnd);
 
             // Update the pointer / history
             this.pointer = nextIndex;
@@ -70,35 +95,33 @@
 
             var self = this;
 
-            // The event "transitionend" will fire when the animation ends
-            // TODO Could also ignore this prefix nonsense by sniffing
             var transitionEnd;
             transitionEnd = function() {
-                // TODO Cancel if another animation has occured
-
                 // Remove the listener
-                last.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', transitionEnd);
+                last.off(this.transitionEvents, transitionEnd);
 
                 last.hide();
 
                 // Fire an event for slide end
-                self.trigger('slideEnd', lastName, last, nextName, next);
+                self.trigger('slideEnd:' + nextName, lastName, last, nextName, next);
             } 
 
             // We use "one", but still remove the event handler because
-            // this callback will fire for once for each of the prefixed
-            // transitionend event names
-            last.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', transitionEnd);
+            // this callback will fire once for *each* of the prefixed
+            // transitionend event names (for instance, chrome fires both
+            // a "transitionend" and "webkitTransitionEnd")
+            last.one(this.transitionEvents, transitionEnd);
 
             // Start the new transition
             // TODO What's with the timeout? This needs an explanation
             setTimeout(function() {
                 self.move(last, lastLeft, 1, next, 0, 1);
-                self.trigger('slideStart', lastName, last, nextName, next);
+                self.trigger('slideStart:' + lastName, lastName, last, nextName, next);
             }, 10);
 
         },
         // TODO Allow prefixes to be configured with an option
+        // TODO Tie these together with the transitionend events
         // A blank prefix results in "transform" and is used by modern IE
         _prefixes: ['', '-webkit-', '-moz-'],
         _buildTranslate: function(left) {
