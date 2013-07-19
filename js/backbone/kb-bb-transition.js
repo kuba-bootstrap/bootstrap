@@ -12,16 +12,7 @@
         // TODO Instead of a pointer, maintain a history?
         this.pointer = 0;
 
-        for (var i = 0, len = names.length; i < len; i++) {
-            var name = names[i];
-            var selected = $('#' + name);
-            // TODO Confirm object exists
-            this.order[i] = name;
-            this.$pages[i] = selected;
-            // TODO Check for duplicates
-            this.pages[name] = i;
-        }
-
+        _.each(names, this._addPage, this);
         // TODO Allow speed to be set as an option
         // Unfortunately, speed is set by a CSS style, which will need to
         // be modified on each element
@@ -33,6 +24,21 @@
     root.kb.Transition = Transition;
 
     _.extend(Transition.prototype, Backbone.Events, {
+        // TODO Allow addition at a specific index
+        addPage: function(name, index) {
+            // TODO Should be an integer
+            index = _.isNumber(index) ? index : this.order.length;
+            this._addPage(name, index);
+        },
+        _addPage: function(name, index) {
+            // TODO allow either ids or jQuery object with an id
+            var selected = $('#' + name);
+            // TODO Confirm object exists
+            this.order[index] = name;
+            this.$pages[index] = selected;
+            // TODO Check for duplicates
+            this.pages[name] = index;
+        },
         slideTo: function(page) {
             var lastIndex = this.pointer;
             // Get the current page using the pointer
@@ -54,25 +60,29 @@
             // Set the initial position of pages
             this.reset(last, 0, 1, next, nextLeft, 1);
 
-            // Start the new transition
             var self = this;
 
-            var cleanup;
-            cleanup = function() {
+            // The event "transitionend" will fire when the animation ends
+            // TODO Could also ignore this prefix nonsense by sniffing
+            var transitionEnd;
+            transitionEnd = function() {
                 // TODO Cancel if another animation has occured
-                last.hide();
 
                 // Remove the listener
-                last.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', cleanup);
+                last.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', transitionEnd);
 
-                // Fire an event for slide
+                last.hide();
+
+                // Fire an event for slide end
                 self.trigger('slideEnd', lastName, last, nextName, next);
-            };
+            } 
 
-            // The event "transitionend" will fire when the animation ends
-            last.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', cleanup);
+            // We use "one", but still remove the event handler because
+            // this callback will fire for once for each of the prefixed
+            // transitionend event names
+            last.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', transitionEnd);
 
-            // Start the move
+            // Start the new transition
             // TODO What's with the timeout? This needs an explanation
             setTimeout(function() {
                 self.move(last, lastLeft, 1, next, 0, 1);

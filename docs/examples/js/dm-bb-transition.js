@@ -1,7 +1,9 @@
 $(function() {
     var set_1 = new kb.Transition({
-        pages: ['page_1', 'page_2', 'page_3', 'page_4'],
+        pages: ['page_1', 'page_2', 'page_3'],
     });
+
+    set_1.addPage('page_4');
 
     $('.page-slider').on('click', function(e) {
         var dest = $(e.target).attr('data-dest');
@@ -9,11 +11,13 @@ $(function() {
     });
 
     function logSlideStart(lastName, lastObj, nextName, nextObj) {
-        console.log('Slide Start:', lastName, lastObj, nextName, nextObj);
+        // console.log('Slide Start:', lastName, lastObj, nextName, nextObj);
+        console.log('Slide Start:', lastName, '-->', nextName);
     }
 
     function logSlideEnd(lastName, lastObj, nextName, nextObj) {
-        console.log('Slide End:', lastName, lastObj, nextName, nextObj);
+        // console.log('Slide End:', lastName, lastObj, nextName, nextObj);
+        console.log('Slide End:', lastName, '-->', nextName);
     }
 
     // Listen to the events being fired by the Transition
