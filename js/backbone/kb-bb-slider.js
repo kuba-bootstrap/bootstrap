@@ -27,13 +27,14 @@
             var o = this.options;
             // Element dimensions
             // Width and height are set dynamically in resetItems
-            // TODO Allow manual override
-            this._width = _.isNumber(o.width) ? o.width : 200;
-            this._height = _.isNumber(o.height) ? o.height : 200;
+            // But these options allow manual override
+            this._width = _.isNumber(o.width) ? o.width : undefined;
+            this._height = _.isNumber(o.height) ? o.height : undefined;
 
             this._paddingX = _.isNumber(o.paddingX) ? o.paddingX : 25;
             this._paddingY = _.isNumber(o.paddingY) ? o.paddingY : 50;
             this._force = _.isNumber(o.force) ? o.force : 4;
+            this._threshold = _.isNumber(o.threshold) ? o.threshold : 5;
 
             // View and Collection
             // TODO confirm that these are backbone view / collection types
@@ -42,10 +43,7 @@
 
             // Inject the className
             // TODO This will overwrite any existing className, don't do this!
-            this.view.prototype.className = 'ease-box-double';
-
-            // Allow child views to inspect parent properties (such as lock)
-            this.view.prototype.parent = this;
+            // this.view.prototype.className = 'ease-box-double';
 
             // The lock will be set true when the slider is being moved
             this.lock = false;
@@ -68,11 +66,11 @@
             // Render the elements in the collection with the given view
             this.resetItems();
 
-            // Combine into one function
-            this.positionItems();
-            this.bindEvents();
+            // Check for any changes in viewport width
+            // TODO on window?
 
             // Listen for 'add' and 'reset' events in the collection
+            // TODO 'reset' change in backbone 1.0.0
             this.listenTo(this.collection, 'add', this.addItem);
             this.listenTo(this.collection, 'reset', this.resetItems);
         },
@@ -85,7 +83,8 @@
         },
         // TODO Combine functionality with resetItems / positionItems
         addItem: function(item) {
-            var view = new this.view({model: item});
+            // Allow child views to inspect parent properties (such as lock)
+            var view = new this.view({model: item, parent: this});
             this._views.push(view);
             this.$scrollSurface.append(view.render().el);
 
@@ -101,7 +100,7 @@
 
             // Render all elements with the given view
             _.each(this.collection.models, function(m) {
-                var view = new this.view({model: m});
+                var view = new this.view({model: m, parent: this});
                 // TODO better way to tie a model and its view together?
                 this._views.push(view);
                 this.$scrollSurface.append(view.render().el);
@@ -109,13 +108,24 @@
 
             // Determine the width and height of a box
             // Items must be the same size!
-            if (this._views.length) {
+            if (this.options.width && this.options.height) {
+                this._width = this.options.width;
+                this._height = this.options.height;
+            } else if (this._views.length) {
                 this._width = this._views[0].$el.outerWidth();
                 this._height = this._views[0].$el.outerHeight();
             }
+            // TODO Error if neither are set
 
-            // TODO Combine functionality
+            // Also set the scroll surface position to 0 to prevent a smaller
+            // number of items from being locked into position off-screen
+            this.$scrollSurface.addClass('fx');
+            this.moveScrollSurface(0);
+
             this.positionItems();
+
+            // Enable events, only needs to be called once
+            this.bindEvents();
         },
         positionItems: function() {
             // Reset variables
@@ -142,7 +152,11 @@
         // TODO Allow click events to bubble up (either based on time
         // between mouse/touch up and down or deltaX == 0)
         bindEvents: function() {
+            // Disable the slider events to prevent duplicate binds
+            this.$el.off(downEvent + ' ' + upEvent);
+
             // Event variables, enclosed during assignment
+            var initialX, viewport;
             var startX = 0;
             var currentX = 0;
             var deltaX = 0;
@@ -152,37 +166,44 @@
             // TODO Different handlers for mobile / desktop
             self.$el.on(downEvent, function(e) {
                 startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
+                initialX = startX;
+
+                // Remove the lock
+                self.lock = false;
                 
                 // Prevent native text selection
                 e.preventDefault();
-                
-                self.$el.on(moveEvent, function(e) {
 
-                    currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
-                    boxPos = 0;
+                // Disallow slide if the viewport is wider than the elements
+                viewport = self.$el.width();
+                if (viewport > self._rightLimit) {
+                    // TODO messages should be DEBUG only
+                    // console.log('Viewport is wider than items, slider disabled');
+                } else {
+                    self.$el.on(moveEvent, function(e) {
+                        currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
+                        boxPos = 0;
 
-                    deltaX = currentX - startX;
-                    startX += deltaX;
-                    boxPos = deltaX + self._scrollSurfacePos;
+                        deltaX = currentX - startX;
+                        startX += deltaX;
+                        boxPos = deltaX + self._scrollSurfacePos;
 
-                    // Once the slide has moved a threshold number of pixels,
-                    // add a lock that child views can inspect
-                    // TODO Hard-coded threshold
-                    if (!self.lock && Math.abs(deltaX) > 3) self.lock = true;
+                        // Once the slider moves a threshold number of pixels,
+                        // add a lock that child views can inspect
+                        if (!self.lock) {
+                            var diffX = currentX - initialX;
+                            if (Math.abs(diffX) > self._threshold) self.lock = true;
+                        }
 
-                    // Create the cross-platform CSS transform
-                    var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
-                    var styles = {};
-                    _.each(self._prefixes, function(prefix) {
-                        styles[prefix + 'transform'] = transform;
+                        // The function must be called with the View as context
+                        self.$scrollSurface.removeClass('fx');
+                        self.moveScrollSurface.call(self, boxPos);
+
+                        // TODO The usage of boxPos seems overly complicated
+                        self._scrollSurfacePos = boxPos;
                     });
-
-                    self.$scrollSurface.removeClass('fx').css(styles);
-
-                    // TODO The usage of boxPos seems overly complicated
-                    self._scrollSurfacePos = boxPos;
-
-                });
+                }
+                
             // TODO Should also be called when mouse leaves frame
             }).on(upEvent, function(e) {
                 // TODO Hard-coded threshold for movement
@@ -191,7 +212,6 @@
                     boxPos = (deltaX * self._force) + self._scrollSurfacePos;
                 }
 
-                var viewport = self.$el.width();
                 // If the content is smaller than the width of the viewport,
                 // anchor the content to the left of the viewport
                 if (viewport > self._rightLimit) {
@@ -209,14 +229,9 @@
                     }
                 }
 
-                // Create the cross-platform CSS transform
-                var transform = 'translate3d(' + boxPos + 'px, 0px, 0px)';
-                var styles = {};
-                _.each(self._prefixes, function(prefix) {
-                    styles[prefix + 'transform'] = transform;
-                });
-
-                self.$scrollSurface.addClass('fx').css(styles);
+                // The function must be called with the View as context
+                self.$scrollSurface.addClass('fx');
+                self.moveScrollSurface.call(self, boxPos);
 
                 self._scrollSurfacePos = boxPos;
 
@@ -228,8 +243,18 @@
                 self.$el.off(moveEvent);
 
                 // Remove the slider "lock" after a tiny delay
-                setTimeout(function() { self.lock = false; });
+                // setTimeout(function() { self.lock = false; });
             });
+        },
+        moveScrollSurface: function(x) {
+            // Create the cross-platform CSS transform
+            // TODO Use CSS sniffing to reduce prefixes
+            var transform = 'translate3d(' + x + 'px, 0px, 0px)';
+            var styles = {};
+            _.each(this._prefixes, function(prefix) {
+                styles[prefix + 'transform'] = transform;
+            });
+            this.$scrollSurface.css(styles);
         },
         calculatePosition: function(box, index) {
             var pos = {};

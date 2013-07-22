@@ -1,6 +1,7 @@
 $(function() {
     // Mock box View
     var BoxView = Backbone.View.extend({
+        className: 'ease-box-double',
         template: '<%- name %>',
         events: {
             'click': 'clicked',
@@ -10,7 +11,7 @@ $(function() {
             return this;
         },
         clicked: function() {
-            if (!this.parent.lock) {
+            if (!this.options.parent.lock) {
                 console.log('clicked view');
             }
         },
