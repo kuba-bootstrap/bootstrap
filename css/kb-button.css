@@ -51,10 +51,11 @@
 
 .tog, .tog > div { border-radius:20px; }
 
-.tog { padding:6px 10px 6px 33px; position:relative; border:1px solid #ddd;  box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.1); background:#f1f1f1; overflow:hidden; cursor:pointer; }
+.tog { padding:6px 10px 6px 33px; position:relative; border:1px solid #ddd;  box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.1); background:#f1f1f1; overflow:hidden; cursor:pointer; transition:all .2s ease; -moz-transition:all .2s ease; -webkit-transition:all .2s ease; -o-transition:all .2s ease; }
 /*.tog:after { content:' '; padding:14px; position:absolute; top:0; bottom:0; left:0; right:31px; box-shadow:0 1px 2px rgba(0, 0, 0, 0.2); background:#f9f9f9; transition:all .2s ease; -moz-transition:all .2s ease; -webkit-transition:all .2s ease; -o-transition:all .2s ease; }*/
 .tog > div { padding:14px; position:absolute; top:0; bottom:0; left:0; right:31px; box-shadow:0 1px 2px rgba(0, 0, 0, 0.2); background:#f9f9f9; transition:all .2s ease; -moz-transition:all .2s ease; -webkit-transition:all .2s ease; -o-transition:all .2s ease; }
 
+.tog.on { background:#4cd964; }
 .tog.on > div { left:31px; right:0; }
 
 /*
