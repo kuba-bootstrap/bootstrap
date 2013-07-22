@@ -1,57 +1,25 @@
 /*
- * -- Example - static
+ * -- Modal Example
  */
 
-$(function(){
-
-    var View = Modal.extend({
-	      template: Handlebars.compile($('#modal').html()),
-    	  initialize: function(options) {
-      	    console.log('initialize');
-    	  },
-    	  render: function() {
-      	    this.$el.html(this.template(this));
-      		
-            console.log('render');
-
-      		  return this;
-    	  }
-    });
-
-    // View declaration
-
-	  var modal = new View({parentEl: '#pane', button: '#modalButton'});
-
-});
-
-/*
- * -- Example - static
- */
-
-$(function(){
-
-    var View = Modal.extend({
+$(function() {
+    var ExtendedModal = Modal.extend({
         template: Handlebars.compile($('#modal').html()),
         initialize: function(options) {
             console.log('initialize');
         },
         render: function() {
-            this.$el.html(this.template(this));
-          
-            console.log('render');
-
+            this.$el.html(this.template());
+            console.log('Render Extended Modal');
             return this;
         }
     });
 
-    // View declaration
+    $('#modalOptionsButton').on('click', function() {
+        new ExtendedModal({parentEl: '#pane', open: true});
+    });
 
-    function openModal(){
-        var modal = new View({parentEl: '#pane', open: true});
-    }
-
-    $('#modalOptionsButton').click(function(){
-        openModal();
-    })
-
+    // Or attach directly to a button
+    // TODO only fires once... by design?
+    new ExtendedModal({parentEl: '#pane', button: '#modalButton'})
 });
