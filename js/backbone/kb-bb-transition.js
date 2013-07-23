@@ -84,6 +84,14 @@
             // TODO Trigger a slideEnd if there was a transition in progress
             next.off(this.transitionEvents, transitionEnd);
 
+            // Hide all elements that are no last or next
+            // TODO There should be an easier way to tell if there are active
+            // transitions and how to cleanly tear them down
+            for (index in this.$pages) {
+                var $page = this.$pages[index];
+                if ($page != last || $page != next) $page.hide();
+            }
+
             // Update the pointer / history
             this.pointer = nextIndex;
 
