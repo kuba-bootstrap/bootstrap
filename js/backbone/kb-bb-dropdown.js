@@ -1,8 +1,10 @@
 (function(){
 
+    //TODO: change the this.options.items to collection
+
     var Dropdown = function(options) {
         Backbone.View.call(this, options);
-    	  this.dropdownInitialize(options);
+    	this.dropdownInitialize(options);
   	};
 
     // Attach Dropdown to the window, but through the namespace 'kb'
@@ -16,32 +18,35 @@
         tagName: 'ul',
         className: 'dd',
         dropdownInitialize: function(options) {
-      		  this.parentEl = this.options.parentEl || 'body';
+      		this.parentEl = this.options.parentEl || 'body';
             $(this.parentEl).append(this.render().el);
             this.dropdown();
-      		  if(this.options.items){
-      			    this.options.items.on('change', this.dropdown, this);
-      		  }
-    	  },
-    	  dropdown: function(){
-    		    if(this.options.items){
-    			      this.options.items.forEach(this.loadItems, this);
-    		    }
+      		if(this.options.items){
+      			this.options.items.on('change', this.dropdown, this);
+      		}
+    	},
+    	dropdown: function(){
+    		if(this.options.items){
+                this.maxItems = (this.options.maxItems)? this.options.maxItems : this.options.items.length;
+    			this.options.items.first(this.maxItems).forEach(this.loadItems, this);
+    		}
             if(this.options.buttons){
-    		        this.options.buttons.forEach(this.registerButton, this);
+    		    this.options.buttons.forEach(this.registerButton, this);
             }
-    	  },
-    	  loadItems: function(item){
+    	},
+    	loadItems: function(item){
+            var el = $(this.options.itemEl) || this.$el;
+
             if(this.options.itemView){
-                this.$el.append(new this.options.itemView({item: item}).render().el);
+                el.append(new this.options.itemView({item: item}).render().el);
             } else if(this.options.itemTemplate){
                 var template = Handlebars.compile($(this.options.itemTemplate).html())       
-                this.$el.append(template(item.toJSON()));
+                el.append(template(item.toJSON()));
             } else {
-    		        this.$el.append('<li>' + item.attributes.item + '</li>');
+    		    el.append('<li>' + item.get('item') + '</li>');
             }
-    	  },
-    	  registerButton: function(item){
+    	},
+    	registerButton: function(item){
     		    var self = this;
 
     		    $(item).on(upEvent, function(e){
@@ -49,8 +54,8 @@
 
                 var className = $(this).attr('class');
 
-    			      $('.dd').removeClass('on');
-    			      self.$el.addClass('on');
+    			$('.dd').removeClass('on');
+    			self.$el.addClass('on');
 
                 $(window).on(upEvent, function(e){
                     if(e.target.className != className){
@@ -58,8 +63,8 @@
                         self.$el.removeClass('on');
                     }
                 });
-    		    });
-    	  }
+    		});
+    	}
   	});
 
   	window.Dropdown = Dropdown;
