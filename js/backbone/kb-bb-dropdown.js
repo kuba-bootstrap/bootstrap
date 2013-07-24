@@ -26,7 +26,7 @@
       		}
     	},
     	dropdown: function(){
-    		if(this.options.items){
+            if(this.options.items){
                 this.maxItems = (this.options.maxItems)? this.options.maxItems : this.options.items.length;
     			this.options.items.first(this.maxItems).forEach(this.loadItems, this);
     		}
@@ -35,7 +35,12 @@
             }
     	},
     	loadItems: function(item){
+
+            console.log('load items');
+
             var el = $(this.options.itemEl) || this.$el;
+
+            console.log(el);
 
             if(this.options.itemView){
                 el.append(new this.options.itemView({item: item}).render().el);

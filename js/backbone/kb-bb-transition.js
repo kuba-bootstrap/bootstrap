@@ -75,7 +75,7 @@
             var nextName = this.order[nextIndex];
             
             // Get the jQuery last and next pages
-            var last = $(this.$pages[lastIndex]);
+            var last = this.$pages[lastIndex];
             var next = this.$pages[nextIndex];
 
             // Turn off any transitionEnds attached to the next element
