@@ -41,6 +41,10 @@ $(function() {
         slider.collection.add({name: String(count++)});
     });
 
+    $('#remove').on('click', function() {
+        slider.collection.pop();
+    });
+
     $('#reset').on('click', function() {
         initBoxes();
         slider.collection.reset(boxes);

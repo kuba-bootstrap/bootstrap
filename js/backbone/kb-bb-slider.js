@@ -69,9 +69,11 @@
             // Check for any changes in viewport width
             // TODO on window?
 
-            // Listen for 'add' and 'reset' events in the collection
-            // TODO 'reset' change in backbone 1.0.0
+            // Listen for 'add', 'remove' and 'reset' events in the collection
+            // TODO 'reset' changed in backbone 1.0.0 to the smarter set()
             this.listenTo(this.collection, 'add', this.addItem);
+            // TODO The remove event should be more specific than a reset
+            this.listenTo(this.collection, 'remove', this.resetItems);
             this.listenTo(this.collection, 'reset', this.resetItems);
         },
         sliderTemplate: '<div class="con-slide-d" style="position:relative"></div>',
@@ -89,7 +91,14 @@
             this.$scrollSurface.append(view.render().el);
 
             // TODO A better way to find index?
-            var index = this.collection.indexOf(item);
+            var index = this.collection.length ? this.collection.indexOf(item) : 0;
+
+            // If index is zero, reset the pointers
+            if (index == 0) {
+                this._pointerX = 0;
+                this._pointerY = 1;
+            }
+
             this.calculatePosition(view.$el, index);
         },
         resetItems: function() {
