@@ -121,11 +121,13 @@
             last.one(this.transitionEvents, transitionEnd);
 
             // Start the new transition
-            // TODO What's with the timeout? This needs an explanation
+            // this is waiting to run the self.move() to allow the self.reset() to 
+            // finish disabling the fx class and setting up for animation
+            
             setTimeout(function() {
                 self.move(last, lastLeft, 1, next, 0, 1);
                 self.trigger('slideStart:' + lastName, lastName, last, nextName, next);
-            }, 10);
+            }, 50);
 
         },
         // TODO Allow prefixes to be configured with an option
