@@ -75,6 +75,8 @@
             // TODO The remove event should be more specific than a reset
             this.listenTo(this.collection, 'remove', this.resetItems);
             this.listenTo(this.collection, 'reset', this.resetItems);
+            // Also listen to sort events
+            this.listenTo(this.collection, 'sort', this.resetItems);
         },
         sliderTemplate: '<div class="con-slide-d" style="position:relative"></div>',
         render: function() {
