@@ -19,6 +19,7 @@
             // TODO just use "el" for setting the parent
       	    this.parentEl = options.parentEl || 'body';
             this.closeable = _.isBoolean(options.close) ? options.close : true;
+            this.closeButton = _.isBoolean(options.closeButton) ? options.closeButton : true;
             $(this.parentEl).append(this.render().el);
             this.modal();
 
@@ -38,12 +39,16 @@
             var close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal"></button>');
 
             // TODO cache modal back and parent el
+
+            console.log('from kb: ', this.closeable);
+
             if ($('#modalBack').length == 0 && this.closeable) {
                 $('body').append('<div class="mdl-bck" id="modalBack"></div>');
             }
 
-            // TODO close is always appended?
-            this.$el.append(close);
+            if(this.closeButton){
+                this.$el.append(close);
+            }
 
             $('#modalBack').show();
             this.$el.show();
