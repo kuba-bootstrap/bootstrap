@@ -2,5 +2,5 @@ language: node_js
 node_js:
   - 0.6
 notifications:
-	email:
-		- kuba.bootstrap@gmail.com
+  email:
+    - kuba.bootstrap@gmail.com
