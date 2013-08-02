@@ -21,6 +21,7 @@
     ],
     "main":"index",
     "devDependencies":{
+        "colors": "*",
         "uglify-js":"1.2.6",
         "jshint":"0.6.1",
         "recess":"1.0.3",

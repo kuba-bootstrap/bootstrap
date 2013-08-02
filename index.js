@@ -1,8 +1,7 @@
-(function (module, __dirname) {
-    "use strict";
+(function () {
 
-    module.exports = __dirname;
+    var console = require('./logic/console'),
 
-    console.log('test');
+    console('i', 'kuba-bootstrap test');
 
-})(module, __dirname);
+})();
