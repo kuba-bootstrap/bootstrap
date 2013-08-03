@@ -1,7 +1,7 @@
 (function () {
 
-    var console = require('./build/console');
+    // var console = require('./build/console');
 
-    console('i', 'kuba-bootstrap test');
+    // console('i', 'kuba-bootstrap test');
 
 })();
