@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 0.6
 script:
-  - "node index"
+  - "node test"
 notifications:
   email:
     - kuba.bootstrap@gmail.com
