@@ -1,6 +1,6 @@
 (function () {
 
-    var console = require('./logic/console');
+    var console = require('./build/console');
 
     console('i', 'kuba-bootstrap test');
 
