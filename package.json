@@ -19,10 +19,14 @@
             "url":"http://www.apache.org/licenses/LICENSE-2.0"
         }
     ],
-    "main":"index",
-    "dependencies":{
-        "colors": "*"
+    "dependencies": {
+        "colors": "*",
+        "express": "*",
+        "underscore": "*",
+        "backbone": "*",
+        "connect-assetmanager": "*",
+        "less-middleware": "*",
+        "less": "*"
     },
-    "devDependencies":{
-    }
+    "main": "index"
 }
