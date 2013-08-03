@@ -1,7 +1,6 @@
-(function () {
+(function (module, __dirname) {
+    "use strict";
 
-    // var console = require('./build/console');
+    module.exports = __dirname;
 
-    // console('i', 'kuba-bootstrap test');
-
-})();
+})(module, __dirname);
