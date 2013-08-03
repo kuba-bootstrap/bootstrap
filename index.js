@@ -1,7 +1,8 @@
-(function () {
+/*
+export root directory for npm include.
+ */
+(function (module, __dirname) {
+    "use strict";
 
-    // var console = require('./build/console');
-
-    // console('i', 'kuba-bootstrap test');
-
-})();
+    module.exports = __dirname;
+})(module, __dirname);
