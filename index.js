@@ -3,6 +3,6 @@
 
 	var console = require('./build/console');
 
-	console('i', 'compile less');
+	console('i', 'compile less test');
 
 })();
