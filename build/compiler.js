@@ -7,7 +7,7 @@
         bootstrapPath = path.join(__dirname, 'node_modules', 'kuba-bootstrap'),
 		less = require('less'),
 		parser = new(less.Parser)({
-			paths: ['.', './assets/css'], // Specify search paths for @import directives
+			paths: ['.', './assets/css/test.less'], // Specify search paths for @import directives
 			filename: 'test.less' // Specify a filename, for better error messages
 		});
 
