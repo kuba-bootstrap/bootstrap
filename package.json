@@ -1,0 +1,32 @@
+{
+    "name":"kuba-bootstrap",
+    "description":"Kuba-bootstrap is a free open source projcet for creating components specifically for mobile devices and iOS/Android webview apps like ones made in Phonegap.",
+    "version":"1.0.0",
+    "keywords":["bootstrap", "css", "less"],
+    "homepage":"https://github.com/kuba-bootstrap/bootstrap",
+    "contributors":[
+        "Jakub Szerszen <jszersze@gmail.com>",
+        "Gabriel Hopper <gabe.hopper@gmail.com>"
+    ],
+    "author": "Jakub Szerszen",
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/kuba-bootstrap/bootstrap.git"
+    },
+    "licenses":[
+        {
+            "type":"Apache-2.0",
+            "url":"http://www.apache.org/licenses/LICENSE-2.0"
+        }
+    ],
+    "dependencies": {
+        "colors": "*",
+        "express": "*",
+        "underscore": "*",
+        "backbone": "*",
+        "connect-assetmanager": "*",
+        "less-middleware": "*",
+        "less": "*"
+    },
+    "main": "index"
+}
