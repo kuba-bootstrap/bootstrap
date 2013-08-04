@@ -4,23 +4,26 @@
 	var console = require('./console'),
 		fs = require('fs'),
 		path = require('path'),
-        bootstrapPath = path.join(__dirname, 'node_modules', 'kuba-bootstrap'),
+        bootstrapPath = path.join(__dirname + '/../', 'node_modules', 'kuba-bootstrap'),
 		less = require('less'),
 		parser = new(less.Parser)({
-			paths: ['.', './assets/css/test.less'], // Specify search paths for @import directives
-			filename: 'test.less' // Specify a filename, for better error messages
+			paths: bootstrapPath + '/less', // Specify search paths for @import directives
+			filename: 'kb-all.less' // Specify a filename, for better error messages
 		});
 
 	module.exports = function(){
 
-		parser.parse('.class { width: 1 + 1; }',function (err, tree) {
+		fs.readFile(bootstrapPath + '/less/kb-all.less', "UTF-8", function (err, content) {
 			if(err) console('e', err);
 
-			fs.writeFile('./assets/css/kb-all.css', tree.toCSS({ compress: true }), function(err) {
+			parser.parse(content, function (err, tree) {
 				if(err) console('e', err);
+
+				fs.writeFile('./assets/css/kb-all.css', tree.toCSS({ compress: true }), function(err) {
+					if(err) console('e', err);
+				});
 			});
 		});
-
 	};
 
 })();
