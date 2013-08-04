@@ -1,8 +1,13 @@
 (function(){
 	'use strict';
 
-	var console = require('./build/console');
+	var console = require('./build/console'),
+		compiler = require('./build/compiler');
+		
+	console('i', 'compile less');
 
-	console('i', 'compile less test');
+	compiler();
+
+	// console('i', 'minify js');
 
 })();
