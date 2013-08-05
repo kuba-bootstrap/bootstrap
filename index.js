@@ -12,6 +12,6 @@
 	compiler('./less/dm-index.less', './assets/css/dm-index.css', './less');
 
 	// minify js assets
-	minify('./js/dm-index.js', './assets/js/dm-index.js');
+	minify(['./js/dm-index.js', './js/dm-scroll.js'], './assets/js/dm-index.js');
 
 })();

@@ -5,17 +5,23 @@
 		fs = require('fs'),
 		uglify = require('uglify-js');
 
-	module.exports = function(filename, output){
+	module.exports = function(filenames, output){
 
-		var split = filename.split('/'),
-            file = split.pop(),
-			minify = uglify.minify(filename);
+		var files = [],
+			minify = uglify.minify(filenames);
+
+		filenames.forEach(function(filename){
+			var split = filename.split('/'),
+            	file = split.pop();
+
+            files.push(file);
+		});
 
 		fs.writeFile(output, minify.code, function(err) {
 			if(err){ 
 				console('e', err);
 			} else {
-				console('i', 'compiled ' + file);
+				console('i', 'minified ' + files);
 			} 
 		});
 
