@@ -22,12 +22,8 @@
     "dependencies": {
         "colors": "*",
         "kuba-bootstrap": "git://github.com/kuba-bootstrap/bootstrap.git",
-        "express": "*",
-        "underscore": "*",
-        "backbone": "*",
-        "connect-assetmanager": "*",
-        "less-middleware": "*",
-        "less": "*"
+        "less": "*",
+        "uglify-js": "*"
     },
     "main": "index"
 }

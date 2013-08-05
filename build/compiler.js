@@ -7,14 +7,14 @@
 		
 	module.exports = function(filename, output, paths){
 
-		var split = filename.split("/"),
+		var split = filename.split('/'),
             file = split.pop(),
 			parser = new(less.Parser)({
 				paths: paths, // Specify search paths for @import directives
 				filename: file // Specify a filename, for better error messages
 			});
 
-		fs.readFile(filename, "UTF-8", function (err, content) {
+		fs.readFile(filename, 'UTF-8', function (err, content) {
 			if(err) console('e', err);
 
 			parser.parse(content, function (err, tree) {
