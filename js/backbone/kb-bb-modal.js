@@ -40,8 +40,6 @@
 
             // TODO cache modal back and parent el
 
-            console.log('from kb: ', this.closeable);
-
             if ($('#modalBack').length == 0 && this.closeable) {
                 $('body').append('<div class="mdl-bck" id="modalBack"></div>');
             }
