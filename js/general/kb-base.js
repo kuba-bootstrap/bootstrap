@@ -1,7 +1,6 @@
 // Global touch events
 
-var on = 'ontouchend' in window,
-    downEvent = (on) ? 'touchstart ' : 'mousedown ',
-    moveEvent = (on) ? 'touchmove ' : 'mousemove ',
-    upEvent = (on) ? 'touchend ' : 'mouseup ';
-
+var onDevice = 'ontouchend' in window,
+    downEvent = (onDevice) ? 'touchstart ' : 'mousedown ',
+    moveEvent = (onDevice) ? 'touchmove ' : 'mousemove ',
+    upEvent = (onDevice) ? 'touchend ' : 'mouseup ';
