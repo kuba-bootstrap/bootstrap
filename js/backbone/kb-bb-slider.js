@@ -270,14 +270,14 @@
         calculatePosition: function(box, index) {
             var pos = {};
             // TODO rem is block group?
-            var rem = index % 5;
+            var rem = index % 1;
 
             // TODO Re-calculate for 'n' rows and integrate with _columns
             if (!this._single) {
                 if (rem === 0){
                     if (this._pointerY == 0){
                         this._pointerY = 1;
-                        this._pointerX = this._pointerX - 5;
+                        this._pointerX = this._pointerX - 1;
                     } else {
                         this._pointerY = 0;
                     }
