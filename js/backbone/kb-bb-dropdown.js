@@ -57,17 +57,22 @@
     		    $(item).on(upEvent, function(e){
                 e.stopPropagation();
 
-                var className = $(this).attr('class');
+                if(self.$el.hasClass('on')){
+                    self.$el.removeClass('on');
+                } else {
 
-    			$('.dd').removeClass('on');
-    			self.$el.addClass('on');
+                    var className = $(this).attr('class');
 
-                $(window).on(upEvent, function(e){
-                    if(e.target.className != className){
-                        $(this).off(upEvent);
-                        self.$el.removeClass('on');
-                    }
-                });
+        			$('.dd').removeClass('on');
+        			self.$el.addClass('on');
+
+                    $(window).on(upEvent, function(e){
+                        if(e.target.className != className){
+                            $(this).off(upEvent);
+                            self.$el.removeClass('on');
+                        }
+                    });
+                }
     		});
     	}
   	});
