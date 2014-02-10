@@ -257,6 +257,55 @@
                 // setTimeout(function() { self.lock = false; });
             });
         },
+        moveLeft: function(x) {
+            var boxPos = this._scrollSurfacePos - x,
+                viewport = this.$el.width();
+
+            // If the content is smaller than the width of the viewport,
+            // anchor the content to the left of the viewport
+            if (viewport > this._rightLimit) {
+                boxPos = 0;
+            } else {
+                var overflowWidth = this._rightLimit - viewport;
+                // If the viewport is to the left of the boxes, return the
+                // left edge of the viewport to the start of the boxes
+
+                if (boxPos > 0) {
+                    boxPos = 0;
+                // If the viewport is to the right of the boxes, return
+                // the right edge of the viewport to the end of the boxes
+                } else if (boxPos < -overflowWidth) {
+                    boxPos = -overflowWidth;
+                }
+            }
+
+            this.moveScrollSurface.call(this, boxPos);
+            this._scrollSurfacePos = boxPos;
+        },
+        moveRight: function(x) {
+            var boxPos = this._scrollSurfacePos + x,
+                viewport = this.$el.width();
+
+            // If the content is smaller than the width of the viewport,
+            // anchor the content to the left of the viewport
+            if (viewport > this._rightLimit) {
+                boxPos = 0;
+            } else {
+                var overflowWidth = this._rightLimit - viewport;
+                // If the viewport is to the left of the boxes, return the
+                // left edge of the viewport to the start of the boxes
+                if (boxPos > 0) {
+                    boxPos = 0;
+                // If the viewport is to the right of the boxes, return
+                // the right edge of the viewport to the end of the boxes
+                } else if (boxPos < -overflowWidth) {
+                    boxPos = -overflowWidth;
+                }
+            }
+
+            this.moveScrollSurface.call(this, boxPos);
+            this._scrollSurfacePos = boxPos;
+        },
         moveScrollSurface: function(x) {
             // Create the cross-platform CSS transform
             // TODO Use CSS sniffing to reduce prefixes
