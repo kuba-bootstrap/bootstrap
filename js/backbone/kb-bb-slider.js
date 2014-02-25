@@ -110,6 +110,8 @@
             this._rightLimit = 0;
 
             // Render all elements with the given view
+            this.collection.models.reverse();
+
             _.each(this.collection.models, function(m) {
                 var view = new this.view({model: m, parent: this});
                 // TODO better way to tie a model and its view together?
