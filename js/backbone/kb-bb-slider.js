@@ -90,7 +90,7 @@
             // Allow child views to inspect parent properties (such as lock)
             var view = new this.view({model: item, parent: this});
             this._views.push(view);
-            this.$scrollSurface.append(view.render().el);
+            this.$scrollSurface.prepend(view.render().el);
 
             // TODO A better way to find index?
             var index = this.collection.length ? this.collection.indexOf(item) : 0;
