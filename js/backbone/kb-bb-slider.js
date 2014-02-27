@@ -90,7 +90,7 @@
             // Allow child views to inspect parent properties (such as lock)
             var view = new this.view({model: item, parent: this});
             this._views.push(view);
-            this.$scrollSurface.prepend(view.render().el);
+            this.$scrollSurface.prepend(view.render().el); //TODO: have this reverse order as a parameter - not hardcoded
 
             // TODO A better way to find index?
             var index = this.collection.length ? this.collection.indexOf(item) : 0;
@@ -103,7 +103,7 @@
 
             this.calculatePosition(view.$el, index);
 
-            this.resetItems();
+            this.resetItems(); //TODO: have this reverse order as a parameter - not hardcoded
         },
         resetItems: function() {
             // Reset existing items
