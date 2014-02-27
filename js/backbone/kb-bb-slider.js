@@ -102,6 +102,8 @@
             }
 
             this.calculatePosition(view.$el, index);
+
+            this.resetItems();
         },
         resetItems: function() {
             // Reset existing items
