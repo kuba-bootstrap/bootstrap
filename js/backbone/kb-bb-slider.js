@@ -53,6 +53,7 @@
 
             // Default to a single row
             this._single = _.isBoolean(o.single) ? o.single : true;
+            this._reversed = _.isBoolean(o.reversed) ? o.reversed : false;
 
             // Initialize private variables for scrolling
             this._pointerX = 0;
@@ -112,7 +113,7 @@
             this._rightLimit = 0;
 
             // Render all elements with the given view
-            this.collection.models.reverse();
+//            this.collection.models.reverse();
 
             _.each(this.collection.models, function(m) {
                 var view = new this.view({model: m, parent: this});
@@ -151,6 +152,12 @@
             if (len) {
                 this._pointerX = 0;
                 this._pointerY = 1;
+
+                // Render views in reverse order
+                if(this._reversed){
+                    this._views.reverse();
+                }
+
                 _.each(this._views, function(view, index) {
                     this.calculatePosition(view.$el, index);
                 }, this);
