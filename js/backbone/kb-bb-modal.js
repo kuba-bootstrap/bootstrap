@@ -18,12 +18,27 @@
             var options = this.options || {};
             // TODO just use "el" for setting the parent
       	    this.parentEl = options.parentEl || 'body';
+            
+            //not sure why we have this extra check
             this.closeable = _.isBoolean(options.close) ? options.close : true;
+            
+            // determines if the close button is present
             this.closeButton = _.isBoolean(options.closeButton) ? options.closeButton : true;
-            $(this.parentEl).append(this.render().el);
-            this.modal();
 
-            if (options.open) this.openModal();
+            //dnd flag on the modal
+            window.kb.modalFlag = _.isBoolean(options.flag) ? options.flag : false;
+
+            if(!window.kb.modalFlag){
+                //dispose old modal
+                window.kb.trigger('closeModal');
+                window.kb.on('closeModal', this._closeModal, this);
+
+                //create new modal
+                $(this.parentEl).append(this.render().el);
+                this.modal();
+
+                if (options.open) this.openModal();
+            } 
     	},
     	modal: function(){
             var self = this;
@@ -48,7 +63,9 @@
                 this.$el.append(close);
             }
 
+            //Create fade in effect
             $('#modalBack').show();
+
             this.$el.show();
 
             if (this.closeable) {
@@ -61,8 +78,10 @@
             if(this.dispose) this.dispose();
         },
     	closeModal: function(){
-            $('#modalBack').hide();
+            $('#modalBack').remove();
             this.$el.remove();
+
+            window.kb.off('closeModal');
     	}
   	});
 
