@@ -30,8 +30,8 @@
 
             if(!window.kb.modalFlag){
                 //dispose old modal
-                window.kb.trigger('closeModal');
-                window.kb.on('closeModal', this._closeModal, this);
+//                window.kb.trigger('closeModal');
+//                window.kb.on('closeModal', this._closeModal, this);
 
                 //create new modal
                 $(this.parentEl).append(this.render().el);
