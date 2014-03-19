@@ -1,4 +1,7 @@
 (function(){
+
+    var events = Backbone.Model.extend({});
+    window.kb.modalEvents = new events;
     
     var Modal = function(options) {
         Backbone.View.call(this, options);
@@ -30,8 +33,8 @@
 
             if(!window.kb.modalFlag){
                 //dispose old modal
-//                window.kb.trigger('closeModal');
-//                window.kb.on('closeModal', this._closeModal, this);
+                window.kb.modalEvents.trigger('closeModal');
+                window.kb.modalEvents.on('closeModal', this._closeModal, this);
 
                 //create new modal
                 $(this.parentEl).append(this.render().el);
@@ -81,7 +84,7 @@
             $('#modalBack').remove();
             this.$el.remove();
 
-            window.kb.off('closeModal');
+            window.kb.modalEvents.off('closeModal');
     	}
   	});
 
