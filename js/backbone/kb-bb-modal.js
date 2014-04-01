@@ -28,9 +28,6 @@
             // determines if the close button is present
             this.closeButton = _.isBoolean(options.closeButton) ? options.closeButton : true;
 
-            //dnd flag on the modal
-            window.kb.modalFlag = _.isBoolean(options.flag) ? options.flag : false;
-
             if(!window.kb.modalFlag){
                 //dispose old modal
                 window.kb.modalEvents.trigger('closeModal');
@@ -42,6 +39,9 @@
 
                 if (options.open) this.openModal();
             } 
+
+            //dnd flag on the modal
+            window.kb.modalFlag = _.isBoolean(options.flag) ? options.flag : false;
     	},
     	modal: function(){
             var self = this;
@@ -79,11 +79,14 @@
         _closeModal: function(){
             this.closeModal();
             if(this.dispose) this.dispose();
+
+            window.kb.modalFlag = undefined;
         },
     	closeModal: function(){
             $('#modalBack').remove();
             this.$el.remove();
 
+            window.kb.modalFlag = undefined;
             window.kb.modalEvents.off('closeModal');
     	}
   	});
