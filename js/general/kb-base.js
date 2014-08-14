@@ -1,6 +1,14 @@
 // Global touch events
 
-var onDevice = 'ontouchend' in window,
-    downEvent = (onDevice) ? 'touchstart ' : 'mousedown ',
-    moveEvent = (onDevice) ? 'touchmove ' : 'mousemove ',
-    upEvent = (onDevice) ? 'touchend ' : 'mouseup ';
+if(navigator.userAgent.match(/X11; CrOS/)){
+    var downEvent = 'mousedown ',
+        moveEvent = 'mousemove ',
+        upEvent = 'mouseup ';
+} else {
+    var onDevice = 'ontouchend' in window,
+        downEvent = (onDevice) ? 'touchstart ' : 'mousedown ',
+        moveEvent = (onDevice) ? 'touchmove ' : 'mousemove ',
+        upEvent = (onDevice) ? 'touchend ' : 'mouseup ';
+}
+
+
