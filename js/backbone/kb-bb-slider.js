@@ -12,9 +12,16 @@
 
     // Sniff touch events that indicate a mobile device
     var isMobile = 'ontouchend' in root;
-    var downEvent = (isMobile) ? 'touchstart ' : 'mousedown ',
-        moveEvent = (isMobile) ? 'touchmove ' : 'mousemove ',
-        upEvent = (isMobile) ? 'touchend ' : 'mouseup ';
+
+    if(!navigator.userAgent.match(/(iPhone|iPod|Android|BlackBerry)/)){
+        var downEvent = 'touchstart mousedown',
+            moveEvent = 'touchmove mousemove',
+            upEvent = 'touchend mouseup';
+    } else {
+        var downEvent = (isMobile) ? 'touchstart ' : 'mousedown ',
+            moveEvent = (isMobile) ? 'touchmove ' : 'mousemove ',
+            upEvent = (isMobile) ? 'touchend ' : 'mouseup ';
+    }
 
     Slider.extend = Backbone.View.extend;
 
