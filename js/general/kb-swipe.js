@@ -1,21 +1,25 @@
 (function(){
     'use strict';
 
+    var downEventS = 'touchstart ' + 'mousedown ',
+        moveEventS = 'touchmove ' + 'mousemove ',
+        upEventS = 'touchend ' + 'mouseup ';
+
     $.fn.swipe = function(){
         var args = arguments[0] || { swipeTime: 900, swipeX: 200, left: left, right: right, leftProp: null, rightProp: null };
 
         var startX = 0,
             startTime = 0;
 
-        this.on(downEvent, function(e){
+        this.on(downEventS, function(e){
                 startTime = e.timeStamp;
                 startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
             })
-            .on(upEvent, function(e){
+            .on(upEventS, function(e){
                 startTime = 0;
                 startX = 0;
             })
-            .on(moveEvent, function(e){
+            .on(moveEventS, function(e){
                 var currentX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX,
                     currentDistance = (startX === 0) ? 0 : Math.abs(currentX - startX),
                     currentTime = e.timeStamp;
