@@ -1,3 +1,5 @@
+var swipeFlag = false;
+
 (function(){
     'use strict';
 
@@ -16,6 +18,9 @@
                 startX = e.originalEvent.touches ? e.originalEvent.touches[0].pageX : e.pageX;
             })
             .on(upEventS, function(e){
+                
+                swipeFlag = false;
+
                 startTime = 0;
                 startX = 0;
             })
@@ -26,6 +31,9 @@
                 if (startTime !== 0 && currentTime - startTime < args.swipeTime && currentDistance > args.swipeX) {
                     if (currentX < startX) {
                         e.preventDefault();
+
+                        swipeFlag = true;
+
                         if(args.leftProp != null){
                             args.left(args.leftProp);
                         }else{
@@ -34,6 +42,9 @@
                     }
                     if (currentX > startX) {
                         e.preventDefault();
+
+                        swipeFlag = true;
+
                         if(args.rightProp != null){
                             args.right(args.rightProp);
                         }else{
