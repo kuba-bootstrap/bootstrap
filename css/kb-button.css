@@ -2,7 +2,7 @@
  * Button CSS
  */
 
-.btn { padding:4px 12px; display:inline-block; border:1px solid #ddd; border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.30); border-radius:4px; box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); font-size:14px; line-height:20px; text-shadow:0 1px 0 rgba(255, 255, 255, 0.8); background:#fcfcfc; background-image:-webkit-linear-gradient(top, #fff, #e8e8e8); cursor:pointer; }
+.btn { padding:4px 12px; display:inline-block; border:1px solid #ddd; border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.30); border-radius:4px; box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); font-size:14px; line-height:20px; text-shadow:0 1px 0 rgba(255, 255, 255, 0.8); background:#fcfcfc; background-image:-webkit-linear-gradient(top, #fff, #e8e8e8); background-image:-ms-linear-gradient(top, #fff, #e8e8e8); background-image:-moz-linear-gradient(top, #fff, #e8e8e8); cursor:pointer; }
 .btn.hvr { box-shadow:inset 0 2px 6px rgba(0,0,0,.20); }
 .btn:focus { box-shadow:inset 0 2px 6px rgba(0,0,0,.20); }
 
@@ -12,10 +12,10 @@
 
 .btn-w, .btn-d, .btn-s, .btn-b, .btn-w-f, .btn-d-f, .btn-s-f, .btn-b-f { text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25); color:#fff; }
 
-.btn-d { background-image:-webkit-linear-gradient(top, #d93b3a, #b53a3e); }
-.btn-w { background-image:-webkit-linear-gradient(top, #fac657, #F89406); }
-.btn-s { background-image:-webkit-linear-gradient(top, #51A351, #00a261); }
-.btn-b { background-image:-webkit-linear-gradient(top, #4688f1, #04C); }
+.btn-d { background-image:-webkit-linear-gradient(top, #d93b3a, #b53a3e); background-image:-ms-linear-gradient(top, #d93b3a, #b53a3e); background-image:-moz-linear-gradient(top, #d93b3a, #b53a3e); }
+.btn-w { background-image:-webkit-linear-gradient(top, #fac657, #F89406); background-image:-ms-linear-gradient(top, #fac657, #F89406); background-image:-moz-linear-gradient(top, #fac657, #F89406); }
+.btn-s { background-image:-webkit-linear-gradient(top, #51A351, #00a261); background-image:-ms-linear-gradient(top, #51A351, #00a261); background-image:-moz-linear-gradient(top, #51A351, #00a261); }
+.btn-b { background-image:-webkit-linear-gradient(top, #4688f1, #04C); background-image:-ms-linear-gradient(top, #4688f1, #04C); background-image:-moz-linear-gradient(top, #4688f1, #04C); }
 
 .btn-g-f { background:#fcfcfc; }
 .btn-d-f { background:#d93b3a; }
