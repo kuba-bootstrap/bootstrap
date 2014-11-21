@@ -12,9 +12,16 @@
 
     // Sniff touch events that indicate a mobile device
     var isMobile = 'ontouchend' in root;
-    var downEvent = (isMobile) ? 'touchstart ' : 'mousedown ',
-        moveEvent = (isMobile) ? 'touchmove ' : 'mousemove ',
-        upEvent = (isMobile) ? 'touchend ' : 'mouseup ';
+
+    if(!navigator.userAgent.match(/(iPhone|iPod|Android|BlackBerry)/)){
+        var downEvent = 'touchstart mousedown',
+            moveEvent = 'touchmove mousemove',
+            upEvent = 'touchend mouseup';
+    } else {
+        var downEvent = (isMobile) ? 'touchstart ' : 'mousedown ',
+            moveEvent = (isMobile) ? 'touchmove ' : 'mousemove ',
+            upEvent = (isMobile) ? 'touchend ' : 'mouseup ';
+    }
 
     Slider.extend = Backbone.View.extend;
 
@@ -35,6 +42,9 @@
             this._paddingY = _.isNumber(o.paddingY) ? o.paddingY : 50;
             this._force = _.isNumber(o.force) ? o.force : 4;
             this._threshold = _.isNumber(o.threshold) ? o.threshold : 5;
+
+            this._optimize = _.isBoolean(o.optimize) ? o.optimize : false;
+
 
             // View and Collection
             // TODO confirm that these are backbone view / collection types
@@ -90,6 +100,7 @@
         addItem: function(item) {
             // Allow child views to inspect parent properties (such as lock)
             var view = new this.view({model: item, parent: this});
+
             this._views.push(view);
             this.$scrollSurface.prepend(view.render().el); //TODO: have this reverse order as a parameter - not hardcoded
 
@@ -118,8 +129,11 @@
             _.each(this.collection.models, function(m) {
                 var view = new this.view({model: m, parent: this});
                 // TODO better way to tie a model and its view together?
+
                 this._views.push(view);
                 this.$scrollSurface.append(view.render().el);
+
+                this.optimizeOnLoad(view);
             }, this);
 
             // Determine the width and height of a box
@@ -142,6 +156,8 @@
 
             // Enable events, only needs to be called once
             this.bindEvents();
+
+            // this.optimizeFrontContent($(window).width());
         },
         positionItems: function() {
             // Reset variables
@@ -264,6 +280,8 @@
                 // Remove the move event handler
                 self.$el.off(moveEvent);
 
+                self.optimizeFrontContent(viewport);
+
                 // Remove the slider "lock" after a tiny delay
                 // setTimeout(function() { self.lock = false; });
             });
@@ -364,6 +382,53 @@
         
             this._pointerX++;
             return this;
+        },
+        optimizeFrontContent: function(viewport){
+
+            var buffer = 300;
+
+            if(this._optimize){
+                var self = this;
+
+                this._views.forEach(function(view){
+                    if((view.$el.position().left + buffer) < Math.abs(self._scrollSurfacePos) || view.$el.position().left > (Math.abs(self._scrollSurfacePos) + viewport + buffer)){
+                        var image = $(view.$el).find('img');
+
+                        if(!view.stashImg){
+
+                            view.stashImg = image;
+                            image.remove();
+
+                        }
+
+                        console.log('remove image', view.stashImg);
+
+                    } else {
+                        console.log('add image', view.stashImg);
+
+                        $(view.$el).append(view.stashImg);
+                        view.stashImg = undefined;
+
+                    }
+                });
+            }
+        },
+        optimizeOnLoad: function(view){
+            if(this._optimize){
+                var image = $(view.$el).find('img'),
+                    buffer = 300;
+
+                image.on('load', function(){
+                    
+                    console.log(view.$el.position().left);
+                    if(view.$el.position().left > $(window).width() + buffer){
+                        view.stashImg = image;
+                        image.remove();
+
+                        console.log('remove image', view.stashImg);
+                    }
+                });
+            }
         }
     });
 
