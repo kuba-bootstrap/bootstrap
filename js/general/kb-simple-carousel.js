@@ -58,7 +58,11 @@
         	}
 
         	$('#' + dots).addClass('on');
-        	data.slider.css("-webkit-transform", "translate3d(" + x + "px, " + 0 + "px, " + 0 + "px)");
+        	data.slider.css({
+        		"-webkit-transform": "translate3d(" + x + "px, " + 0 + "px, " + 0 + "px)",
+        		"-moz-transform": "translate3d(" + x + "px, " + 0 + "px, " + 0 + "px)",
+        		"-ms-transform": "translate3d(" + x + "px, " + 0 + "px, " + 0 + "px)",
+        	});
 
         	data.pointer = to;
 
