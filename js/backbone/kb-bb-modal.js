@@ -54,12 +54,12 @@
         openModal: function(){
             var self = this;
             // TODO But this.cl is only set if !this.options.closeButton
-            var close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal"></button>');
+            var close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal">close</button>');
 
             // TODO cache modal back and parent el
 
             if ($('#modalBack').length == 0 && this.closeable) {
-                $('body').append('<div class="mdl-bck" id="modalBack"></div>');
+                $('body').append('<div class="mdl-bck" id="modalBack">back</div>');
             }
 
             if(this.closeButton){
