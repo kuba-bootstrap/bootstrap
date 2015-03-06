@@ -15,7 +15,7 @@
 
             var onCloseCallback = args['onClose'],
                 self = $(this),
-                close = $('<button class="mdl-cls ' + cls + '" id="closeModal"></button>');
+                close = $('<button class="mdl-cls ' + cls + '" id="closeModal">close</button>');
 
 
             // if modal background doesn't exist add one
