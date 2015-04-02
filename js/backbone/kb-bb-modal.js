@@ -54,12 +54,12 @@
         openModal: function(){
             var self = this;
             // TODO But this.cl is only set if !this.options.closeButton
-            var close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal">close</button>');
+            var close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal" tabindex="-1">close</button>');
 
             // TODO cache modal back and parent el
 
             if ($('#modalBack').length == 0 && this.closeable) {
-                $('body').append('<div class="mdl-bck" id="modalBack">back</div>');
+                $('body').append('<div class="mdl-bck" id="modalBack" tabindex="-1"></div>');
             }
 
             if(this.closeButton){
@@ -75,6 +75,16 @@
                 // TODO upEvent is a global, it should at least be namespaced
                 close.on(upEvent, function() { self._closeModal(); });
             }
+
+            setTimeout(function(){
+                console.log('focus!');
+
+                // this.$el.focus();
+                $('.mdl-cls').focus();
+                $('.mdl-cls').trigger('focus');
+                console.log($('.mdl-cls').focus());
+            }, 1000);
+            
         },
         _closeModal: function(){
             this.closeModal();
