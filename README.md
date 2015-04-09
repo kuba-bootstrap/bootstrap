@@ -25,7 +25,6 @@ Before opening any issue, please search for existing issues.
 **Jakub Szerszen**
 
 + [https://github.com/jszersze](https://github.com/jszersze)
-+ [https://twitter.com/jszersze](https://twitter.com/jszersze)
 
 **Gabe Hopper**
 

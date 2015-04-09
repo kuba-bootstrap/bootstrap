@@ -76,14 +76,13 @@
                 close.on(upEvent, function() { self._closeModal(); });
             }
 
-            setTimeout(function(){
-                console.log('focus!');
-
-                // this.$el.focus();
-                $('.mdl-cls').focus();
-                $('.mdl-cls').trigger('focus');
-                console.log($('.mdl-cls').focus());
-            }, 1000);
+            if(typeof cvox !== 'undefined' && cvox.Api){
+                setTimeout(function(){
+                    $('.mdl-cls').focus();
+                    $('.mdl-cls').trigger('focus');
+                    console.log($('.mdl-cls').focus());
+                }, 1000);
+            }
             
         },
         _closeModal: function(){
