@@ -45,7 +45,7 @@
     	},
     	modal: function(){
             var self = this;
-            if (!this.options.closeButton) { this.cl = 'icon-remove'; }
+            if (!this.options.closeButton) { this.cl = 'ua-close'; }
             // TODO upEvent is a global, it should at least be namespaced
             $(this.options.button).on(upEvent, function() {
                 self.openModal();
@@ -54,12 +54,12 @@
         openModal: function(){
             var self = this;
             // TODO But this.cl is only set if !this.options.closeButton
-            var close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal" tabindex="-1">close</button>');
+            var close = $('<button class="mdl-cls ' + this.cl + '" id="closeModal" tabindex="-1"></button>');
 
             // TODO cache modal back and parent el
 
             if ($('#modalBack').length == 0 && this.closeable) {
-                $('body').append('<div class="mdl-bck" id="modalBack" tabindex="-1"></div>');
+                $('body').append('<div class="mdl-bck ua-left" id="modalBack" tabindex="-1"></div>');
             }
 
             if(this.closeButton){

@@ -1,4 +1,5 @@
-## [Kuba-bootstrap](http://kuba-bootstrap.github.io/bootstrap/) [![Build Status](https://secure.travis-ci.org/kuba-bootstrap/bootstrap.png)](http://travis-ci.org/kuba-bootstrap/bootstrap)
+## [Kuba-bootstrap](http://kuba-bootstrap.github.io/bootstrap/) 
+[![Build Status](https://secure.travis-ci.org/kuba-bootstrap/bootstrap.png)](http://travis-ci.org/kuba-bootstrap/bootstrap)
 
 Kuba-bootstrap is an open source project for creating modularized components specifically for mobile devices, iOS/Android webview apps and mobile browsers. This project is not meant to support legacy browsers.
 
