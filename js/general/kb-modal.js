@@ -11,11 +11,11 @@
             data.dispose = args.dispose;
 
             if(args['close'] === undefined) args['close'] = true;
-            if(args.cleanClose == false){ cls = 'icon-remove'; }
+            if(args.cleanClose == false){ cls = 'ua-close'; }
 
             var onCloseCallback = args['onClose'],
                 self = $(this),
-                close = $('<button class="mdl-cls ' + cls + '" id="closeModal">close</button>');
+                close = $('<button class="mdl-cls ' + cls + '" id="closeModal"></button>');
 
 
             // if modal background doesn't exist add one
