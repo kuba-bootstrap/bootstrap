@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	var console = require('./build/console');
+	var console = require('../build/console');
 
     console('i', 'test');
 
