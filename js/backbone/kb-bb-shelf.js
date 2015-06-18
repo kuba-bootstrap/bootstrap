@@ -14,15 +14,19 @@
   	_.extend(Shelf.prototype, Backbone.View.prototype, {
   		_index: 0,
   		_box_size: { width:0, height:0 },
+        _gap: 0,
         className: function(){
         	var options = this.options || {};
 
         	this.is_single_shelf = options.is_single_shelf || false;
+            this.custom_css = options.custom_css || false;
 
-        	if(this.is_single_shelf == false){
-                return 'box-con main double';
-            } else {
+            if(this.custom_css){
+                return this.custom_css;
+        	} else if(this.is_single_shelf){
                 return 'box-con main single';
+            } else {
+                return 'box-con main double';
             }
         },
         shelfInitialize: function(options) {
@@ -31,7 +35,7 @@
             this.sub_view = options.sub_view;
             this.model = options.model;
             this.parent = options.parent;
-            this.properties = options.properties;
+            this.portal_id = options.portal_id || false;
 
             if(this.collection){
 	            this.listenTo(this.collection, 'add', this.addItem);
@@ -40,16 +44,16 @@
 	            this.listenTo(this.collection, 'sort', this.resetItems);
 	        }
 
-	        if(this.model){
-	        	this.listenTo(this.model, 'loadedMainModel', this.resetItems);
-            	this.listenTo(this.model, 'page-render', this.resize);
-	        }
+	        // if(this.model){
+	        // 	this.listenTo(this.model, 'loadedMainModel', this.resetItems);
+         //    	this.listenTo(this.model, 'page-render', this.resize);
+	        // }
 
             this.ITEMS = [];
-            this.flag = false;
     	},
     	determineVisibleTiles: function(){
-    		var split = 1;
+    		var split = 1,
+                exact_possible = 0;
 
             if(this.is_single_shelf == false){
                split = 2
@@ -58,9 +62,15 @@
             this.proportion();
 
             var maxWidth = $(window).width(),
-                possible = (maxWidth - 76 + 34) / (this._box_size.width + 6 + 34);
+                possible = (maxWidth - 76 + 20) / (this._box_size.width + 6 + 20);
 
-            return parseInt(possible) * split;
+            exact_possible = parseInt(possible) * split;
+
+            _gap = 20 + (((possible % 1) * (this._box_size.width + 20)) / ((exact_possible / split) - 1));
+
+            console.log('gap', _gap, this._box_size.width);
+
+            return exact_possible;
     	},
     	placeTiles: function(possibleItems, index, direction){
     		if(direction == 'left'){
@@ -110,10 +120,17 @@
             if(self.collection){
 	            for(var i = index; i < (possibleItems + index); i++){
 	                if(self.collection.models[i]){
-	                    var view = new self.sub_view({ model: self.collection.models[i] }),
+
+                        var gap = _gap;
+
+                        if((i) == (possibleItems + index - 1)){
+                            gap = 0;
+                        }
+
+	                    var view = new self.sub_view({ model: self.collection.models[i], portal_id: this.portal_id, gap: gap }),
 	                        rendered = view.render().el;
 
-	                    if(this.options.properties.singleShelf == false){
+	                    if(this.is_single_shelf == false){
 	                        if(i % 2 == 0){
 	                            self.$('#' + conId + '-1').append($(rendered));
 	                        } else {
@@ -149,7 +166,7 @@
     	},
     	proportion: function(){
     		var originalHeight = 200,
-                conHeight = ($(window).height() - $('#logoDiv').height() - 20) / 2, //151
+                conHeight = ($(window).height() - $('#logoDiv').height() - 20) / 2,
                 proportion = originalHeight / (conHeight - 65);
 
             if(conHeight < 270){
@@ -203,15 +220,15 @@
     		var possibleItems = this.determineVisibleTiles(),
                 self = this;
 
-            if(this.INDEX > 0){
+            if(this._index > 0){
                 if(typeof cvox !== 'undefined' && cvox.Api){
                     cvox.Api.speak('Moving to the previous shelf.', 0, '');
                 }
-                this.INDEX = this.INDEX - possibleItems;
-                this.resize(this.INDEX, 'left');
+                this._index = this._index - possibleItems;
+                this.resize(this._index, 'left');
 
-                this.$('.ease-box').width(this.boxSize.width);
-                this.$('.ease-box').height(this.boxSize.height);
+                this.$('.ease-box').width(this._box_size.width);
+                this.$('.ease-box').height(this._box_size.height);
             } else {
                 if(typeof cvox !== 'undefined' && cvox.Api){
                     cvox.Api.speak('Reached the beginning of the shelf.', 0, '');
@@ -225,15 +242,15 @@
     		var possibleItems = this.determineVisibleTiles(),
                 self = this;
 
-            if((this.INDEX + possibleItems) < this.collection.models.length){
+            if((this._index + possibleItems) < this.collection.models.length){
                 if(typeof cvox !== 'undefined' && cvox.Api){
                     cvox.Api.speak('Moving to the next shelf.', 0, '');
                 }
-                this.INDEX = this.INDEX + possibleItems;
-                this.resize(this.INDEX, 'right');
+                this._index = this._index + possibleItems;
+                this.resize(this._index, 'right');
 
-                this.$('.ease-box').width(this.boxSize.width);
-                this.$('.ease-box').height(this.boxSize.height);
+                this.$('.ease-box').width(this._box_size.width);
+                this.$('.ease-box').height(this._box_size.height);
             } else {
                 if(typeof cvox !== 'undefined' && cvox.Api){
                     cvox.Api.speak('Reached the end of the shelf.', 0, '');
