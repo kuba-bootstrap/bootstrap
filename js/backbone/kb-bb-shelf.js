@@ -68,8 +68,6 @@
 
             _gap = 20 + (((possible % 1) * (this._box_size.width + 20)) / ((exact_possible / split) - 1));
 
-            console.log('gap', _gap, this._box_size.width);
-
             return exact_possible;
     	},
     	placeTiles: function(possibleItems, index, direction){
@@ -123,7 +121,7 @@
 
                         var gap = _gap;
 
-                        if((i) == (possibleItems + index - 1)){
+                        if(i == (possibleItems + index - 1)){
                             gap = 0;
                         }
 
@@ -163,6 +161,24 @@
 
             this.$('.con-slide-static .ease-box').height(this._box_size.height);
             this.$('.con-slide-static .ease-box').width(this._box_size.width);
+
+            if(possibleItems > this.collection.models.length){
+                this.$('.shelf-left').removeClass('on');
+                this.$('.shelf-right').removeClass('on');
+            } else {
+                if(this._index > 0){
+                    this.$('.shelf-left').addClass('on');
+                } else { 
+                    this.$('.shelf-left').removeClass('on');
+                }
+
+                if((this._index + possibleItems) < this.collection.models.length){
+                    this.$('.shelf-right').addClass('on');
+                } else {
+                    this.$('.shelf-right').removeClass('on');
+                }
+            }
+
     	},
     	proportion: function(){
     		var originalHeight = 200,
@@ -193,18 +209,18 @@
             function right(){
                 var possibleItems = self.determineVisibleTiles();
 
-                if(self.INDEX > 0){
-                    self.INDEX = self.INDEX - possibleItems;
-                    self.resize( self.INDEX, 'left');
+                if(self._index > 0){
+                    self._index = self._index - possibleItems;
+                    self.resize( self._index, 'left');
                 }
             };
 
             function left(){
                 var possibleItems = self.determineVisibleTiles();
 
-                if((self.INDEX + possibleItems) < self.collection.models.length){
-                    self.INDEX = self.INDEX + possibleItems;
-                    self.resize(this.INDEX, 'right');
+                if((self._index + possibleItems) < self.collection.models.length){
+                    self._index = self._index + possibleItems;
+                    self.resize(this._index, 'right');
                 }
             };
 
