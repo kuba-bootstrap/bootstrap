@@ -187,7 +187,7 @@
 
             if(conHeight < 270){
                 if(this.is_single_shelf == true){
-                    $('.box-con.main.single').height(conHeight);
+                    this.$el.height(conHeight);
                 }
 
                 this._box_size.y = conHeight;
@@ -195,7 +195,7 @@
                 this._box_size.width = 140 / proportion;
             } else {
                 if(this.is_single_shelf == true){
-                    $('.box-con.main.single').height(270);
+                    this.$el.height(270);
                 }
 
                 this._box_size.y = 270;
