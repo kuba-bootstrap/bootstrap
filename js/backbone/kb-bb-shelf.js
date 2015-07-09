@@ -138,6 +138,9 @@
 	                        self.$('#' + conId).append($(rendered));
 	                    }
 	                }
+	                if((i == (possibleItems + index) - 2) && !this.is_single_shelf){
+    				$(rendered).css("margin-right", "0px");
+			}
 	            };
 	        }
 
@@ -279,7 +282,7 @@
     	addItem: function(){
     		var possibleItems = this.determineVisibleTiles();
 
-            this.placeTiles(possibleItems, this._index_, 'right');
+            this.placeTiles(possibleItems, this._index, 'right');
     	},
     	resetItems: function(){
     		this._index = 0;
