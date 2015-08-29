@@ -13,7 +13,7 @@
 
   	_.extend(Shelf.prototype, Backbone.View.prototype, {
   		_index: 0,
-  		_box_size: { width:0, height:0 },
+  		_box_size: { width:0, height:0, top:0 },
         _gap: 0,
         className: function(){
         	var options = this.options || {};
@@ -164,6 +164,7 @@
 
             this.$('.con-slide-static .ease-box').height(this._box_size.height);
             this.$('.con-slide-static .ease-box').width(this._box_size.width);
+            this.$('.con-slide-static .ease-box').css({ 'top': this._box_size.top });
 
             if(possibleItems > this.collection.models.length){
                 this.$('.shelf-left').removeClass('on');
@@ -184,9 +185,22 @@
 
     	},
     	proportion: function(){
-    		var originalHeight = 200,
+    		var offset = 65, // 45 - 65 range
+                top = 95,
+                originalHeight = 200,
                 conHeight = ($(window).height() - $('#logoDiv').height() - 20) / 2,
-                proportion = originalHeight / (conHeight - 65);
+                proportion = originalHeight / (conHeight - offset),
+                offset_range = parseInt((conHeight / 270) * offset);
+
+            // adjust top offset proportion here
+
+            if(offset_range >= 65){
+                offset = 65;
+            } else if(offset_range <= 45){
+                offset = 43;
+            } else {
+                offset = offset_range;
+            }
 
             if(conHeight < 270){
                 if(this.is_single_shelf == true){
@@ -194,8 +208,9 @@
                 }
 
                 this._box_size.y = conHeight;
-                this._box_size.height = conHeight - 65;
-                this._box_size.width = 140 / proportion;
+                this._box_size.height = conHeight - offset;
+                this._box_size.width = 140 / proportion;  //adjust this for offset
+                this._box_size.top = top + offset;
             } else {
                 if(this.is_single_shelf == true){
                     this.$el.height(270);
@@ -203,7 +218,8 @@
 
                 this._box_size.y = 270;
                 this._box_size.height = 200;
-                this._box_size.width = 140;
+                this._box_size.width = 140; //adjust this for offset
+                this._box_size.top = top + offset;
             }
     	},
     	registerMouse: function(){
@@ -248,6 +264,7 @@
 
                 this.$('.ease-box').width(this._box_size.width);
                 this.$('.ease-box').height(this._box_size.height);
+                this.$('.ease-box').css({ 'top':this._box_size.top });
             } else {
                 if(typeof cvox !== 'undefined' && cvox.Api){
                     cvox.Api.speak('Reached the beginning of the shelf.', 0, '');
@@ -270,6 +287,7 @@
 
                 this.$('.ease-box').width(this._box_size.width);
                 this.$('.ease-box').height(this._box_size.height);
+                this.$('.ease-box').css({ 'top':this._box_size.top });
             } else {
                 if(typeof cvox !== 'undefined' && cvox.Api){
                     cvox.Api.speak('Reached the end of the shelf.', 0, '');
