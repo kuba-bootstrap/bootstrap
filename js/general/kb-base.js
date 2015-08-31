@@ -1,6 +1,6 @@
 // Global touch events
 
-if(!navigator.userAgent.match(/(iPhone|iPod|Android|BlackBerry)/)){
+if(!navigator.userAgent.match(/(iPhone|iPad|iPod|Android|BlackBerry)/)){
     var downEvent = 'mousedown ',
         moveEvent = 'mousemove ',
         upEvent = 'mouseup ';
