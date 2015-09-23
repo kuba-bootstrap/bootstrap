@@ -204,6 +204,8 @@
                 offset = offset_range;
             }
 
+            console.log('offset', offset, proportion, (offset/proportion), (140 / proportion) + ((140 / proportion)-(offset/proportion)));
+
             if(conHeight < 270){
                 if(this.is_single_shelf == true){
                     this.$el.height(conHeight);
@@ -211,7 +213,7 @@
 
                 this._box_size.y = conHeight;
                 this._box_size.height = conHeight - offset;
-                this._box_size.width = 140 / proportion;  //adjust this for offset
+                this._box_size.width = (140 / proportion);  //adjust this for offset
                 this._box_size.top = top + offset;
             } else {
                 if(this.is_single_shelf == true){

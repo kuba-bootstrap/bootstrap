@@ -1,7 +1,7 @@
 {
     "name":"kuba-bootstrap",
     "description":"Kuba-bootstrap is an open source project for creating components specifically for mobile devices and iOS/Android webview apps like ones made in Phonegap.",
-    "version":"1.0.9",
+    "version":"1.0.10",
     "keywords":["bootstrap", "css", "less", "components"],
     "homepage":"https://github.com/kuba-bootstrap/bootstrap",
     "contributors":[
