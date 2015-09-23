@@ -38,10 +38,8 @@
             this.portal_id = options.portal_id || false;
 
             if(this.collection){
-	            this.listenTo(this.collection, 'add', this.addItem);
-	            this.listenTo(this.collection, 'remove', this.resetItems);
+                this.off('reset');
 	            this.listenTo(this.collection, 'reset', this.resetItems);
-	            this.listenTo(this.collection, 'sort', this.resetItems);
 	        }
 
 	        // if(this.model){
@@ -70,7 +68,18 @@
 
             return exact_possible;
     	},
-    	placeTiles: function(possibleItems, index, direction){
+    	placeTiles: function(index, direction){
+            var possibleItems = this.determineVisibleTiles();
+
+            if(!index){
+                index = this._index;
+            }
+
+            // change index so return position will be 0
+            var check = index % possibleItems;
+
+            this._index = index = index - check;
+
     		if(direction == 'left'){
                 direction = -1;
             } else if(direction == 'right') {
@@ -81,7 +90,7 @@
 
             var self = this,
                 conId = 'shelf-slide-' + Math.floor((Math.random() * 10000) + 1),
-                previousConId = this.ITEMS;
+                previousConId = this.ITEMS,
                 slideContainer = '<div id="' + conId + '" class="fx-fs" style="position:absolute; top:0; transform: translate3d(' + (direction * $(window).width()) + 'px, 0px, 0px); -webkit-transform: translate3d(' + (direction * $(window).width()) + 'px, 0px, 0px);"></div>';
 
             self.$('.con-slide-static').prepend(slideContainer);
@@ -148,19 +157,12 @@
                 'transform': 'translate3d(0px, 0px, 0px)',
                 '-webkit-transform': 'translate3d(0px, 0px, 0px)'
             });
+
+            self.resize();
+
     	},
-    	resize: function(index, direction){
+    	resize: function(){
     		var possibleItems = this.determineVisibleTiles();
-
-            if(!index){
-                index = this._index;
-            }
-
-            // change index so return position will be 0
-            var check = index % possibleItems;
-
-            this._index = index = index - check;
-            this.placeTiles(possibleItems, index, direction);
 
             this.$('.con-slide-static .ease-box').height(this._box_size.height);
             this.$('.con-slide-static .ease-box').width(this._box_size.width);
@@ -230,7 +232,8 @@
 
                 if(self._index > 0){
                     self._index = self._index - possibleItems;
-                    self.resize( self._index, 'left');
+                    //self.resize( self._index, 'left');
+                    self.placeTiles(self._index, 'left');
                 }
             };
 
@@ -239,7 +242,8 @@
 
                 if((self._index + possibleItems) < self.collection.models.length){
                     self._index = self._index + possibleItems;
-                    self.resize(this._index, 'right');
+                    //self.resize(this._index, 'right');
+                    self.placeTiles(this._index, 'right');
                 }
             };
 
@@ -260,7 +264,8 @@
                     cvox.Api.speak('Moving to the previous shelf.', 0, '');
                 }
                 this._index = this._index - possibleItems;
-                this.resize(this._index, 'left');
+                //this.resize(this._index, 'left');
+                this.placeTiles(this._index, 'left');
 
                 this.$('.ease-box').width(this._box_size.width);
                 this.$('.ease-box').height(this._box_size.height);
@@ -283,7 +288,8 @@
                     cvox.Api.speak('Moving to the next shelf.', 0, '');
                 }
                 this._index = this._index + possibleItems;
-                this.resize(this._index, 'right');
+                //this.resize(this._index, 'right');
+                this.placeTiles(this._index, 'right');
 
                 this.$('.ease-box').width(this._box_size.width);
                 this.$('.ease-box').height(this._box_size.height);
@@ -297,14 +303,10 @@
                 });
             }
     	},
-    	addItem: function(){
-    		var possibleItems = this.determineVisibleTiles();
-
-            this.placeTiles(possibleItems, this._index, 'right');
-    	},
     	resetItems: function(){
     		this._index = 0;
-            this.resize();
+            //this.resize();
+            this.placeTiles(this._index);
     	}
   	});
 
