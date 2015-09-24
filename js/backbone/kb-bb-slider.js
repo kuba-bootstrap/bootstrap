@@ -401,10 +401,10 @@
 
                         }
 
-                        console.log('remove image', view.stashImg);
+                        //console.log('remove image', view.stashImg);
 
                     } else {
-                        console.log('add image', view.stashImg);
+                        //console.log('add image', view.stashImg);
 
                         $(view.$el).append(view.stashImg);
                         view.stashImg = undefined;
@@ -420,12 +420,12 @@
 
                 image.on('load', function(){
                     
-                    console.log(view.$el.position().left);
+                    //console.log(view.$el.position().left);
                     if(view.$el.position().left > $(window).width() + buffer){
                         view.stashImg = image;
                         image.remove();
 
-                        console.log('remove image', view.stashImg);
+                        //console.log('remove image', view.stashImg);
                     }
                 });
             }

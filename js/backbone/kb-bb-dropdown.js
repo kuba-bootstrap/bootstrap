@@ -36,11 +36,7 @@
     	},
     	loadItems: function(item){
 
-            console.log('load items');
-
             var el = $(this.options.itemEl) || this.$el;
-
-            console.log(el);
 
             if(this.options.itemView){
                 el.append(new this.options.itemView({item: item}).render().el);
